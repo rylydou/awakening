@@ -1,0 +1,171 @@
+[gd_scene load_steps=15 format=3 uid="uid://jv4dckirmu1h"]
+
+[ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_x33y1"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_e38ue"]
+[ext_resource type="Script" path="res://scripts/animator.gd" id="3_xxw0n"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
+[ext_resource type="AnimationLibrary" uid="uid://d3ggtqxxat8qn" path="res://resources/player_animations.tres" id="5_y7vu6"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_nfd6b"]
+device = -1
+ctrl_pressed = true
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_wag3h"]
+events = [SubResource("InputEventKey_nfd6b")]
+
+[sub_resource type="GDScript" id="GDScript_p31jg"]
+resource_name = "move_state"
+script/source = "extends Node
+
+@export var speed := 64.
+
+@onready var attack_state: = $'../Attack'
+
+@onready var player: Player = owner
+@onready var animator: Animator = %Animator
+
+func run(delta: float) -> void:
+	player.update_direction_to_input()
+	
+	animator.speed_scale = 1
+	animator.play_directional('walk')
+	animator.speed_scale = 1 if player.input_move.length_squared() > 0 else 0
+	
+	player.velocity = player.input_move.normalized()*speed
+	player.move_and_slide()
+	
+	if player.input_action_buffer > 0:
+		player.input_action_buffer = 0
+		player.enter_state(attack_state)
+
+func exit(new_state: Node) -> void:
+	animator.speed_scale = 1
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_gfxhv"]
+resource_name = "attack_state"
+script/source = "extends Node
+
+@export var speed := 64.
+
+@onready var move_state: = $'../Move'
+
+@onready var player: Player = owner
+@onready var animator: Animator = %Animator
+
+func enter(old_state: Node) -> void:
+	#prints(name, animator.speed_scale)
+	animator.speed_scale = 1
+	animator.animation_finished.connect(func(anim_name: StringName): _on_anim_finish(), CONNECT_ONE_SHOT)
+	if not animator.play_directional('sword_swing'):
+		SoundBank.play('error', player.position)
+		_on_anim_finish()
+
+func _on_anim_finish() -> void:
+	player.enter_state(move_state)
+"
+
+[sub_resource type="GDScript" id="GDScript_if1ik"]
+resource_name = "hurt_state"
+script/source = "extends Node
+
+@export var knockback_speed := 64.
+@export var hurt_sound := 'death4'
+
+@onready var player: Player = owner
+
+var damage_source: Node2D
+var knockback_direction := Vector2.UP 
+
+func enter(old_state: Node) -> void:
+	knockback_direction = damage_source.position.direction_to(player.position)
+	
+	SoundBank.play(hurt_sound, player.global_position)
+	
+	player.animator.animation_finished.connect(func(anim_name: StringName): _on_anim_finish(), CONNECT_ONE_SHOT)
+	player.animator.play('hurt')
+
+func run(delta: float) -> void:
+	player.move_and_collide(knockback_direction*knockback_speed*delta)
+
+func _on_anim_finish() -> void:
+	player.enter_state($'../Move')
+
+func take_damage(damage: int, source: Node) -> bool:
+	return false
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2a5cg"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_121mv"]
+size = Vector2(16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbogm"]
+shader = ExtResource("5_xvgci")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(2, 0)
+collision_layer = 48
+motion_mode = 1
+script = ExtResource("1_x33y1")
+noclip_shortcut = SubResource("Shortcut_wag3h")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Move" type="Node" parent="States"]
+script = SubResource("GDScript_p31jg")
+
+[node name="Attack" type="Node" parent="States"]
+script = SubResource("GDScript_gfxhv")
+
+[node name="Hurt" type="Node" parent="States"]
+script = SubResource("GDScript_if1ik")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2a5cg")
+
+[node name="Flip" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ItemSprite" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("1_lwlkd")
+hframes = 8
+vframes = 8
+frame = 16
+
+[node name="ItemSFX" type="AudioStreamPlayer2D" parent="Flip/ItemSprite"]
+
+[node name="HitboxArea" type="Area2D" parent="Flip/ItemSprite"]
+collision_layer = 0
+collision_mask = 80
+script = ExtResource("3_e38ue")
+remember_hits = true
+
+[node name="Collision" type="CollisionShape2D" parent="Flip/ItemSprite/HitboxArea"]
+shape = SubResource("RectangleShape2D_121mv")
+
+[node name="BodySprite" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tbogm")
+position = Vector2(0, -2)
+texture = ExtResource("1_lwlkd")
+hframes = 8
+vframes = 8
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "RESET"
+playback_process_mode = 0
+libraries = {
+"": ExtResource("5_y7vu6")
+}
+script = ExtResource("3_xxw0n")

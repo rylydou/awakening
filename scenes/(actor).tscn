@@ -1,0 +1,98 @@
+[gd_scene load_steps=12 format=3 uid="uid://c6bfxmtkjqxj8"]
+
+[ext_resource type="Script" path="res://scripts/actor.gd" id="1_8qrvn"]
+[ext_resource type="Script" path="res://scripts/animator.gd" id="1_f8rig"]
+[ext_resource type="Script" path="res://scripts/states/hurt_state.gd" id="2_4144c"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="2_b3mb6"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="4_6g6mb"]
+[ext_resource type="Texture2D" uid="uid://ba7yi5d3qxlra" path="res://content/sprites/placeholder.png" id="5_whnx7"]
+
+[sub_resource type="Animation" id="Animation_ijenn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:material:shader_parameter/invert_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7yn6n"]
+resource_name = "hurt"
+length = 0.400002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:material:shader_parameter/invert_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_46veo"]
+_data = {
+"RESET": SubResource("Animation_ijenn"),
+"hurt": SubResource("Animation_7yn6n")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gu85"]
+radius = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_111l3"]
+resource_local_to_scene = true
+shader = ExtResource("4_6g6mb")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[node name="Actor" type="CharacterBody2D" node_paths=PackedStringArray("hurt_state")]
+collision_layer = 16
+motion_mode = 1
+script = ExtResource("1_8qrvn")
+hurt_state = NodePath("StateMachine/Hurt")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("base_state")]
+unique_name_in_owner = true
+script = ExtResource("2_b3mb6")
+base_state = NodePath("Base")
+
+[node name="Base" type="Node" parent="StateMachine"]
+
+[node name="Hurt" type="Node" parent="StateMachine"]
+script = ExtResource("2_4144c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Hurt"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_46veo")
+}
+
+[node name="Death" type="Node" parent="StateMachine"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Death"]
+root_node = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7gu85")
+
+[node name="Flip" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="BodySprite" type="Sprite2D" parent="Flip"]
+material = SubResource("ShaderMaterial_111l3")
+texture = ExtResource("5_whnx7")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Flip/BodySprite"]
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_f8rig")

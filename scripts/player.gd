@@ -5,10 +5,14 @@ signal direction_changed(direction: Vector2)
 @export var action_buffer_ticks := 5
 
 @onready var defualt_state: Node = $States/Move
-@onready var current_state: Node
+@onready var hurt_state: Node = $States/Hurt
+
+@export_group('Cheats')
+@export var noclip_shortcut: Shortcut
 
 @onready var animator: Animator = %Animator
 
+var current_state: Node
 var direction := Vector2.DOWN
 
 func _ready() -> void:
@@ -52,3 +56,20 @@ func update_direction_to_input() -> void:
 		else:
 			direction = Vector2.LEFT
 	direction_changed.emit()
+
+func take_damage(damage: int, source: Node) -> bool:
+	if current_state.has_method('take_damage'):
+		var took_damage := current_state.call('take_damage', damage, source) as bool
+		return took_damage
+	hurt_state.damage_source = source
+	enter_state(hurt_state)
+	return true
+
+func _shortcut_input(event: InputEvent) -> void:
+	if not OS.is_debug_build(): return
+	if not event.is_pressed(): return
+	
+	if noclip_shortcut.matches_event(event):
+		print('CHEAT: Collision enabled? %s' % not get_collision_mask_value(1))
+		set_collision_mask_value(1, not get_collision_mask_value(1))
+		return

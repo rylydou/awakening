@@ -23,7 +23,8 @@ func generate_pool(count: int) -> void:
 
 func _ready() -> void:
 	generate_pool(POOL_SIZE)
-	print(DirAccess.get_files_at(SOUND_BANK_FOLDER))
+	if not DirAccess.dir_exists_absolute(SOUND_BANK_FOLDER):
+		printerr('ERROR IN SOUNDBANK ADDON: sound bank folder not found at %s' % SOUND_BANK_FOLDER)
 
 var loaded_sounds := {}
 func get_sound(name: String) -> AudioStream:
@@ -32,7 +33,6 @@ func get_sound(name: String) -> AudioStream:
 	
 	var sound := FALLBACK_SOUND
 	var segs := name.split('.')
-	#print(name)
 	
 	while segs.size() > 0:
 		var path := SOUND_BANK_FOLDER + '.'.join(segs) + '.wav'
@@ -46,7 +46,7 @@ func get_sound(name: String) -> AudioStream:
 
 func play(name: String, position: Vector2) -> void:
 	var player := get_player()
-	var sound := get_sound(name.to_snake_case())
+	var sound := get_sound(name)
 	player.stop()
 	player.stream = sound
 	player.position = position

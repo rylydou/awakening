@@ -1,19 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpe4x8x7iinpe"]
+[gd_resource type="AnimationLibrary" load_steps=11 format=3 uid="uid://d3ggtqxxat8qn"]
 
-[ext_resource type="PackedScene" uid="uid://c6bfxmtkjqxj8" path="res://scenes/(actor).tscn" id="1_cduph"]
-[ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_e38ue"]
-[ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing1.wav" id="3_o0l16"]
-[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3iva"]
-size = Vector2(16, 16)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h5r74"]
-resource_local_to_scene = true
-shader = ExtResource("5_xvgci")
-shader_parameter/invert_intensity = 0.0
-shader_parameter/flash_color = Color(1, 1, 1, 0)
+[ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing1.wav" id="1_oiwdr"]
 
 [sub_resource type="Animation" id="Animation_3ewpr"]
 length = 0.001
@@ -302,7 +289,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("1_oiwdr")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -435,7 +422,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("1_oiwdr")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -568,7 +555,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("1_oiwdr")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -710,7 +697,7 @@ tracks/0/keys = {
 "values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ks7cx"]
+[resource]
 _data = {
 "RESET": SubResource("Animation_3ewpr"),
 "hurt": SubResource("Animation_heiia"),
@@ -721,36 +708,4 @@ _data = {
 "walk_north": SubResource("Animation_sl0et"),
 "walk_south": SubResource("Animation_3wsm6"),
 "walk_west": SubResource("Animation_rjq75")
-}
-
-[node name="Player" instance=ExtResource("1_cduph")]
-
-[node name="ItemSprite" type="Sprite2D" parent="Flip" index="0"]
-unique_name_in_owner = true
-visible = false
-texture = ExtResource("1_lwlkd")
-hframes = 8
-vframes = 8
-frame = 16
-
-[node name="ItemSFX" type="AudioStreamPlayer2D" parent="Flip/ItemSprite" index="0"]
-
-[node name="HitboxArea" type="Area2D" parent="Flip/ItemSprite" index="1"]
-collision_layer = 0
-collision_mask = 80
-script = ExtResource("3_e38ue")
-remember_hits = true
-
-[node name="Collision" type="CollisionShape2D" parent="Flip/ItemSprite/HitboxArea" index="0"]
-shape = SubResource("RectangleShape2D_m3iva")
-
-[node name="BodySprite" parent="Flip" index="1"]
-material = SubResource("ShaderMaterial_h5r74")
-texture = ExtResource("1_lwlkd")
-hframes = 8
-vframes = 8
-
-[node name="Animator" parent="." index="3"]
-libraries = {
-"": SubResource("AnimationLibrary_ks7cx")
 }

@@ -1,14 +1,70 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddji3pnwjyx5"]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fqeej"]
-[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://world.tscn" id="1_srqjk"]
-[ext_resource type="PackedScene" uid="uid://cu0gxqkb4jlfc" path="res://scenes/player.tscn" id="2_635t2"]
+[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://map.tscn" id="1_srqjk"]
+[ext_resource type="PackedScene" uid="uid://jv4dckirmu1h" path="res://scenes/old_player.tscn" id="2_635t2"]
 [ext_resource type="Script" path="res://scripts/gui/icon_status.gd" id="3_cclrt"]
 [ext_resource type="FontFile" uid="uid://b11s5ealm7xv" path="res://content/fonts/m3x6.ttf" id="4_jw7l3"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="4_m0c1y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_88rua"]
-size = Vector2(180, 180)
+[sub_resource type="GDScript" id="GDScript_kttu7"]
+resource_name = "cheats"
+script/source = "extends Node
+
+@export var reload_shortcut: Shortcut
+@export var spawn_shortcut: Shortcut
+
+@onready var scene_dialog: FileDialog = %SceneDialog
+
+func _shortcut_input(event: InputEvent) -> void:
+	if not OS.is_debug_build(): return
+	if not event.is_pressed(): return
+	
+	if reload_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Reload tree')
+		get_tree().reload_current_scene()
+		return
+	
+	if spawn_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Spawn scene')
+		scene_dialog.show()
+		return
+
+var scene_to_spawn: PackedScene
+func _on_scene_dialog_file_selected(path: String) -> void:
+	scene_to_spawn = load(path) as PackedScene
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+		if not is_instance_valid(scene_to_spawn): return
+		get_viewport().set_input_as_handled()
+		var node := scene_to_spawn.instantiate()
+		if node is Node2D:
+			node.position = %World.get_local_mouse_position()
+		
+		%World.add_child(node)
+		return
+"
+
+[sub_resource type="InputEventKey" id="InputEventKey_uj0rq"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_dgvex"]
+events = [SubResource("InputEventKey_uj0rq")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_wgyhi"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+unicode = 115
+
+[sub_resource type="Shortcut" id="Shortcut_6ihfv"]
+events = [SubResource("InputEventKey_wgyhi")]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4fn2r"]
 content_margin_top = 4.0
@@ -25,24 +81,26 @@ region_rect = Rect2(8, 32, 8, 8)
 [node name="Main" type="Node"]
 script = ExtResource("1_fqeej")
 
-[node name="World" parent="." instance=ExtResource("1_srqjk")]
-metadata/_edit_horizontal_guides_ = [-512.0, 512.0]
-metadata/_edit_vertical_guides_ = [-512.0, 512.0]
+[node name="Cheats" type="Node" parent="."]
+script = SubResource("GDScript_kttu7")
+reload_shortcut = SubResource("Shortcut_dgvex")
+spawn_shortcut = SubResource("Shortcut_6ihfv")
 
-[node name="Player" parent="." instance=ExtResource("2_635t2")]
-
-[node name="Camera" type="Camera2D" parent="."]
+[node name="SceneDialog" type="FileDialog" parent="Cheats"]
 unique_name_in_owner = true
-process_callback = 0
-
-[node name="BoundsArea" type="Area2D" parent="Camera"]
-unique_name_in_owner = true
-collision_layer = 0
-collision_mask = 32
-
-[node name="Shape" type="CollisionShape2D" parent="Camera/BoundsArea"]
-shape = SubResource("RectangleShape2D_88rua")
-debug_color = Color(1, 0, 1, 0)
+initial_position = 2
+title = "Pick a scene to spawn"
+size = Vector2i(312, 400)
+always_on_top = true
+min_size = Vector2i(300, 400)
+content_scale_mode = 1
+content_scale_aspect = 4
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+root_subfolder = "res://scenes/"
+filters = PackedStringArray("*.tscn", "*.tscn.remap", "*.scn", "*.scn.remap")
+show_hidden_files = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -70,7 +128,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_4fn2r")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VitalsPanel"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
 layout_mode = 2
@@ -313,4 +371,19 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[connection signal="body_exited" from="Camera/BoundsArea" to="." method="_on_bounds_area_body_exited"]
+[node name="World" type="Node2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Map" parent="World" instance=ExtResource("1_srqjk")]
+metadata/_edit_horizontal_guides_ = [-512.0, 512.0]
+metadata/_edit_vertical_guides_ = [-512.0, 512.0]
+
+[node name="Camera" type="Camera2D" parent="World"]
+unique_name_in_owner = true
+
+[node name="Player" parent="World" instance=ExtResource("2_635t2")]
+unique_name_in_owner = true
+position = Vector2(40, -56)
+
+[connection signal="file_selected" from="Cheats/SceneDialog" to="Cheats" method="_on_scene_dialog_file_selected"]

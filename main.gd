@@ -6,19 +6,30 @@ extends Node
 var coords := Vector2i.ZERO
 var camera_target := Vector2.ZERO
 
+@onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
 
+func _ready() -> void:
+	update_camera()
+	camera.position = camera_target
+
 func _process(delta: float) -> void:
+	update_camera()
 	camera.position = camera.position.move_toward(camera_target, 320*delta)
 
-func _on_bounds_area_body_exited(player: Player) -> void:
-	if player.position.x >= %Camera.position.x + 90:
+func update_camera() -> void:
+	var cam := camera.position
+	var pla := player.position
+	
+	if pla.x >= cam.x + 90:
 		coords.x += 1
-	elif player.position.x <= %Camera.position.x - 90:
+	elif pla.x <= cam.x - 90:
 		coords.x -= 1
-	if player.position.y >= %Camera.position.y + 90:
+	
+	if pla.y >= cam.y + 90:
 		coords.y += 1
-	elif player.position.y <= %Camera.position.y - 90:
+	elif pla.y <= cam.y - 90:
 		coords.y -= 1
+	
 	camera_target = coords*screen_size_tiles*tile_size
 	#prints(coords, %Camera.position)

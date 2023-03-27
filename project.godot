@@ -42,6 +42,7 @@ window/size/viewport_width=320
 window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
+window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
 
 [editor_plugins]
@@ -93,7 +94,7 @@ action_b={
 
 2d_physics/layer_1="Wall"
 2d_physics/layer_4="Water"
-2d_physics/layer_5="Actors"
+2d_physics/layer_5="Actor"
 2d_physics/layer_6="Player"
 2d_physics/layer_7="Enemy"
 
