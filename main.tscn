@@ -1,0 +1,299 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddji3pnwjyx5"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_fqeej"]
+[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://world.tscn" id="1_srqjk"]
+[ext_resource type="PackedScene" uid="uid://cu0gxqkb4jlfc" path="res://scenes/player.tscn" id="2_635t2"]
+[ext_resource type="Script" path="res://scripts/gui/icon_status.gd" id="3_cclrt"]
+[ext_resource type="FontFile" uid="uid://b11s5ealm7xv" path="res://content/fonts/m3x6.ttf" id="4_jw7l3"]
+[ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="4_m0c1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88rua"]
+size = Vector2(180, 180)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4fn2r"]
+content_margin_top = 4.0
+texture = ExtResource("4_m0c1y")
+texture_margin_left = 8.0
+region_rect = Rect2(0, 32, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vejd"]
+content_margin_right = 0.0
+texture = ExtResource("4_m0c1y")
+texture_margin_right = 8.0
+region_rect = Rect2(8, 32, 8, 8)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_fqeej")
+
+[node name="World" parent="." instance=ExtResource("1_srqjk")]
+metadata/_edit_horizontal_guides_ = [-512.0, 512.0]
+metadata/_edit_vertical_guides_ = [-512.0, 512.0]
+
+[node name="Player" parent="." instance=ExtResource("2_635t2")]
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+
+[node name="BoundsArea" type="Area2D" parent="Camera"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 32
+
+[node name="Shape" type="CollisionShape2D" parent="Camera/BoundsArea"]
+shape = SubResource("RectangleShape2D_88rua")
+debug_color = Color(1, 0, 1, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VitalsPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4fn2r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VitalsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ItemA" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(32, 32, 16, 16)
+
+[node name="ItemB" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(48, 32, 16, 16)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ButtonPrompt" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(24, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(24, 16, 24, 8)
+patch_margin_top = 8
+
+[node name="CoinCount" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(24, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(0, 16, 24, 8)
+
+[node name="LifeDisplay" type="GridContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+script = ExtResource("3_cclrt")
+value = 24
+max_value = 64
+pregen_icon_count = 16
+texture = ExtResource("4_m0c1y")
+icon_count = 6
+sprite_size = Vector2(7, 8)
+
+[node name="MagicDisplay" type="GridContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 7
+script = ExtResource("3_cclrt")
+value = 24
+max_value = 24
+texture = ExtResource("4_m0c1y")
+start_coords = Vector2(0, 8)
+icon_count = 6
+
+[node name="MapPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 48.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7vejd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MapPanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MapLabel" type="Label" parent="CanvasLayer/HUD/MapPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_jw7l3")
+text = "Map"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/MapPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="Chunk1" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk2" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk3" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk4" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk5" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk6" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk7" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk8" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk9" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk10" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk11" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk12" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk13" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk14" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk15" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Chunk16" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(8, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[connection signal="body_exited" from="Camera/BoundsArea" to="." method="_on_bounds_area_body_exited"]
