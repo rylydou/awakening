@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0c52hjot01mo"]
+
+[ext_resource type="PackedScene" uid="uid://w2j5qimfkrwq" path="res://scenes/(enemy).tscn" id="1_ih21a"]
+[ext_resource type="Script" path="res://scripts/states/roam.gd" id="2_5v5v5"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/minor_enemies.png" id="3_sshkn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bj514"]
+resource_local_to_scene = true
+shader = ExtResource("2_f0b36")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i11jr"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_cbuv2"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_5w7m3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_lwyok"]
+resource_name = "pre_jump"
+length = 0.666668
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.166667, 0.233333, 0.3, 0.366667, 0.433333, 0.5, 0.566667, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s8vju"]
+resource_name = "jump"
+length = 0.001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f8f6j"]
+_data = {
+"RESET": SubResource("Animation_5w7m3"),
+"idle": SubResource("Animation_cbuv2"),
+"jump": SubResource("Animation_s8vju"),
+"pre_jump": SubResource("Animation_lwyok")
+}
+
+[node name="Gel" instance=ExtResource("1_ih21a")]
+id = "gel"
+base_health = 8
+
+[node name="Base" parent="StateMachine" index="0"]
+script = ExtResource("2_5v5v5")
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_bj514")
+texture = ExtResource("3_sshkn")
+hframes = 3
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 16, 48, 16)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_i11jr")
+
+[node name="Collision" parent="HitboxArea" index="0"]
+position = Vector2(0, 3)
+
+[node name="Animator" parent="." index="4"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_f8f6j")
+}

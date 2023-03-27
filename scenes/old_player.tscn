@@ -39,7 +39,7 @@ func run(delta: float) -> void:
 	
 	if player.input_action_buffer > 0:
 		player.input_action_buffer = 0
-		player.enter_state(attack_state)
+		player.state_machine.push_state(attack_state)
 
 func exit(new_state: Node) -> void:
 	animator.speed_scale = 1

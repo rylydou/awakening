@@ -1,22 +1,6 @@
-class_name Player extends CharacterBody2D
-
-signal direction_changed(direction: Vector2)
+class_name Player extends Actor
 
 @export var action_buffer_ticks := 5
-
-@onready var defualt_state: Node = $States/Move
-@onready var hurt_state: Node = $States/Hurt
-
-@export_group('Cheats')
-@export var noclip_shortcut: Shortcut
-
-@onready var animator: Animator = %Animator
-
-var current_state: Node
-var direction := Vector2.DOWN
-
-func _ready() -> void:
-	enter_state(defualt_state)
 
 var input_move := Vector2.ZERO
 var input_action_buffer := 0
@@ -29,47 +13,37 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('action_a'):
 		input_action_buffer = action_buffer_ticks
 
-func _physics_process(delta: float) -> void:
-	assert(current_state, 'there is no active state')
-	if current_state.has_method('run'):
-		current_state.call('run', delta)
-
-func enter_state(state: Node) -> void:
-	#prints('entering state', state.name)
-	var previous_state = current_state
-	if is_instance_valid(previous_state) and previous_state.has_method('exit'):
-		previous_state.call('exit', state)
-	
-	current_state = state
-	if current_state.has_method('enter'):
-		current_state.call('enter', previous_state)
-
 func update_direction_to_input() -> void:
-	if input_move.y != 0:
-		if input_move.y >= 0:
-			direction = Vector2.DOWN
+	# favor the direction you are inputting on controller -or- prefer vertical on arrow keys or d-pad
+	if input_move != Vector2.ZERO:
+		if abs(input_move.y) >= abs(input_move.x):
+			direction = Vector2.DOWN*sign(input_move.y)
 		else:
-			direction = Vector2.UP
-	elif input_move.x != 0:
-		if input_move.x >= 0:
-			direction = Vector2.RIGHT
-		else:
-			direction = Vector2.LEFT
-	direction_changed.emit()
+			direction = Vector2.RIGHT*sign(input_move.x)
 
-func take_damage(damage: int, source: Node) -> bool:
-	if current_state.has_method('take_damage'):
-		var took_damage := current_state.call('take_damage', damage, source) as bool
-		return took_damage
-	hurt_state.damage_source = source
-	enter_state(hurt_state)
-	return true
+@export_group('Cheats')
+@export var noclip_shortcut: Shortcut
+@export var heal_shortcut: Shortcut
+@export var hurt_shortcut: Shortcut
 
 func _shortcut_input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if not event.is_pressed(): return
 	
-	if noclip_shortcut.matches_event(event):
+	if noclip_shortcut and noclip_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
 		print('CHEAT: Collision enabled? %s' % not get_collision_mask_value(1))
 		set_collision_mask_value(1, not get_collision_mask_value(1))
+		return
+	
+	if heal_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Heal')
+		health = base_health
+		return
+	
+	if hurt_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Hurt')
+		take_damage(1, self)
 		return

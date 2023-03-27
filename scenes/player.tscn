@@ -1,10 +1,40 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpe4x8x7iinpe"]
+[gd_scene load_steps=27 format=3 uid="uid://cpe4x8x7iinpe"]
 
-[ext_resource type="PackedScene" uid="uid://c6bfxmtkjqxj8" path="res://scenes/(actor).tscn" id="1_cduph"]
+[ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_x33y1"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_e38ue"]
+[ext_resource type="Script" path="res://scripts/states/player_base.gd" id="3_js3bw"]
 [ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing1.wav" id="3_o0l16"]
+[ext_resource type="Script" path="res://scripts/states/player_attack.gd" id="4_g1707"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_wyu77"]
+device = -1
+ctrl_pressed = true
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_vaytf"]
+events = [SubResource("InputEventKey_wyu77")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_fkd0o"]
+device = -1
+ctrl_pressed = true
+keycode = 72
+unicode = 104
+
+[sub_resource type="Shortcut" id="Shortcut_3ixg3"]
+events = [SubResource("InputEventKey_fkd0o")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_aww2c"]
+device = -1
+ctrl_pressed = true
+keycode = 65
+unicode = 97
+
+[sub_resource type="Shortcut" id="Shortcut_0c065"]
+events = [SubResource("InputEventKey_aww2c")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3iva"]
 size = Vector2(16, 16)
@@ -14,6 +44,9 @@ resource_local_to_scene = true
 shader = ExtResource("5_xvgci")
 shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u81qo"]
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_3ewpr"]
 length = 0.001
@@ -693,27 +726,9 @@ tracks/1/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_heiia"]
-resource_name = "hurt"
-length = 0.350002
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flip/BodySprite:material:shader_parameter/invert_intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ks7cx"]
 _data = {
 "RESET": SubResource("Animation_3ewpr"),
-"hurt": SubResource("Animation_heiia"),
 "sword_stab_south": SubResource("Animation_b3ivo"),
 "sword_swing_north": SubResource("Animation_du8x4"),
 "sword_swing_south": SubResource("Animation_hkk63"),
@@ -724,6 +739,20 @@ _data = {
 }
 
 [node name="Player" instance=ExtResource("1_cduph")]
+collision_layer = 48
+script = ExtResource("1_x33y1")
+action_buffer_ticks = 5
+noclip_shortcut = SubResource("Shortcut_vaytf")
+heal_shortcut = SubResource("Shortcut_3ixg3")
+hurt_shortcut = SubResource("Shortcut_0c065")
+id = "player"
+base_health = 16
+
+[node name="Base" parent="StateMachine" index="0"]
+script = ExtResource("3_js3bw")
+
+[node name="Attack" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("4_g1707")
 
 [node name="ItemSprite" type="Sprite2D" parent="Flip" index="0"]
 unique_name_in_owner = true
@@ -749,6 +778,10 @@ material = SubResource("ShaderMaterial_h5r74")
 texture = ExtResource("1_lwlkd")
 hframes = 8
 vframes = 8
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_u81qo")
 
 [node name="Animator" parent="." index="3"]
 libraries = {

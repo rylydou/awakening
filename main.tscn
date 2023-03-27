@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=14 format=3 uid="uid://cplyprd3kjrxu"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fqeej"]
 [ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://map.tscn" id="1_srqjk"]
-[ext_resource type="PackedScene" uid="uid://jv4dckirmu1h" path="res://scenes/old_player.tscn" id="2_635t2"]
+[ext_resource type="PackedScene" uid="uid://cpe4x8x7iinpe" path="res://scenes/player.tscn" id="2_635t2"]
 [ext_resource type="Script" path="res://scripts/gui/icon_status.gd" id="3_cclrt"]
 [ext_resource type="FontFile" uid="uid://b11s5ealm7xv" path="res://content/fonts/m3x6.ttf" id="4_jw7l3"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="4_m0c1y"]
@@ -102,9 +102,9 @@ root_subfolder = "res://scenes/"
 filters = PackedStringArray("*.tscn", "*.tscn.remap", "*.scn", "*.scn.remap")
 show_hidden_files = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,7 +114,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VitalsPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+[node name="VitalsPanel" type="PanelContainer" parent="UI/HUD"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -126,22 +126,22 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_4fn2r")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VitalsPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/VitalsPanel"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VitalsPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="ItemA" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+[node name="ItemA" type="NinePatchRect" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_m0c1y")
 region_rect = Rect2(32, 32, 16, 16)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/ItemA"]
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer/ItemA"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 1
 anchors_preset = 8
@@ -158,18 +158,18 @@ grow_vertical = 2
 texture = ExtResource("4_m0c1y")
 region_rect = Rect2(0, 48, 16, 16)
 
-[node name="ItemB" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+[node name="ItemB" type="NinePatchRect" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_m0c1y")
 region_rect = Rect2(48, 32, 16, 16)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ButtonPrompt" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ButtonPrompt" type="NinePatchRect" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(24, 8)
 layout_mode = 2
@@ -179,7 +179,7 @@ texture = ExtResource("4_m0c1y")
 region_rect = Rect2(24, 16, 24, 8)
 patch_margin_top = 8
 
-[node name="CoinCount" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CoinCount" type="NinePatchRect" parent="UI/HUD/VitalsPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(24, 8)
 layout_mode = 2
@@ -188,7 +188,8 @@ size_flags_vertical = 0
 texture = ExtResource("4_m0c1y")
 region_rect = Rect2(0, 16, 24, 8)
 
-[node name="LifeDisplay" type="GridContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+[node name="LifeDisplay" type="GridContainer" parent="UI/HUD/VitalsPanel/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 4
@@ -203,7 +204,7 @@ texture = ExtResource("4_m0c1y")
 icon_count = 6
 sprite_size = Vector2(7, 8)
 
-[node name="MagicDisplay" type="GridContainer" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer"]
+[node name="MagicDisplay" type="GridContainer" parent="UI/HUD/VitalsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 4
@@ -217,7 +218,7 @@ texture = ExtResource("4_m0c1y")
 start_coords = Vector2(0, 8)
 icon_count = 6
 
-[node name="MapPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+[node name="MapPanel" type="PanelContainer" parent="UI/HUD"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -226,24 +227,24 @@ offset_right = 48.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_7vejd")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MapPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/MapPanel"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="MapLabel" type="Label" parent="CanvasLayer/HUD/MapPanel/VBoxContainer"]
+[node name="MapLabel" type="Label" parent="UI/HUD/MapPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_jw7l3")
 text = "Map"
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/MapPanel/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="UI/HUD/MapPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="Chunk1" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk1" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -251,7 +252,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk2" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk2" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -259,7 +260,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk3" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk3" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -267,7 +268,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk4" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk4" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -275,7 +276,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk5" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk5" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -283,7 +284,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk6" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk6" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -291,7 +292,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk7" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk7" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -299,7 +300,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk8" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk8" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -307,7 +308,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk9" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk9" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -315,7 +316,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk10" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk10" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -323,7 +324,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk11" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk11" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -331,7 +332,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk12" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk12" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -339,7 +340,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk13" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk13" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -347,7 +348,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk14" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk14" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -355,7 +356,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk15" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk15" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
@@ -363,7 +364,7 @@ region_rect = Rect2(8, 24, 8, 8)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Chunk16" type="NinePatchRect" parent="CanvasLayer/HUD/MapPanel/VBoxContainer/GridContainer"]
+[node name="Chunk16" type="NinePatchRect" parent="UI/HUD/MapPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 texture = ExtResource("4_m0c1y")
