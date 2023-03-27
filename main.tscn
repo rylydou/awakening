@@ -83,6 +83,23 @@ size_flags_horizontal = 0
 texture = ExtResource("4_m0c1y")
 region_rect = Rect2(32, 32, 16, 16)
 
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer/ItemA"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_m0c1y")
+region_rect = Rect2(0, 48, 16, 16)
+
 [node name="ItemB" type="NinePatchRect" parent="CanvasLayer/HUD/VitalsPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2

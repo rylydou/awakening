@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		current_state.call('run', delta)
 
 func enter_state(state: Node) -> void:
-	prints('entering state', state.name)
+	#prints('entering state', state.name)
 	var previous_state = current_state
 	if is_instance_valid(previous_state) and previous_state.has_method('exit'):
 		previous_state.call('exit', state)
