@@ -1,0 +1,352 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgtveoe8d3x38"]
+
+[ext_resource type="Theme" uid="uid://citdjoydax7ld" path="res://resources/theme.tres" id="1_xasgv"]
+[ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_0ony4"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="2_a7mki"]
+[ext_resource type="Script" path="res://scripts/ui/icon_status.gd" id="4_8ep8f"]
+[ext_resource type="PackedScene" uid="uid://ch1lqsgn4qu43" path="res://scenes/ui/item_slot.tscn" id="5_58jgm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46fsf"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("2_0ony4")
+texture_margin_right = 8.0
+region_rect = Rect2(8, 32, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ogn33"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+texture = ExtResource("2_0ony4")
+texture_margin_left = 8.0
+region_rect = Rect2(0, 32, 8, 8)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xasgv")
+script = ExtResource("2_a7mki")
+
+[node name="LeftPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 70.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_46fsf")
+
+[node name="Top" type="VBoxContainer" parent="LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="HeaderLabel" type="Label" parent="LeftPanel/Top"]
+layout_mode = 2
+text = "STATUS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LifeDisplay" type="GridContainer" parent="LeftPanel/Top"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+script = ExtResource("4_8ep8f")
+value = 24
+max_value = 64
+pregen_icon_count = 8
+texture = ExtResource("2_0ony4")
+icon_count = 6
+sprite_size = Vector2(7, 8)
+
+[node name="Separator" type="NinePatchRect" parent="LeftPanel/Top"]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(0, 40, 24, 3)
+patch_margin_left = 8
+patch_margin_right = 8
+axis_stretch_horizontal = 1
+
+[node name="Spacer" type="Control" parent="LeftPanel/Top"]
+visible = false
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="MagicDisplay" type="GridContainer" parent="LeftPanel/Top"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 7
+script = ExtResource("4_8ep8f")
+value = 24
+max_value = 24
+texture = ExtResource("2_0ony4")
+start_coords = Vector2(0, 8)
+icon_count = 6
+
+[node name="Bottom" type="VBoxContainer" parent="LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Map" type="Control" parent="LeftPanel/Bottom"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Map" type="NinePatchRect" parent="LeftPanel/Bottom/Map"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(16, 24, 8, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="YouAreHereMarker" type="NinePatchRect" parent="LeftPanel/Bottom/Map"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(8, 24, 8, 8)
+
+[node name="MapLabel" type="Label" parent="LeftPanel/Bottom/Map"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 9.0
+grow_horizontal = 2
+text = "- MAP -"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MapLabel2" type="Label" parent="LeftPanel/Bottom/Map"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "area name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="RightPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ogn33")
+
+[node name="Top" type="VBoxContainer" parent="RightPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="HeaderLabel" type="Label" parent="RightPanel/Top"]
+layout_mode = 2
+text = "[X] EQUIP [X]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Itembar" type="HBoxContainer" parent="RightPanel/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+
+[node name="SlotC" parent="RightPanel/Top/Itembar" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+region_rect = Rect2(16, 48, 16, 16)
+slot_index = 2
+
+[node name="PromptLabel" type="Label" parent="RightPanel/Top/Itembar/SlotC"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Y"
+
+[node name="SlotB" parent="RightPanel/Top/Itembar" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+region_rect = Rect2(16, 48, 16, 16)
+slot_index = 1
+
+[node name="PromptLabel" type="Label" parent="RightPanel/Top/Itembar/SlotB"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 2.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "B"
+
+[node name="SlotA" parent="RightPanel/Top/Itembar" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+region_rect = Rect2(16, 48, 16, 16)
+slot_index = 0
+
+[node name="PromptLabel" type="Label" parent="RightPanel/Top/Itembar/SlotA"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 2.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "A"
+
+[node name="ItemGrid" type="GridContainer" parent="RightPanel/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="Slot2" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 3
+
+[node name="Slot3" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 4
+
+[node name="Slot4" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 5
+
+[node name="Slot5" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 6
+
+[node name="Slot6" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 7
+
+[node name="Slot7" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 8
+
+[node name="Slot8" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 9
+
+[node name="Slot9" parent="RightPanel/Top/ItemGrid" instance=ExtResource("5_58jgm")]
+layout_mode = 2
+slot_index = 10
+
+[node name="Extra" type="HBoxContainer" parent="RightPanel/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Money" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="MoneySprite" type="NinePatchRect" parent="RightPanel/Top/Extra/Money"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="MoneyLabel" type="Label" parent="RightPanel/Top/Extra/Money"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1234"
+vertical_alignment = 1
+
+[node name="Cursor" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(0, 24, 8, 8)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[editable path="RightPanel/Top/Itembar/SlotC"]
+[editable path="RightPanel/Top/Itembar/SlotB"]
+[editable path="RightPanel/Top/Itembar/SlotA"]

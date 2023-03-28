@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://citdjoydax7ld"]
+
+[ext_resource type="FontFile" uid="uid://dq06clo1l5xk2" path="res://content/fonts/Micro.ttf" id="1_gpenm"]
+
+[resource]
+default_font = ExtResource("1_gpenm")
+default_font_size = 6

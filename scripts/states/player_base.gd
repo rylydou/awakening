@@ -2,7 +2,7 @@ extends Node
 
 @export var speed := 64.
 
-@onready var attack_state: = $'../Attack'
+@export var item_state: Node
 
 @onready var player: Player = owner
 
@@ -18,7 +18,8 @@ func run(delta: float) -> void:
 	
 	if player.input_action_buffer > 0:
 		player.input_action_buffer = 0
-		player.state_machine.enter_state(attack_state)
+		item_state.index = player.input_action_index
+		player.state_machine.enter_state(item_state)
 
 func exit(new_state: Node) -> void:
 	player.animator.speed_scale = 1

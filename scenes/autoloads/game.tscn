@@ -1,0 +1,233 @@
+[gd_scene load_steps=21 format=3 uid="uid://duyactqxcmrlp"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_qxq2h"]
+[ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
+[ext_resource type="PackedScene" uid="uid://cpe4x8x7iinpe" path="res://scenes/player.tscn" id="2_td16x"]
+[ext_resource type="PackedScene" uid="uid://bgtveoe8d3x38" path="res://scenes/ui/hud.tscn" id="3_4w1cd"]
+[ext_resource type="Script" path="res://scripts/cheats.gd" id="5_yjp1d"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ap3yk"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_td1ys")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(48, 48, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lvifv"]
+texture = ExtResource("2_td1ys")
+texture_margin_left = 6.0
+texture_margin_top = 2.0
+texture_margin_right = 6.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(0, 24, 8, 8)
+
+[sub_resource type="InputEventKey" id="InputEventKey_8ante"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 83
+unicode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_8ansm"]
+events = [SubResource("InputEventKey_8ante")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_64ntw"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+unicode = 115
+
+[sub_resource type="Shortcut" id="Shortcut_m0gja"]
+events = [SubResource("InputEventKey_64ntw")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_48jjt"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_le0sk"]
+events = [SubResource("InputEventKey_48jjt")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_2x22t"]
+device = -1
+ctrl_pressed = true
+keycode = 86
+unicode = 118
+
+[sub_resource type="Shortcut" id="Shortcut_cmcie"]
+events = [SubResource("InputEventKey_2x22t")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_eossw"]
+device = -1
+ctrl_pressed = true
+keycode = 71
+unicode = 103
+
+[sub_resource type="Shortcut" id="Shortcut_2w6di"]
+events = [SubResource("InputEventKey_eossw")]
+
+[sub_resource type="SystemFont" id="SystemFont_yvjbq"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="Theme" id="Theme_8w501"]
+default_font = SubResource("SystemFont_yvjbq")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_48qd8"]
+default_font_size = 18
+
+[node name="Game" type="CanvasLayer"]
+script = ExtResource("1_qxq2h")
+player_scene = ExtResource("2_td16x")
+
+[node name="HUD" parent="." instance=ExtResource("3_4w1cd")]
+
+[node name="PlayerSelect" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerSelect/CenterContainer"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ap3yk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "--- PLAYER SELECT ---"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="File1" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "1. NAME"
+vertical_alignment = 1
+
+[node name="File2" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "2. (empty)"
+vertical_alignment = 1
+
+[node name="File3" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "3. (empty)"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CopyButton" type="Button" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
+text = "copy"
+
+[node name="EraseButton" type="Button" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
+text = "erase"
+
+[node name="Cheats" type="Node" parent="."]
+script = ExtResource("5_yjp1d")
+save_shortcut = SubResource("Shortcut_8ansm")
+load_shortcut = SubResource("Shortcut_m0gja")
+reload_shortcut = SubResource("Shortcut_le0sk")
+spawn_shortcut = SubResource("Shortcut_cmcie")
+give_shortcut = SubResource("Shortcut_2w6di")
+
+[node name="SpawnDialog" type="FileDialog" parent="Cheats"]
+unique_name_in_owner = true
+initial_position = 2
+title = "Pick a scene to spawn"
+size = Vector2i(400, 400)
+exclusive = false
+popup_window = true
+min_size = Vector2i(400, 400)
+content_scale_mode = 1
+content_scale_aspect = 4
+theme = SubResource("Theme_8w501")
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+root_subfolder = "res://scenes/"
+filters = PackedStringArray("*.tscn", "*.tscn.remap", "*.scn", "*.scn.remap")
+show_hidden_files = true
+
+[node name="GiveDialog" type="FileDialog" parent="Cheats"]
+unique_name_in_owner = true
+initial_position = 2
+title = "Pick an item to give"
+size = Vector2i(400, 400)
+exclusive = false
+popup_window = true
+min_size = Vector2i(400, 400)
+content_scale_mode = 1
+content_scale_aspect = 4
+theme = SubResource("Theme_48qd8")
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+root_subfolder = "res://resources/items/"
+filters = PackedStringArray("*.tres", "*.tres.remap")
+show_hidden_files = true
+
+[connection signal="file_selected" from="Cheats/SpawnDialog" to="Cheats" method="_on_scene_dialog_file_selected"]
+[connection signal="file_selected" from="Cheats/GiveDialog" to="Cheats" method="_on_item_dialog_file_selected"]

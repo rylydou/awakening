@@ -1,6 +1,6 @@
 extends Node
 
-@export var knockback_speed := 128.+64
+@export var knockback_speed := 128. + 64
 @export var sound := 'death4'
 
 @onready var actor: Actor = owner
@@ -10,7 +10,7 @@ var damage_source: Node2D
 var knockback_direction := Vector2.UP 
 
 func enter(old_state: Node) -> void:
-	knockback_direction = damage_source.position.direction_to(actor.position)
+	knockback_direction = damage_source.global_position.direction_to(actor.global_position)
 	
 	actor.play_sound(sound)
 	
