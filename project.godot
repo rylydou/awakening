@@ -28,6 +28,7 @@ ItemDB="*res://scripts/autoloads/item_db.gd"
 Inventory="*res://scripts/autoloads/inventory.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 Camera="*res://scenes/autoloads/camera.tscn"
+Dialog="*res://scenes/autoloads/dialog.tscn"
 
 [debug]
 
@@ -149,6 +150,7 @@ status={
 2d_physics/layer_5="Actor"
 2d_physics/layer_6="Player"
 2d_physics/layer_7="Enemy"
+2d_physics/layer_8="Object"
 
 [rendering]
 

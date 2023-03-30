@@ -16,4 +16,4 @@ func get_suffix() -> String:
 			return 'south'
 		else:
 			return 'north'
-	return 'west'
+	return 'east'

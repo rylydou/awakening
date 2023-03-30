@@ -92,9 +92,19 @@ default_font_size = 16
 default_font_size = 18
 
 [node name="Game" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_qxq2h")
 player_scene = ExtResource("2_td16x")
 map_scene = ExtResource("3_ccu3q")
+
+[node name="Iris" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="HUD" parent="." instance=ExtResource("3_4w1cd")]
 
@@ -196,15 +206,6 @@ text = "copy"
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
 text = "erase"
-
-[node name="Iris" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="Cheats" type="Node" parent="."]
 script = ExtResource("5_yjp1d")

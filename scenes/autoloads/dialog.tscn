@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://blljjbspj4u7v"]
+
+[ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="1_4sj15"]
+[ext_resource type="Script" path="res://scripts/autoloads/dialog.gd" id="1_5gl5q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_80dvo"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 2.0
+texture = ExtResource("1_4sj15")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(40, 24, 8, 8)
+
+[node name="Dialog" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_5gl5q")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogPanel" type="PanelContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 13)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_80dvo")
+
+[node name="DialogText" type="RichTextLabel" parent="CenterContainer/DialogPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 2
+bbcode_enabled = true
+text = "i can't read this sign from here."
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+visible_characters_behavior = 1
+
+[node name="Control" type="Control" parent="CenterContainer/DialogPanel"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="ContinuePrompt" type="NinePatchRect" parent="CenterContainer/DialogPanel/Control"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_4sj15")
+region_rect = Rect2(24, 24, 8, 8)
+
+[node name="ClosePrompt" type="NinePatchRect" parent="CenterContainer/DialogPanel/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_4sj15")
+region_rect = Rect2(32, 24, 8, 8)

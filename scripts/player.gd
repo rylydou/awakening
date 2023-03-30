@@ -10,7 +10,7 @@ func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('player')
 	base_health = ds.fetch_int('max_health', base_health)
 	health = ds.fetch_int('health', base_health)
-	position = ds.fetch_vec2('position', position)
+	#position = ds.fetch_vec2('position', position)
 	ds.pop_prefix()
 
 func _store(ds: DataStore) -> void:
@@ -19,6 +19,10 @@ func _store(ds: DataStore) -> void:
 	ds.store('health', health)
 	ds.store('position', position)
 	ds.pop_prefix()
+
+func _ready() -> void:
+	Camera.target_room()
+	Camera.center_camera()
 
 var input_move := Vector2.ZERO
 var input_action_buffer := 0
@@ -29,11 +33,17 @@ func _process(delta: float) -> void:
 	
 	input_move = Vector2.ZERO
 	if not Game.player_has_control: return
+	if Game.pause_locks > 0: return
+	if health <= 0: return
+	
 	input_move.x = Input.get_axis('move_left', 'move_right')
 	input_move.y = Input.get_axis('move_up', 'move_down')
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Game.player_has_control: return
+	if Game.pause_locks > 0: return
+	if health <= 0: return
+	
 	if event.is_action_pressed('action_a'):
 		get_viewport().set_input_as_handled()
 		input_action_index = 0

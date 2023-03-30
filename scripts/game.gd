@@ -79,3 +79,13 @@ func _on_player_died() -> void:
 	reload()
 	ds.store('counter.deaths', ds.fetch_int('counter.deaths', 0) + 1)
 	ds.save_to_disk()
+
+var pause_locks := 0
+func pause():
+	pause_locks += 1
+	get_tree().paused = pause_locks > 0
+
+func unpause():
+	assert(pause_locks > 0)
+	pause_locks -= 1
+	get_tree().paused = pause_locks > 0

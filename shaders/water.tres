@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bhdr8argrvx47"]
+
+[ext_resource type="Shader" path="res://shaders/animated_tile.gdshader" id="1_0y82a"]
+
+[resource]
+shader = ExtResource("1_0y82a")
+shader_parameter/frame_count = 4
+shader_parameter/fps = 5

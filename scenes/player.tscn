@@ -301,7 +301,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_nkeq7"]
 resource_name = "sword_swing_north"
-length = 0.200002
+length = 0.266668
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -428,7 +428,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_hkk63"]
 resource_name = "sword_swing_south"
-length = 0.200002
+length = 0.266669
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -553,9 +553,69 @@ tracks/8/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_sl0et"]
+resource_name = "walk_north"
+length = 0.266669
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_3wsm6"]
+resource_name = "walk_south"
+length = 0.266669
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="Animation" id="Animation_2uwys"]
 resource_name = "sword_swing_west"
-length = 0.200002
+length = 0.266669
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -680,66 +740,6 @@ tracks/8/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_sl0et"]
-resource_name = "walk_north"
-length = 0.266669
-loop_mode = 1
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flip/BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Flip/BodySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_3wsm6"]
-resource_name = "walk_south"
-length = 0.266669
-loop_mode = 1
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flip/BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Flip/BodySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
 [sub_resource type="Animation" id="Animation_rjq75"]
 resource_name = "walk_west"
 length = 0.266669
@@ -775,12 +775,12 @@ _data = {
 "RESET": SubResource("Animation_3ewpr"),
 "death": SubResource("Animation_7ce8r"),
 "sword_stab_south": SubResource("Animation_b3ivo"),
+"sword_swing_east": SubResource("Animation_2uwys"),
 "sword_swing_north": SubResource("Animation_nkeq7"),
 "sword_swing_south": SubResource("Animation_hkk63"),
-"sword_swing_west": SubResource("Animation_2uwys"),
+"walk_east": SubResource("Animation_rjq75"),
 "walk_north": SubResource("Animation_sl0et"),
-"walk_south": SubResource("Animation_3wsm6"),
-"walk_west": SubResource("Animation_rjq75")
+"walk_south": SubResource("Animation_3wsm6")
 }
 
 [node name="Player" instance=ExtResource("1_cduph")]
@@ -843,3 +843,8 @@ method_call_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_ks7cx")
 }
+
+[node name="InterationRaycast" type="RayCast2D" parent="." index="4"]
+unique_name_in_owner = true
+target_position = Vector2(0, 16)
+collision_mask = 144

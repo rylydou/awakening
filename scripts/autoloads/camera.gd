@@ -40,4 +40,4 @@ func target_room() -> void:
 	elif player.y <= ref.y - half_bounds.y:
 		room_coords.y -= 1
 	
-	target = room_coords*Consts.ROOM_SIZE_PX
+	target = room_coords*Consts.ROOM_SIZE_PX+half_bounds
