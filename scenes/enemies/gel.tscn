@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0c52hjot01mo"]
+[gd_scene load_steps=13 format=3 uid="uid://d0c52hjot01mo"]
 
 [ext_resource type="PackedScene" uid="uid://w2j5qimfkrwq" path="res://scenes/(enemy).tscn" id="1_ih21a"]
 [ext_resource type="Script" path="res://scripts/states/roam.gd" id="2_5v5v5"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
+[ext_resource type="Script" path="res://scripts/parts/drop_loottable.gd" id="3_c75vo"]
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/minor_enemies.png" id="3_sshkn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bj514"]
@@ -102,10 +103,13 @@ _data = {
 
 [node name="Gel" instance=ExtResource("1_ih21a")]
 id = "gel"
-base_health = 8
+base_health = 2
 
 [node name="Base" parent="StateMachine" index="0"]
 script = ExtResource("2_5v5v5")
+
+[node name="Drop" type="Node" parent="StateMachine/Death" index="1"]
+script = ExtResource("3_c75vo")
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
@@ -118,6 +122,9 @@ region_rect = Rect2(0, 16, 48, 16)
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_i11jr")
+
+[node name="HitboxArea" parent="." index="3"]
+damage = 2
 
 [node name="Collision" parent="HitboxArea" index="0"]
 position = Vector2(0, 4)

@@ -2,15 +2,29 @@ extends Control
 
 @onready var life_display: IconStatus = %LifeDisplay
 @onready var inventory: GridContainer = %ItemGrid
+@onready var money_label: Label = %MoneyLabel
+@onready var deaths_label: Label = %DeathsLabel
+@onready var map_marker: Control = %MapMarker
+@onready var map_area_label: Label = %MapAreaLabel
 
 var is_equip_menu_open := false
 
+func _enter_tree() -> void:
+	Game.fetch.connect(_fetch)
+
+func _fetch(ds: DataStore) -> void:
+	deaths_label.text = str(ds.fetch_int('counter.deaths', 0))
+
 func _process(delta: float) -> void:
+	process_cursor(delta)
+	
 	if is_instance_valid(Game.player):
 		life_display.value = Game.player.health
 		life_display.max_value = Game.player.base_health
 	
-	process_cursor(delta)
+	money_label.text = str(Inventory.money)
+	map_area_label.text = '%2s.%-2s' % [Camera.room_coords.x + 1, Camera.room_coords.y + 1]
+	map_marker.position = Camera.room_coords * 8
 
 @onready var cursor: NinePatchRect = %Cursor
 var cursor_target: Control
@@ -37,6 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed('equip'):
 		get_viewport().set_input_as_handled()
+		SoundBank.play_ui('menu_select1')
 		is_equip_menu_open = true
 		Game.player_has_control = false
 		equip_update_cursor()
@@ -48,6 +63,7 @@ func process_equip(event: InputEvent) -> void:
 		is_equip_menu_open = false
 		cursor_target = null
 		Game.player_has_control = true
+		SoundBank.play_ui('menu_back')
 		return
 	
 	var STRENGTH := .9
@@ -69,12 +85,15 @@ func process_equip(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed('action_a'):
+		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 0)
 		return
 	if event.is_action_pressed('action_b'):
+		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 1)
 		return
 	if event.is_action_pressed('action_c'):
+		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 2)
 		return
 

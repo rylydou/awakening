@@ -12,13 +12,13 @@ dest_files=["res://.godot/imported/drop.wav-e691e7f7d5169d32cbc952f6922a5f54.sam
 
 [params]
 
-force/8_bit=false
-force/mono=false
-force/max_rate=false
+force/8_bit=true
+force/mono=true
+force/max_rate=true
 force/max_rate_hz=44100
-edit/trim=false
+edit/trim=true
 edit/normalize=false
-edit/loop_mode=0
+edit/loop_mode=1
 edit/loop_begin=0
 edit/loop_end=-1
-compress/mode=0
+compress/mode=1

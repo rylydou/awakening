@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch6vrrwxr8nfm"]
+
+[ext_resource type="Texture2D" uid="uid://d1eossbcsp3i2" path="res://content/sprites/drop.png" id="1_cj4ak"]
+
+[sub_resource type="GDScript" id="GDScript_tkwe6"]
+script/source = "extends Area2D
+
+@export var amount := 1
+
+var picked_up := false
+func _on_body_entered(body: Player) -> void:
+	if picked_up: return
+	picked_up = true
+	SoundBank.play('money', global_position)
+	
+	Inventory.money += amount
+	
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1j043"]
+radius = 4.0
+
+[node name="MoneyDrop" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+script = SubResource("GDScript_tkwe6")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1j043")
+debug_color = Color(1, 0, 1, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_cj4ak")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 8)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

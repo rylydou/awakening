@@ -13,7 +13,6 @@ script = ExtResource("2_2a2jt")
 
 [node name="ItemSprite" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 1
 anchors_preset = 8
@@ -28,4 +27,4 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_r4cm2")
-region_rect = Rect2(16, 0, 16, 16)
+region_rect = Rect2(0, 0, 16, 16)

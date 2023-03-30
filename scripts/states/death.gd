@@ -1,7 +1,7 @@
 extends Node
 
 @export var knockback_speed := 128. + 64
-@export var sound := 'death4'
+@export var sound := 'death'
 
 @onready var actor: Actor = owner
 @onready var my_animation_player: AnimationPlayer = $AnimationPlayer
@@ -19,9 +19,11 @@ func enter(old_state: Node) -> void:
 	
 	actor.collision_layer = 0
 	actor.collision_mask = 0
+	
+	propagate_call('trigger')
 
 func run(delta: float) -> void:
-	actor.move_and_collide(knockback_direction*knockback_speed*delta)
+	actor.position += knockback_direction*knockback_speed*delta
 
 func _on_anim_finish() -> void:
 	actor.queue_free()

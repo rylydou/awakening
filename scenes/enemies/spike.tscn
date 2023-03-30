@@ -60,6 +60,9 @@ hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 16)
 
+[node name="HitboxArea" parent="." index="3"]
+damage = 2
+
 [node name="Animator" parent="." index="4"]
 autoplay = "idle"
 playback_process_mode = 1

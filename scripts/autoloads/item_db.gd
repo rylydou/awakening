@@ -22,7 +22,6 @@ func get_items() -> Array[ItemInfo]:
 func _ready() -> void:
 	assert(DirAccess.dir_exists_absolute(ITEM_DIR))
 	for file in DirAccess.get_files_at(ITEM_DIR):
-		print(file)
 		if not file.ends_with('.tres') and not file.ends_with('.tres.remap'): continue
 		file = file.trim_suffix('.remap')
 		
@@ -31,6 +30,5 @@ func _ready() -> void:
 		assert(item_data, 'item def could not be loaded')
 		
 		_item_database[item_data.id] = item_data
-		print('loaded item at %s' % item_path)
 	
 	item_count = _item_database.size()

@@ -8,7 +8,7 @@ enum StatusCode {
 	Error_Empty,
 }
 
-var EMPTY_INVENTORY: Array = [
+const EMPTY_INVENTORY: Array = [
 	&'', &'', &'', # itembar
 	&'', &'', &'', &'', # inventory row 1
 	&'', &'', &'', &'', # inventory row 2
@@ -23,26 +23,30 @@ signal gained_item(id: StringName, index: int)
 signal lost_item(id: StringName, index: int)
 signal swapped_items(from_index: int, to_index: int)
 
+var money: int
+
 func _ready() -> void:
-	Game.store.connect(store)
-	Game.fetch.connect(fetch)
+	Game.store.connect(_store)
+	Game.fetch.connect(_fetch)
 
-func store(ds: DataStore) -> void:
+func _store(ds: DataStore) -> void:
 	ds.push_prefix('inventory')
-	ds.store_flags('items', items)
+	ds.store('items', items)
+	ds.store('money', money)
 	ds.pop_prefix()
 
-func fetch(ds: DataStore) -> void:
+func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('inventory')
-	items = ds.fetch_flags('items', EMPTY_INVENTORY)
+	items = ds.fetch('items')
+	if items == null or items.size() == 0:
+		print('generating inventory')
+		items = EMPTY_INVENTORY.duplicate()
+	money = ds.fetch('money', 0)
 	ds.pop_prefix()
+	
 	inventory_changed.emit()
 	for index in items.size():
 		slot_changed.emit(index, items[index])
-
-func give_all_items() -> void:
-	for item_id in ItemDB.get_item_names():
-		give_item(item_id)
 
 func set_slot(index: int, item_id: StringName) -> void:
 	items[index] = item_id

@@ -14,6 +14,9 @@ var format: Format
 var prefixes: PackedStringArray = []
 var prefix_str := ''
 
+func clear() -> void:
+	_data.clear()
+
 func push_prefix(prefix: StringName):
 	prefixes.append(prefix + '.')
 	_update_prefix_str()
@@ -35,25 +38,12 @@ func store(key: StringName, value: Variant) -> void:
 func store_rng(key: StringName, value: RandomNumberGenerator) -> void:
 	store(key, [value.seed, value.state])
 
-func store_flags(key: StringName, value: Array) -> void:
-	var arr := value.map(func(sn): return str(sn))
-	store(key, arr)
-
 func fetch(key: StringName, default: Variant = null) -> Variant:
 	key = prefix_str + key
 	if has(key):
 		return _data[key]
 	_data[key] = default
 	return default
-
-func fetch_flags(key: StringName, default: Array = []) -> Array:
-	key = prefix_str + key
-	if not has(key):
-		_data[key] = default.map(func(sn): str(sn)) as Array[String]
-		return default
-	
-	var arr := _data[key] as Array
-	return arr.map(func(s): return StringName(s))
 
 func fetch_int(key: StringName, default: int = 0) -> int:
 	return fetch(key, default) as int

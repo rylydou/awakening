@@ -106,7 +106,7 @@ texture = ExtResource("5_whnx7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7gu85")
-debug_color = Color(0, 1, 0, 0.501961)
+debug_color = Color(0, 1, 0, 0)
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

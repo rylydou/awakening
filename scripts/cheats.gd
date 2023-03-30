@@ -4,6 +4,7 @@ extends Node
 @export var load_shortcut: Shortcut
 
 @export var reload_shortcut: Shortcut
+@export var restart_shortcut: Shortcut
 @export var spawn_shortcut: Shortcut
 
 @export var give_shortcut: Shortcut
@@ -21,16 +22,22 @@ func _shortcut_input(event: InputEvent) -> void:
 		Game.save()
 		return
 	
-	if save_shortcut.matches_event(event):
+	if load_shortcut.matches_event(event):
 		get_viewport().set_input_as_handled()
-		print('CHEAT: save')
-		Game.reload()
+		print('CHEAT: load')
+		Game.ds.load_from_disk()
 		return
 	
 	if reload_shortcut.matches_event(event):
 		get_viewport().set_input_as_handled()
-		print('CHEAT: Reload tree')
+		print('CHEAT: Reload map')
 		get_tree().reload_current_scene()
+		return
+	
+	if restart_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Restart game')
+		Game.reload()
 		return
 	
 	if spawn_shortcut.matches_event(event):

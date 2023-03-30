@@ -13,8 +13,8 @@ func run(delta: float) -> void:
 		move_counter -= 1
 	else:
 		move_counter = 60
-		actor.direction.x = randi_range(-1, 1)
-		actor.direction.y = randi_range(-1, 1)
+		actor.direction.x = RNG.ai.randi_range(-1, 1)
+		actor.direction.y = RNG.ai.randi_range(-1, 1)
 	
 	actor.velocity = actor.direction.normalized()*roam_speed
 	actor.move_and_slide()

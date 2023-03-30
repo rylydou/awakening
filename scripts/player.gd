@@ -2,6 +2,24 @@ class_name Player extends Actor
 
 @export var action_buffer_ticks := 5
 
+func _enter_tree() -> void:
+	Game.fetch.connect(_fetch)
+	Game.store.connect(_store)
+
+func _fetch(ds: DataStore) -> void:
+	ds.push_prefix('player')
+	base_health = ds.fetch_int('max_health', base_health)
+	health = ds.fetch_int('health', base_health)
+	position = ds.fetch_vec2('position', position)
+	ds.pop_prefix()
+
+func _store(ds: DataStore) -> void:
+	ds.push_prefix('player')
+	ds.store('max_health', base_health)
+	ds.store('health', health)
+	ds.store('position', position)
+	ds.pop_prefix()
+
 var input_move := Vector2.ZERO
 var input_action_buffer := 0
 var input_action_index := -1
@@ -47,6 +65,7 @@ func update_direction_to_input() -> void:
 @export var noclip_shortcut: Shortcut
 @export var heal_shortcut: Shortcut
 @export var hurt_shortcut: Shortcut
+@export var kill_shortcut: Shortcut
 func _shortcut_input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if not event.is_pressed(): return
@@ -73,4 +92,10 @@ func _shortcut_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Hurt')
 		take_damage(1, self)
+		return
+	
+	if kill_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Kill')
+		take_damage(health, self)
 		return

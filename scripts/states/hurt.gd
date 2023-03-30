@@ -1,7 +1,7 @@
 extends Node
 
 @export var knockback_speed := 64.
-@export var sound := 'death4'
+@export var sound := 'hurt'
 
 @onready var actor: Actor = owner
 @onready var my_animation_player: AnimationPlayer = $AnimationPlayer
@@ -23,6 +23,3 @@ func run(delta: float) -> void:
 
 func _on_anim_finish() -> void:
 	actor.state_machine.exit_state()
-
-func take_damage(damage: int, source: Node) -> bool:
-	return false

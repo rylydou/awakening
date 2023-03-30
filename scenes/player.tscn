@@ -1,13 +1,15 @@
-[gd_scene load_steps=30 format=3 uid="uid://cpe4x8x7iinpe"]
+[gd_scene load_steps=34 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x33y1"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_e38ue"]
-[ext_resource type="Script" path="res://scripts/states/player_base.gd" id="3_js3bw"]
-[ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing1.wav" id="3_o0l16"]
+[ext_resource type="Script" path="res://scripts/states/player/player_base.gd" id="3_si8kc"]
+[ext_resource type="Script" path="res://scripts/states/player/player_hurt.gd" id="4_5ngc0"]
+[ext_resource type="Script" path="res://scripts/states/player/player_death.gd" id="4_65juj"]
+[ext_resource type="Script" path="res://scripts/states/player/player_item.gd" id="4_y850i"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
-[ext_resource type="Script" path="res://scripts/states/player_item.gd" id="5_ytl6p"]
+[ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing.wav" id="9_tc4nq"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_pnby4"]
 device = -1
@@ -45,8 +47,18 @@ unicode = 97
 [sub_resource type="Shortcut" id="Shortcut_0c065"]
 events = [SubResource("InputEventKey_aww2c")]
 
+[sub_resource type="InputEventKey" id="InputEventKey_n074e"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 75
+unicode = 75
+
+[sub_resource type="Shortcut" id="Shortcut_nllfq"]
+events = [SubResource("InputEventKey_n074e")]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3iva"]
-size = Vector2(16, 16)
+size = Vector2(14, 14)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h5r74"]
 resource_local_to_scene = true
@@ -157,9 +169,50 @@ tracks/7/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_7ce8r"]
+resource_name = "death"
+length = 2.0
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333, 0.916667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 1, 2, 0, 2, 1, 2, 0, 2, 1, 2, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.333333, 0.583333, 0.666667, 0.916667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/BodySprite:material:shader_parameter/invert_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_b3ivo"]
 resource_name = "sword_stab_south"
-length = 0.333335
+length = 0.266669
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -246,9 +299,9 @@ tracks/6/keys = {
 "values": [Vector2(0, 16), Vector2(0, 12), Vector2(0, 8)]
 }
 
-[sub_resource type="Animation" id="Animation_du8x4"]
+[sub_resource type="Animation" id="Animation_nkeq7"]
 resource_name = "sword_swing_north"
-length = 0.333335
+length = 0.200002
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -257,7 +310,7 @@ tracks/0/path = NodePath("Flip/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [10, 11, 10]
@@ -269,10 +322,10 @@ tracks/1/path = NodePath("Flip/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.133334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -281,7 +334,7 @@ tracks/2/path = NodePath("Flip/ItemSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -293,10 +346,10 @@ tracks/3/path = NodePath("Flip/ItemSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [16, 17, 18, 17, 16]
+"values": [17, 18, 17]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -305,10 +358,10 @@ tracks/4/path = NodePath("Flip/ItemSprite:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.15),
+"times": PackedFloat32Array(0, 0.133334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -329,10 +382,10 @@ tracks/6/path = NodePath("Flip/ItemSprite:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(16, 0), Vector2(16, -16), Vector2(0, -16), Vector2(-16, -16), Vector2(-16, 0)]
+"values": [Vector2(-12, -12), Vector2(0, -16), Vector2(12, -12)]
 }
 tracks/7/type = "audio"
 tracks/7/imported = false
@@ -344,9 +397,9 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("9_tc4nq")
 }],
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(-0.0333334)
 }
 tracks/7/use_blend = false
 tracks/8/type = "method"
@@ -356,17 +409,11 @@ tracks/8/path = NodePath("Flip/ItemSprite/HitboxArea")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0500001, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333334, 0.0833335, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"forget_hits"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
 }, {
 "args": [-1],
 "method": &"attack_overlap"
@@ -381,7 +428,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_hkk63"]
 resource_name = "sword_swing_south"
-length = 0.333336
+length = 0.200002
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -390,7 +437,7 @@ tracks/0/path = NodePath("Flip/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [8, 9, 8]
@@ -402,7 +449,7 @@ tracks/1/path = NodePath("Flip/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.133334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -414,7 +461,7 @@ tracks/2/path = NodePath("Flip/ItemSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -426,10 +473,10 @@ tracks/3/path = NodePath("Flip/ItemSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.0500001, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [16, 17, 18, 17, 16]
+"values": [17, 18, 17]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -438,7 +485,7 @@ tracks/4/path = NodePath("Flip/ItemSprite:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.15),
+"times": PackedFloat32Array(0, 0.133334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -462,10 +509,10 @@ tracks/6/path = NodePath("Flip/ItemSprite:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0500001, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(-16, 0), Vector2(-16, 16), Vector2(0, 16), Vector2(16, 16), Vector2(16, 0)]
+"values": [Vector2(-12, 12), Vector2(0, 16), Vector2(12, 12)]
 }
 tracks/7/type = "audio"
 tracks/7/imported = false
@@ -477,7 +524,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("9_tc4nq")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -489,17 +536,11 @@ tracks/8/path = NodePath("Flip/ItemSprite/HitboxArea")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0500001, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333334, 0.0833335, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"forget_hits"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
 }, {
 "args": [-1],
 "method": &"attack_overlap"
@@ -514,7 +555,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_2uwys"]
 resource_name = "sword_swing_west"
-length = 0.333336
+length = 0.200002
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -523,10 +564,10 @@ tracks/0/path = NodePath("Flip/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [11, 10, 9]
+"values": [10, 13, 8]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -535,10 +576,10 @@ tracks/1/path = NodePath("Flip/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false]
+"values": [false, false, true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -547,7 +588,7 @@ tracks/2/path = NodePath("Flip/ItemSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -559,10 +600,10 @@ tracks/3/path = NodePath("Flip/ItemSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [18, 17, 16, 17, 18]
+"values": [17, 16, 17]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -583,7 +624,7 @@ tracks/5/path = NodePath("Flip/ItemSprite:flip_v")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.15),
+"times": PackedFloat32Array(0, 0.133334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -595,10 +636,10 @@ tracks/6/path = NodePath("Flip/ItemSprite:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666668, 0.133334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(0, -16), Vector2(16, -16), Vector2(16, 0), Vector2(16, 16), Vector2(0, 16)]
+"values": [Vector2(12, -12), Vector2(16, 0), Vector2(12, 12)]
 }
 tracks/7/type = "audio"
 tracks/7/imported = false
@@ -610,7 +651,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_o0l16")
+"stream": ExtResource("9_tc4nq")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -622,17 +663,11 @@ tracks/8/path = NodePath("Flip/ItemSprite/HitboxArea")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0500001, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333334, 0.0833335, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"forget_hits"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
-}, {
-"args": [-1],
-"method": &"attack_overlap"
 }, {
 "args": [-1],
 "method": &"attack_overlap"
@@ -735,52 +770,12 @@ tracks/1/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_7ce8r"]
-resource_name = "death"
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flip/BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333, 0.916667, 1, 1.08333, 1.16667, 1.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 2, 1, 2, 0, 2, 1, 2, 0, 2, 1, 2, 7, 2, 1, 2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Flip/BodySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.333333, 0.583333, 0.666667, 0.916667, 1, 1.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true, false, true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Flip/BodySprite:material:shader_parameter/invert_intensity")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1.0, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ks7cx"]
 _data = {
 "RESET": SubResource("Animation_3ewpr"),
 "death": SubResource("Animation_7ce8r"),
 "sword_stab_south": SubResource("Animation_b3ivo"),
-"sword_swing_north": SubResource("Animation_du8x4"),
+"sword_swing_north": SubResource("Animation_nkeq7"),
 "sword_swing_south": SubResource("Animation_hkk63"),
 "sword_swing_west": SubResource("Animation_2uwys"),
 "walk_north": SubResource("Animation_sl0et"),
@@ -796,15 +791,22 @@ teleport_shortcut = SubResource("Shortcut_n0007")
 noclip_shortcut = SubResource("Shortcut_vaytf")
 heal_shortcut = SubResource("Shortcut_3ixg3")
 hurt_shortcut = SubResource("Shortcut_0c065")
+kill_shortcut = SubResource("Shortcut_nllfq")
 id = "player"
-base_health = 16
+base_health = 12
 
 [node name="Base" parent="StateMachine" index="0" node_paths=PackedStringArray("item_state")]
-script = ExtResource("3_js3bw")
+script = ExtResource("3_si8kc")
 item_state = NodePath("../Item")
 
+[node name="Hurt" parent="StateMachine" index="1"]
+script = ExtResource("4_5ngc0")
+
+[node name="Death" parent="StateMachine" index="2"]
+script = ExtResource("4_65juj")
+
 [node name="Item" type="Node" parent="StateMachine" index="3"]
-script = ExtResource("5_ytl6p")
+script = ExtResource("4_y850i")
 
 [node name="ItemSprite" type="Sprite2D" parent="Flip" index="0"]
 unique_name_in_owner = true
@@ -824,6 +826,7 @@ remember_hits = true
 
 [node name="Collision" type="CollisionShape2D" parent="Flip/ItemSprite/HitboxArea" index="0"]
 shape = SubResource("RectangleShape2D_m3iva")
+debug_color = Color(1, 0, 0, 0)
 
 [node name="BodySprite" parent="Flip" index="1"]
 material = SubResource("ShaderMaterial_h5r74")
@@ -836,6 +839,7 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_u81qo")
 
 [node name="Animator" parent="." index="3"]
+method_call_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_ks7cx")
 }

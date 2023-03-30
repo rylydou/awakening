@@ -1,34 +1,43 @@
 extends Camera2D
 
-@export var tile_size := 16
-@export var screen_size_tiles := Vector2i(11, 11)
+signal room_entered(room_coords: Vector2i)
 
 var target := Vector2.ZERO
-var coords := Vector2i.ZERO
+var room_coords := Vector2i.ZERO
+var last_room_corrds := Vector2i(-42069, -42069)
 
 func _ready() -> void:
-	update_target()
+	target_room()
 	center_camera()
 
 func _process(delta: float) -> void:
-	update_target()
 	position = position.move_toward(target, 320*delta)
+
+func _physics_process(delta: float) -> void:
+	target_room()
+	if room_coords != last_room_corrds:
+		last_room_corrds = room_coords
+		room_entered.emit(room_coords)
 
 func center_camera() -> void:
 	position = target
 
-func update_target() -> void:
+func target_room() -> void:
 	if not is_instance_valid(Game.player): return
-	var player := Game.player.position
 	
-	if player.x >= position.x + 90:
-		coords.x += 1
-	elif player.x <= position.x - 90:
-		coords.x -= 1
+	var player := Game.player.global_position
+	var ref := target
 	
-	if player.y >= position.y + 90:
-		coords.y += 1
-	elif player.y <= position.y - 90:
-		coords.y -= 1
+	var half_bounds := Consts.ROOM_SIZE_PX/2
 	
-	target = coords*screen_size_tiles*tile_size
+	if player.x >= ref.x + half_bounds.x:
+		room_coords.x += 1
+	elif player.x <= ref.x - half_bounds.x:
+		room_coords.x -= 1
+	
+	if player.y >= ref.y + half_bounds.y:
+		room_coords.y += 1
+	elif player.y <= ref.y - half_bounds.y:
+		room_coords.y -= 1
+	
+	target = room_coords*Consts.ROOM_SIZE_PX

@@ -1,9 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcku4qxq863wa"]
+[gd_scene format=3 uid="uid://p8f4lgefrp8u"]
 
-[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://scenes/map.tscn" id="1_srqjk"]
-
-[node name="Main" type="Node2D"]
-
-[node name="Map" parent="." instance=ExtResource("1_srqjk")]
-metadata/_edit_horizontal_guides_ = [-512.0, 512.0]
-metadata/_edit_vertical_guides_ = [-512.0, 512.0]
+[node name="Main" type="Node"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://duyactqxcmrlp"]
+[gd_scene load_steps=24 format=3 uid="uid://duyactqxcmrlp"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qxq2h"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
-[ext_resource type="PackedScene" uid="uid://cpe4x8x7iinpe" path="res://scenes/player.tscn" id="2_td16x"]
+[ext_resource type="PackedScene" uid="uid://bcpqis8idx1ks" path="res://scenes/player.tscn" id="2_td16x"]
 [ext_resource type="PackedScene" uid="uid://bgtveoe8d3x38" path="res://scenes/ui/hud.tscn" id="3_4w1cd"]
+[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://scenes/map.tscn" id="3_ccu3q"]
 [ext_resource type="Script" path="res://scripts/cheats.gd" id="5_yjp1d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ap3yk"]
@@ -52,6 +53,16 @@ unicode = 114
 [sub_resource type="Shortcut" id="Shortcut_le0sk"]
 events = [SubResource("InputEventKey_48jjt")]
 
+[sub_resource type="InputEventKey" id="InputEventKey_fcv6l"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 82
+unicode = 82
+
+[sub_resource type="Shortcut" id="Shortcut_2wdfo"]
+events = [SubResource("InputEventKey_fcv6l")]
+
 [sub_resource type="InputEventKey" id="InputEventKey_2x22t"]
 device = -1
 ctrl_pressed = true
@@ -83,6 +94,7 @@ default_font_size = 18
 [node name="Game" type="CanvasLayer"]
 script = ExtResource("1_qxq2h")
 player_scene = ExtResource("2_td16x")
+map_scene = ExtResource("3_ccu3q")
 
 [node name="HUD" parent="." instance=ExtResource("3_4w1cd")]
 
@@ -185,11 +197,21 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
 text = "erase"
 
+[node name="Iris" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Cheats" type="Node" parent="."]
 script = ExtResource("5_yjp1d")
 save_shortcut = SubResource("Shortcut_8ansm")
 load_shortcut = SubResource("Shortcut_m0gja")
 reload_shortcut = SubResource("Shortcut_le0sk")
+restart_shortcut = SubResource("Shortcut_2wdfo")
 spawn_shortcut = SubResource("Shortcut_cmcie")
 give_shortcut = SubResource("Shortcut_2w6di")
 

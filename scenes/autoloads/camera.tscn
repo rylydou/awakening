@@ -3,4 +3,8 @@
 [ext_resource type="Script" path="res://scripts/autoloads/camera.gd" id="1_qramg"]
 
 [node name="Camera" type="Camera2D"]
+top_level = true
 script = ExtResource("1_qramg")
+
+[node name="AudioListener" type="AudioListener2D" parent="."]
+current = true
