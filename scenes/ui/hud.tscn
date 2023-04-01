@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6108pg1nlimm" path="res://content/sprites/map.png" id="5_ly5qc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46fsf"]
-content_margin_left = 2.0
+content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
@@ -19,7 +19,7 @@ region_rect = Rect2(8, 32, 8, 8)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ogn33"]
 content_margin_left = 4.0
 content_margin_top = 4.0
-content_margin_right = 2.0
+content_margin_right = 4.0
 content_margin_bottom = 4.0
 texture = ExtResource("2_0ony4")
 texture_margin_left = 8.0
@@ -38,7 +38,7 @@ theme = ExtResource("1_xasgv")
 script = ExtResource("2_a7mki")
 
 [node name="LeftPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(72, 0)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -153,12 +153,12 @@ anchor_bottom = 1.0
 offset_top = -9.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "area name"
+text = "1.1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="RightPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(72, 0)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0

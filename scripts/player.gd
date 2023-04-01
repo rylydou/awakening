@@ -10,7 +10,7 @@ func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('player')
 	base_health = ds.fetch_int('max_health', base_health)
 	health = ds.fetch_int('health', base_health)
-	#position = ds.fetch_vec2('position', position)
+	position = ds.fetch_vec2('position', position)
 	ds.pop_prefix()
 
 func _store(ds: DataStore) -> void:

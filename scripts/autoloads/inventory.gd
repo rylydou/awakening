@@ -37,11 +37,16 @@ func _store(ds: DataStore) -> void:
 
 func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('inventory')
-	items = ds.fetch('items')
-	if items == null or items.size() == 0:
+	
+	var fetched_items = ds.fetch('items')
+	if fetched_items == null or fetched_items.size() == 0:
 		print('generating inventory')
 		items = EMPTY_INVENTORY.duplicate()
+	else:
+		items = fetched_items
+	
 	money = ds.fetch('money', 0)
+	
 	ds.pop_prefix()
 	
 	inventory_changed.emit()

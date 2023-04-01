@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://jcx4xauhw2p6"]
+
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/objects.png" id="1_xclyf"]
+
+[sub_resource type="GDScript" id="GDScript_f6tfk"]
+script/source = "extends StaticBody2D
+
+func interact() -> bool:
+	Game.save()
+	Dialog.say(['progress has been saved!'])
+	return true
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxpav"]
+size = Vector2(16, 16)
+
+[node name="Savepoint" type="StaticBody2D"]
+collision_layer = 129
+collision_mask = 0
+script = SubResource("GDScript_f6tfk")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_xclyf")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hxpav")
+debug_color = Color(0, 0.596078, 0.701961, 0)

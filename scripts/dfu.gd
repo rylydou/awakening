@@ -31,6 +31,6 @@ static func fix(ds: DataStore) -> StatusCode:
 
 static func create(ds: DataStore) -> void:
 	ds.clear()
-	var inv := Inventory.EMPTY_INVENTORY.duplicate()
-	inv[0] = 'sword'
-	ds.store('inventory.items', inv)
+	#var inv := Inventory.EMPTY_INVENTORY.duplicate()
+	#inv[0] = 'sword'
+	#ds.store('inventory.items', inv)
