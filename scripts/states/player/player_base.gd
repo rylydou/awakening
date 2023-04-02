@@ -11,7 +11,7 @@ func run(delta: float) -> void:
 	player.update_direction_to_input()
 	
 	player.animator.speed_scale = 1
-	player.animator.play_directional('walk')
+	player.animator.play_anim('walk', Animator.AnimationType.FourDirectional)
 	player.animator.speed_scale = 1 if player.input_move.length_squared() > 0 else 0
 	
 	player.velocity = player.input_move.normalized()*speed

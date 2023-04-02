@@ -29,6 +29,7 @@ Inventory="*res://scripts/autoloads/inventory.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 Camera="*res://scenes/autoloads/camera.tscn"
 Dialog="*res://scenes/autoloads/dialog.tscn"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 
 [debug]
 
@@ -56,7 +57,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ActionIcon/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg")
+enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ActionIcon/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/beehave/plugin.cfg")
 
 [gui]
 
@@ -146,11 +147,14 @@ status={
 [layer_names]
 
 2d_physics/layer_1="Wall"
+2d_physics/layer_2="Low wall"
 2d_physics/layer_4="Water"
-2d_physics/layer_5="Actor"
-2d_physics/layer_6="Player"
-2d_physics/layer_7="Enemy"
+2d_physics/layer_5="Player"
+2d_physics/layer_6="Enemy"
 2d_physics/layer_8="Object"
+2d_physics/layer_9="Vulerable to player"
+2d_physics/layer_10="Vulerable to enemy"
+2d_physics/layer_12="Vulerable to world"
 
 [rendering]
 

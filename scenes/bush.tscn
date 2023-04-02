@@ -15,7 +15,7 @@ func take_damage(damage: int, source: Node) -> bool:
 size = Vector2(16, 16)
 
 [node name="Bush" type="StaticBody2D" groups=["respawn"]]
-collision_layer = 17
+collision_layer = 257
 collision_mask = 0
 script = SubResource("GDScript_2w6xl")
 

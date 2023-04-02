@@ -15,4 +15,4 @@ func _on_slot_changed(index: int, item_id: StringName) -> void:
 		return
 	
 	var item_info := ItemDB.get_item(item_id)
-	item_sprite.region_rect.position = Vector2(item_info.texture_coords*16)
+	item_sprite.region_rect.position = item_info.item_icon_coords*16.

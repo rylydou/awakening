@@ -5,6 +5,7 @@ signal attacked(node: Node2D)
 @export_range(0, 100, 1, 'or_greater', 'suffix:hp') var damage := 1
 @export var auto_attack := false
 @export var remember_hits := false
+@export var stun_amount := 0
 
 var things_hit: Array[Node2D] = []
 func forget_hits():
@@ -34,6 +35,10 @@ func attack_node(node: Node2D, damage: int = -1) -> bool:
 	
 	var did_attack := node.call('take_damage', damage, owner) as bool
 	if did_attack:
+		
+		if stun_amount > 0 and node.has_method('apply_stun'):
+			var stunned := node.call('apply_stun', stun_amount) as bool
+		
 		attacked.emit(node)
 		if remember_hits:
 			things_hit.append(node)

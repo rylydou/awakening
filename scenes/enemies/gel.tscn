@@ -1,10 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0c52hjot01mo"]
+[gd_scene load_steps=23 format=3 uid="uid://dymemwqaa8jgh"]
 
 [ext_resource type="PackedScene" uid="uid://w2j5qimfkrwq" path="res://scenes/(enemy).tscn" id="1_ih21a"]
-[ext_resource type="Script" path="res://scripts/states/roam.gd" id="2_5v5v5"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
+[ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_i2yck"]
 [ext_resource type="Script" path="res://scripts/parts/drop_loottable.gd" id="3_c75vo"]
+[ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="3_ii1nu"]
+[ext_resource type="Script" path="res://scripts/ai/forever_loop.gd" id="3_sbjvo"]
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/minor_enemies.png" id="3_sshkn"]
+[ext_resource type="Script" path="res://scripts/ai/play_anim.gd" id="4_cgnon"]
+[ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_g1c74"]
+[ext_resource type="Script" path="res://scripts/ai/wait.gd" id="4_gqt4d"]
+[ext_resource type="Script" path="res://scripts/ai/group.gd" id="5_gt5yv"]
+[ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="6_hhbjx"]
+[ext_resource type="Script" path="res://scripts/ai/set_anim.gd" id="6_ynpck"]
+[ext_resource type="Script" path="res://scripts/ai/random.gd" id="8_426lb"]
+[ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="9_b88t6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bj514"]
 resource_local_to_scene = true
@@ -32,6 +42,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_cbuv2"]
 resource_name = "idle"
+length = 0.66667
 loop_mode = 1
 step = 0.0166667
 tracks/0/type = "value"
@@ -41,7 +52,7 @@ tracks/0/path = NodePath("Flip/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [2, 1]
@@ -103,16 +114,83 @@ _data = {
 
 [node name="Gel" instance=ExtResource("1_ih21a")]
 id = "gel"
-base_health = 2
+base_health = 4
 
-[node name="Base" parent="StateMachine" index="0"]
-script = ExtResource("2_5v5v5")
+[node name="Try Chase Player" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("2_i2yck")
+detection_range = 7.0
+
+[node name="Forever Loop" type="Node" parent="StateMachine/Base/Try Chase Player" index="0"]
+script = ExtResource("3_sbjvo")
+
+[node name="Try Attack" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop" index="0"]
+script = ExtResource("2_i2yck")
+detection_range = 3.0
+
+[node name="Aim" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="0"]
+script = ExtResource("3_ii1nu")
+angle_restrictions = 2
+
+[node name="Prepare Jump" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="1"]
+script = ExtResource("4_cgnon")
+animation_name = &"pre_jump"
+
+[node name="Set Jump Jump" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="2"]
+script = ExtResource("6_ynpck")
+animation_name = &"jump"
+
+[node name="Move" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="3"]
+script = ExtResource("4_g1c74")
+distance = 3.0
+time = 20
+
+[node name="Set Idle" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="4"]
+script = ExtResource("6_ynpck")
+animation_name = &"idle"
+
+[node name="CooldownWait" type="Timer" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="5"]
+script = ExtResource("4_gqt4d")
+
+[node name="Aim" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop" index="1"]
+script = ExtResource("3_ii1nu")
+
+[node name="Repeat" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop" index="2"]
+script = ExtResource("9_b88t6")
+count_max = 3
+
+[node name="Move" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Repeat" index="0"]
+script = ExtResource("4_g1c74")
+distance = 1.0
+time = 30
+
+[node name="Roam" type="Node" parent="StateMachine/Base" index="1"]
+script = ExtResource("5_gt5yv")
+
+[node name="Set Anim" type="Node" parent="StateMachine/Base/Roam" index="0"]
+script = ExtResource("6_ynpck")
+animation_name = &"idle"
+
+[node name="Random Direction" type="Node" parent="StateMachine/Base/Roam" index="1"]
+script = ExtResource("6_hhbjx")
+allow_diagonal = true
+
+[node name="Roam Move" type="Node" parent="StateMachine/Base/Roam" index="2"]
+script = ExtResource("4_g1c74")
+distance = 1.0
+
+[node name="Random" type="Node" parent="StateMachine/Base/Roam" index="3"]
+script = ExtResource("8_426lb")
+
+[node name="Wait" type="Timer" parent="StateMachine/Base/Roam/Random" index="0"]
+script = ExtResource("4_gqt4d")
+duration = 20
 
 [node name="Drop" type="Node" parent="StateMachine/Death" index="1"]
 script = ExtResource("3_c75vo")
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
+position = Vector2(0, -3)
 texture = ExtResource("3_sshkn")
 hframes = 3
 frame = 1
@@ -120,14 +198,10 @@ region_enabled = true
 region_rect = Rect2(0, 16, 48, 16)
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_i11jr")
 
 [node name="HitboxArea" parent="." index="3"]
 damage = 2
-
-[node name="Collision" parent="HitboxArea" index="0"]
-position = Vector2(0, 4)
 
 [node name="Animator" parent="." index="4"]
 autoplay = "idle"

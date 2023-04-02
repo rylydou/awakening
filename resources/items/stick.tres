@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemInfo" load_steps=2 format=3 uid="uid://bw44fsfoxidxd"]
+
+[ext_resource type="Script" path="res://scripts/resources/item_info.gd" id="1_pctvw"]
+
+[resource]
+script = ExtResource("1_pctvw")
+id = &"stick"
+name = "stick"
+item_icon_coords = Vector2i(1, 0)
+item_fx_region = Rect2i(0, 0, 3, 1)
+animation_name = &"sword_swing"
+animation_type = 1
+hitbox_damage = 2

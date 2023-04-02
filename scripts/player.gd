@@ -2,6 +2,9 @@ class_name Player extends Actor
 
 @export var action_buffer_ticks := 5
 
+var arrow: Node2D
+var boomerang: Node2D
+
 func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
 	Game.store.connect(_store)
@@ -12,6 +15,10 @@ func _fetch(ds: DataStore) -> void:
 	health = ds.fetch_int('health', base_health)
 	position = ds.fetch_vec2('position', position)
 	ds.pop_prefix()
+	
+	await get_tree().create_timer(.5).timeout
+	Camera.target_room()
+	Camera.center_camera()
 
 func _store(ds: DataStore) -> void:
 	ds.push_prefix('player')
@@ -19,10 +26,6 @@ func _store(ds: DataStore) -> void:
 	ds.store('health', health)
 	ds.store('position', position)
 	ds.pop_prefix()
-
-func _ready() -> void:
-	Camera.target_room()
-	Camera.center_camera()
 
 var input_move := Vector2.ZERO
 var input_action_buffer := 0
@@ -36,8 +39,8 @@ func _process(delta: float) -> void:
 	if Game.pause_locks > 0: return
 	if health <= 0: return
 	
-	input_move.x = Input.get_axis('move_left', 'move_right')
-	input_move.y = Input.get_axis('move_up', 'move_down')
+	input_move.x = sign(Input.get_axis('move_left', 'move_right'))
+	input_move.y = sign(Input.get_axis('move_up', 'move_down'))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Game.player_has_control: return
@@ -69,6 +72,8 @@ func update_direction_to_input() -> void:
 			direction = Vector2.DOWN*sign(input_move.y)
 		else:
 			direction = Vector2.RIGHT*sign(input_move.x)
+		
+		direction = input_move
 
 @export_group('Cheats')
 @export var teleport_shortcut: Shortcut

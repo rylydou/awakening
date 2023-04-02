@@ -13,14 +13,14 @@ func _ready() -> void:
 		return
 	
 	if Inventory.items.has(item_id):
-		print('remove')
 		queue_free()
 		return
 	var item_info := ItemDB.get_item(item_id)
-	%Sprite.region_rect.position = item_info.texture_coords*16.
+	%Sprite.region_rect.position = item_info.item_icon_coords*16.
 
 func _on_body_entered(body: Player) -> void:
 	if not Inventory.items.has(item_id):
+		SoundBank.play_ui('item_get')
 		Inventory.give_item(item_id)
 		queue_free()
 "
@@ -30,7 +30,7 @@ radius = 6.0
 
 [node name="ItemPickup" type="Area2D" groups=["respawn"]]
 collision_layer = 0
-collision_mask = 32
+collision_mask = 16
 script = SubResource("GDScript_rh4an")
 
 [node name="Sprite" type="Sprite2D" parent="."]

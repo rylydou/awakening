@@ -41,6 +41,8 @@ func _ready() -> void:
 		ds.save_to_disk()
 	
 	reload.call_deferred()
+	
+	get_window().move_to_foreground()
 
 func save() -> void:
 	print('GAME: Saving...')

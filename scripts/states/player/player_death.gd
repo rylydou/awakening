@@ -3,7 +3,6 @@ extends Node
 @export var sound := 'death'
 
 @onready var player: Player = owner
-@onready var my_animation_player: AnimationPlayer = $AnimationPlayer
 
 var damage_source: Node2D
 func enter(old_state: Node) -> void:
@@ -11,13 +10,12 @@ func enter(old_state: Node) -> void:
 	
 	player.animator.speed_scale = 1
 	player.animator.animation_finished.connect(func(anim_name: StringName): _on_anim_finish(), CONNECT_ONE_SHOT)
-	player.animator.play('death')
-	print('player died')
+	player.animator.play_anim('death', Animator.AnimationType.Single)
 	
 	player.collision_layer = 0
 	player.collision_mask = 0
 	
-	Input.start_joy_vibration(0, .4, .4, .5)
+	Input.start_joy_vibration(0, .3, .3, .5)
 
 func _on_anim_finish() -> void:
 	Game.player_died.emit()
