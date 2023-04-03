@@ -1,13 +1,20 @@
 class_name Player extends Actor
 
 @export var action_buffer_ticks := 5
+@export var hit_inv_time := 60
+@export var spawn_inv_time := 60
 
-var arrow: Node2D
-var boomerang: Node2D
+var inv_timer := 0
+
+var facing_direction := Vector2i.DOWN
 
 func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
 	Game.store.connect(_store)
+
+func _ready() -> void:
+	super._ready()
+	inv_timer = spawn_inv_time
 
 func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('player')
@@ -15,10 +22,6 @@ func _fetch(ds: DataStore) -> void:
 	health = ds.fetch_int('health', base_health)
 	position = ds.fetch_vec2('position', position)
 	ds.pop_prefix()
-	
-	await get_tree().create_timer(.5).timeout
-	Camera.target_room()
-	Camera.center_camera()
 
 func _store(ds: DataStore) -> void:
 	ds.push_prefix('player')
@@ -41,6 +44,7 @@ func _process(delta: float) -> void:
 	
 	input_move.x = sign(Input.get_axis('move_left', 'move_right'))
 	input_move.y = sign(Input.get_axis('move_up', 'move_down'))
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Game.player_has_control: return
@@ -69,11 +73,23 @@ func update_direction_to_input() -> void:
 	# favor the direction you are inputting on controller -or- prefer vertical on arrow keys or d-pad
 	if input_move != Vector2.ZERO:
 		if abs(input_move.y) >= abs(input_move.x):
-			direction = Vector2.DOWN*sign(input_move.y)
+			facing_direction = Vector2.DOWN*sign(input_move.y)
 		else:
-			direction = Vector2.RIGHT*sign(input_move.x)
+			facing_direction = Vector2.RIGHT*sign(input_move.x)
 		
-		direction = input_move
+		direction = input_move.normalized()
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	inv_timer -= 1
+
+func take_damage(damage: int, source: Node) -> bool:
+	if inv_timer > 0:
+		return false
+	var took_damage := super.take_damage(damage, source)
+	if took_damage:
+		inv_timer = hit_inv_time
+	return took_damage
 
 @export_group('Cheats')
 @export var teleport_shortcut: Shortcut

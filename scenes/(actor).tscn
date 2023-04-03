@@ -61,21 +61,20 @@ shader_parameter/flash_color = Color(1, 1, 1, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gu85"]
 radius = 6.0
 
-[node name="Actor" type="CharacterBody2D" node_paths=PackedStringArray("hurt_state", "death_state")]
+[node name="Actor" type="CharacterBody2D"]
 collision_layer = 16
 motion_mode = 1
 script = ExtResource("1_8qrvn")
-hurt_state = NodePath("StateMachine/Hurt")
-death_state = NodePath("StateMachine/Death")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("base_state")]
+[node name="StateMachine" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_b3mb6")
-base_state = NodePath("Base")
 
 [node name="Base" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
 
 [node name="Hurt" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
 script = ExtResource("3_8sgwc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Hurt"]
@@ -86,6 +85,7 @@ libraries = {
 }
 
 [node name="Death" type="Node" parent="StateMachine"]
+unique_name_in_owner = true
 script = ExtResource("4_oq8wa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Death"]

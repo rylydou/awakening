@@ -8,9 +8,8 @@ signal damaged()
 @export var base_health := 1
 @onready var health := base_health
 
-@export var hurt_state: Node
-@export var death_state: Node
-
+@onready var hurt_state: Node = %Hurt
+@onready var death_state: Node = %Death
 @onready var state_machine: StateMachine = %StateMachine
 @onready var animator: Animator = %Animator
 

@@ -20,7 +20,9 @@ func enter(old_state: Node) -> void:
 	actor.collision_layer = 0
 	actor.collision_mask = 0
 	
-	propagate_call('trigger')
+	for child in get_children():
+		if child.has_method('trigger'):
+			child.call('trigger')
 
 func run(delta: float) -> void:
 	actor.position += knockback_direction*knockback_speed*delta

@@ -9,7 +9,7 @@ func _ready() -> void:
 	_on_room_entered(Camera.room_coords)
 
 func _on_room_entered(coords: Vector2i) -> void:
-	get_tree().call_group('respawn', 'queue_free')
+	get_tree().call_group('despawn', 'queue_free')
 	
 	var room_string := str(coords.x, ' ', coords.y)
 	var room_node := find_child(room_string) as Node
@@ -19,4 +19,5 @@ func _on_room_entered(coords: Vector2i) -> void:
 	
 	for child in room_node.get_children():
 		if child is InstancePlaceholder:
-			child.create_instance()
+			var inst := child.create_instance() as Node2D
+			inst.add_to_group('despawn')

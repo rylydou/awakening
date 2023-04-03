@@ -18,7 +18,6 @@ func get_spec_node(item_info: ItemInfo) -> Node:
 	
 	var script := item_info.item_specifics_script
 	if is_instance_valid(script):
-		print('creating new item specfics for %s' % item_id)
 		spec_node = Node.new()
 		spec_node.set_script(script)
 		add_child(spec_node)

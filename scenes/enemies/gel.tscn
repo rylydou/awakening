@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://dymemwqaa8jgh"]
+[gd_scene load_steps=22 format=3 uid="uid://dlyjg3d5c00se"]
 
-[ext_resource type="PackedScene" uid="uid://w2j5qimfkrwq" path="res://scenes/(enemy).tscn" id="1_ih21a"]
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_ih21a"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
 [ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_i2yck"]
-[ext_resource type="Script" path="res://scripts/parts/drop_loottable.gd" id="3_c75vo"]
 [ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="3_ii1nu"]
 [ext_resource type="Script" path="res://scripts/ai/forever_loop.gd" id="3_sbjvo"]
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/minor_enemies.png" id="3_sshkn"]
@@ -184,9 +183,6 @@ script = ExtResource("8_426lb")
 [node name="Wait" type="Timer" parent="StateMachine/Base/Roam/Random" index="0"]
 script = ExtResource("4_gqt4d")
 duration = 20
-
-[node name="Drop" type="Node" parent="StateMachine/Death" index="1"]
-script = ExtResource("3_c75vo")
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")

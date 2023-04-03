@@ -35,7 +35,6 @@ func attack_node(node: Node2D, damage: int = -1) -> bool:
 	
 	var did_attack := node.call('take_damage', damage, owner) as bool
 	if did_attack:
-		
 		if stun_amount > 0 and node.has_method('apply_stun'):
 			var stunned := node.call('apply_stun', stun_amount) as bool
 		

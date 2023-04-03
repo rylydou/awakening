@@ -1,6 +1,6 @@
 class_name StateMachine extends Node
 
-@export var base_state: Node
+@onready var base_state: Node = %Base
 
 var state_override: Node
 

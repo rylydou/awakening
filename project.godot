@@ -29,7 +29,6 @@ Inventory="*res://scripts/autoloads/inventory.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 Camera="*res://scenes/autoloads/camera.tscn"
 Dialog="*res://scenes/autoloads/dialog.tscn"
-BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 
 [debug]
 
@@ -57,7 +56,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ActionIcon/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/beehave/plugin.cfg")
+enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ActionIcon/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg")
 
 [gui]
 

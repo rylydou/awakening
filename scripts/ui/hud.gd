@@ -2,8 +2,12 @@ extends Control
 
 @onready var life_display: IconStatus = %LifeDisplay
 @onready var inventory: GridContainer = %ItemGrid
+
 @onready var money_label: Label = %MoneyLabel
 @onready var deaths_label: Label = %DeathsLabel
+@onready var arrows_label: Label = %ArrowsLabel
+@onready var bombs_label: Label = %BombsLabel
+
 @onready var map_marker: Control = %MapMarker
 @onready var map_area_label: Label = %MapAreaLabel
 
@@ -23,6 +27,9 @@ func _process(delta: float) -> void:
 		life_display.max_value = Game.player.base_health
 	
 	money_label.text = str(Inventory.money)
+	arrows_label.text = str(Inventory.arrows)
+	bombs_label.text = str(Inventory.bombs)
+	
 	map_area_label.text = '%2s.%-2s' % [Camera.room_coords.x + 1, Camera.room_coords.y + 1]
 	map_marker.position = Camera.room_coords * 8
 

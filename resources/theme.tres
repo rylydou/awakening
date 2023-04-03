@@ -5,3 +5,4 @@
 [resource]
 default_font = ExtResource("1_gpenm")
 default_font_size = 6
+Label/constants/line_spacing = 0

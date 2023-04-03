@@ -296,15 +296,15 @@ layout_mode = 2
 [node name="Extra" type="HBoxContainer" parent="RightPanel/Top"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
 [node name="Money" type="HBoxContainer" parent="RightPanel/Top/Extra"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(22, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 2
 
-[node name="MoneySprite" type="NinePatchRect" parent="RightPanel/Top/Extra/Money"]
+[node name="Icon" type="NinePatchRect" parent="RightPanel/Top/Extra/Money"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -316,16 +316,18 @@ region_rect = Rect2(0, 16, 8, 8)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "1234"
-vertical_alignment = 1
+size_flags_vertical = 1
+text = "5000"
+vertical_alignment = 2
 
 [node name="Deaths" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+visible = false
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 2
 
-[node name="DeathsSprite" type="NinePatchRect" parent="RightPanel/Top/Extra/Deaths"]
+[node name="Icon" type="NinePatchRect" parent="RightPanel/Top/Extra/Deaths"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -339,6 +341,50 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "123"
 vertical_alignment = 1
+
+[node name="Arrows" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 2
+
+[node name="Icon" type="NinePatchRect" parent="RightPanel/Top/Extra/Arrows"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(16, 16, 8, 8)
+
+[node name="ArrowsLabel" type="Label" parent="RightPanel/Top/Extra/Arrows"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "10"
+vertical_alignment = 2
+
+[node name="Bombs" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 2
+
+[node name="Icon" type="NinePatchRect" parent="RightPanel/Top/Extra/Bombs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_0ony4")
+region_rect = Rect2(24, 16, 8, 8)
+
+[node name="BombsLabel" type="Label" parent="RightPanel/Top/Extra/Bombs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "10"
+vertical_alignment = 2
 
 [node name="Cursor" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
