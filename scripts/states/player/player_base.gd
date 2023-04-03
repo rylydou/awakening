@@ -1,6 +1,6 @@
 extends Node
 
-@export var speed := 64.
+@export var speed := 4.
 
 @export var item_state: Node
 
@@ -14,7 +14,7 @@ func run(delta: float) -> void:
 	player.animator.play_anim('walk', Animator.AnimationType.FourDirectional)
 	player.animator.speed_scale = 1 if player.input_move.length_squared() > 0 else 0
 	
-	player.velocity = player.input_move.normalized()*speed
+	player.velocity = player.input_move.normalized()*speed*16
 	player.move_and_slide()
 	
 	if player.input_action_buffer > 0:

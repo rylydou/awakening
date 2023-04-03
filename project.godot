@@ -56,7 +56,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ActionIcon/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg")
+enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/ActionIcon/plugin.cfg")
 
 [gui]
 
@@ -147,6 +147,7 @@ status={
 
 2d_physics/layer_1="Wall"
 2d_physics/layer_2="Low wall"
+2d_physics/layer_3="Floor"
 2d_physics/layer_4="Water"
 2d_physics/layer_5="Player"
 2d_physics/layer_6="Enemy"

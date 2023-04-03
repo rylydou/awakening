@@ -1,8 +1,12 @@
 class_name Player extends Actor
 
+@onready var fall_detector_area: Area2D = %FallDetectorArea
+@onready var floor_detector_area: Area2D = %FloorDetectorArea
+
 @export var action_buffer_ticks := 5
 @export var hit_inv_time := 60
 @export var spawn_inv_time := 60
+@export var respawn_inv_time := 30
 
 var inv_timer := 0
 
@@ -11,6 +15,8 @@ var facing_direction := Vector2i.DOWN
 func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
 	Game.store.connect(_store)
+	
+	Camera.room_entered.connect(func(room_coords: Vector2i): respawn_position = position)
 
 func _ready() -> void:
 	super._ready()
@@ -22,6 +28,8 @@ func _fetch(ds: DataStore) -> void:
 	health = ds.fetch_int('health', base_health)
 	position = ds.fetch_vec2('position', position)
 	ds.pop_prefix()
+	
+	respawn_position = position
 
 func _store(ds: DataStore) -> void:
 	ds.push_prefix('player')
@@ -29,6 +37,11 @@ func _store(ds: DataStore) -> void:
 	ds.store('health', health)
 	ds.store('position', position)
 	ds.pop_prefix()
+
+var respawn_position := Vector2.ZERO
+func respawn() -> void:
+	position = respawn_position
+	inv_timer = respawn_inv_time
 
 var input_move := Vector2.ZERO
 var input_action_buffer := 0
@@ -82,6 +95,11 @@ func update_direction_to_input() -> void:
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	inv_timer -= 1
+	
+	var on_fall := fall_detector_area.has_overlapping_bodies()
+	var on_floor := floor_detector_area.has_overlapping_bodies()
+	if on_fall and not on_floor:
+		respawn()
 
 func take_damage(damage: int, source: Node) -> bool:
 	if inv_timer > 0:

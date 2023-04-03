@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bcpqis8idx1ks"]
+[gd_scene load_steps=41 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
@@ -9,8 +9,7 @@
 [ext_resource type="Script" path="res://scripts/states/player/player_death.gd" id="4_65juj"]
 [ext_resource type="Script" path="res://scripts/states/player/player_item.gd" id="4_y850i"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
-[ext_resource type="Texture2D" uid="uid://cvdwv8whw4chk" path="res://content/sprites/item_fx.png" id="7_ebxdd"]
-[ext_resource type="AudioStream" uid="uid://dt7vvp1ofaifr" path="res://content/sounds/swing.wav" id="9_tc4nq"]
+[ext_resource type="Texture2D" uid="uid://cvdwv8whw4chk" path="res://content/sprites/item_fx.png" id="7_qi6ch"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_pnby4"]
 device = -1
@@ -398,7 +397,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("9_tc4nq")
+"stream": null
 }],
 "times": PackedFloat32Array(0)
 }
@@ -525,7 +524,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("9_tc4nq")
+"stream": null
 }],
 "times": PackedFloat32Array(-0.0333334)
 }
@@ -652,7 +651,7 @@ tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("9_tc4nq")
+"stream": null
 }],
 "times": PackedFloat32Array(0)
 }
@@ -994,13 +993,20 @@ _data = {
 "walk_south": SubResource("Animation_3wsm6")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ik47u"]
+radius = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r31wo"]
+size = Vector2(12, 6)
+
 [node name="Player" instance=ExtResource("1_cduph")]
 collision_layer = 2576
-collision_mask = 11
+collision_mask = 3
 script = ExtResource("1_x33y1")
 action_buffer_ticks = 5
 hit_inv_time = 60
 spawn_inv_time = 60
+respawn_inv_time = 30
 teleport_shortcut = SubResource("Shortcut_n0007")
 noclip_shortcut = SubResource("Shortcut_vaytf")
 heal_shortcut = SubResource("Shortcut_3ixg3")
@@ -1025,9 +1031,7 @@ script = ExtResource("4_y850i")
 [node name="ItemSprite" type="Sprite2D" parent="Flip" index="0"]
 unique_name_in_owner = true
 visible = false
-texture = ExtResource("7_ebxdd")
-hframes = 4
-frame = 1
+texture = ExtResource("7_qi6ch")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 16)
 
@@ -1065,3 +1069,22 @@ libraries = {
 unique_name_in_owner = true
 target_position = Vector2(0, 16)
 collision_mask = 128
+
+[node name="FallDetectorArea" type="Area2D" parent="." index="5"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
+
+[node name="Collision" type="CollisionShape2D" parent="FallDetectorArea" index="0"]
+shape = SubResource("CircleShape2D_ik47u")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="FloorDetectorArea" type="Area2D" parent="." index="6"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collision" type="CollisionShape2D" parent="FloorDetectorArea" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_r31wo")
+debug_color = Color(1, 1, 0, 0)
