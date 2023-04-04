@@ -1,20 +1,55 @@
-class_name Lillypad extends StaticBody2D
+class_name Lillypad extends PathFollow2D
 
-@onready var sprite: Sprite2D = %Sprite
+enum State {
+	RunningOnTrack,
+	AtEndOfTrack,
+	Free,
+}
 
-@export var speed := 2
+@export var speed := 1.
 
 @export var wave_amp := 1.
 @export var wave_rate := 1.
 @export var wave_offset := 0.
 
-var age: float
-func _process(delta: float) -> void:
-	var wave = sin(age*wave_rate*2*PI)*wave_amp+wave_offset
-	var player_on_top: bool = Game.player.position.distance_squared_to(global_position) <= 20*20
-	sprite.offset.y = 0 if player_on_top else wave
-	
-	age += delta
+@export var sprite: Sprite2D
 
+var state := State.RunningOnTrack
+var state_timer := 0
+
+var is_player_riding := false
+
+@onready var previous_position: Vector2 = global_position
 func _physics_process(delta: float) -> void:
-	position += Vector2.RIGHT*speed*delta
+	var is_player_riding := false
+	if is_instance_valid(Game.player):
+		is_player_riding = Game.player.position.distance_squared_to(global_position) <= 20*20
+	
+	sprite.offset.y = 0 if is_player_riding else 1
+	
+	state_timer += 1
+	
+	match state:
+		State.RunningOnTrack:
+			progress += speed*16*delta
+			if progress_ratio >= 1:
+				state = State.AtEndOfTrack
+				state_timer = 0
+				return
+		State.AtEndOfTrack:
+			modulate.a = 1. if state_timer%2 == 0 else .5
+			if state_timer > 60:
+				queue_free()
+				return
+		State.Free:
+			if is_player_riding:
+				state_timer = 0
+			modulate.a = 1. if state_timer%2 == 0 else .5
+			if state_timer > 60:
+				queue_free()
+				return
+	
+	var motion := global_position - previous_position
+	if is_player_riding:
+		Game.player.position += motion
+	previous_position = global_position

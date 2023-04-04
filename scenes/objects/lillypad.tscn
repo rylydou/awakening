@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk45b1m06gja8"]
 
 [ext_resource type="Script" path="res://scripts/objects/lillypad.gd" id="1_771eo"]
-[ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="2_q1wfg"]
+[ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="2_llt35"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u5n5c"]
 radius = 20.0
@@ -14,7 +14,7 @@ wave_offset = -1.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("2_q1wfg")
+texture = ExtResource("2_llt35")
 region_rect = Rect2(24, 24, 40, 40)
 
 [node name="Collision" type="CollisionShape2D" parent="."]

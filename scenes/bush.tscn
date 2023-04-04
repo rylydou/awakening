@@ -5,7 +5,7 @@
 [sub_resource type="GDScript" id="GDScript_2w6xl"]
 script/source = "extends StaticBody2D
 
-func take_damage(damage: int, source: Node) -> bool:
+func take_attack(damage: int, source: Node) -> bool:
 	SoundBank.play('low_thud', global_position)
 	queue_free()
 	return true

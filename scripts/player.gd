@@ -3,10 +3,13 @@ class_name Player extends Actor
 @onready var fall_detector_area: Area2D = %FallDetectorArea
 @onready var floor_detector_area: Area2D = %FloorDetectorArea
 
-@export var action_buffer_ticks := 5
+@export var fall_damage := 1
+
 @export var hit_inv_time := 60
 @export var spawn_inv_time := 60
 @export var respawn_inv_time := 30
+
+@export var action_buffer_ticks := 5
 
 var inv_timer := 0
 
@@ -57,7 +60,6 @@ func _process(delta: float) -> void:
 	
 	input_move.x = sign(Input.get_axis('move_left', 'move_right'))
 	input_move.y = sign(Input.get_axis('move_up', 'move_down'))
-	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Game.player_has_control: return
@@ -100,9 +102,10 @@ func _physics_process(delta: float) -> void:
 	var on_floor := floor_detector_area.has_overlapping_bodies()
 	if on_fall and not on_floor:
 		respawn()
+		take_damage(fall_damage, self)
 
 func take_damage(damage: int, source: Node) -> bool:
-	if inv_timer > 0:
+	if inv_timer > 0 and source != self:
 		return false
 	var took_damage := super.take_damage(damage, source)
 	if took_damage:

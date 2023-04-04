@@ -22,6 +22,8 @@ func _physics_process(delta: float) -> void:
 	state_machine.run(delta)
 
 func take_damage(damage: int, source: Node) -> bool:
+	if health <= 0: return false
+	
 	var state := state_machine.get_state()
 	
 	if state.has_method('take_damage'):
@@ -34,14 +36,17 @@ func take_damage(damage: int, source: Node) -> bool:
 	
 	health -= damage
 	if health <= 0:
-		died.emit()
-		death_state.damage_source = source
-		state_machine.enter_state(death_state)
+		die(source)
 		return true
 	
 	hurt_state.damage_source = source
 	state_machine.enter_state(hurt_state)
 	return true
+
+func die(source: Node) -> void:
+	died.emit()
+	death_state.damage_source = source
+	state_machine.enter_state(death_state)
 
 func play_sound(sound_name: StringName) -> void:
 	SoundBank.play(sound_name + '.' + id, global_position)

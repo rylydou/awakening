@@ -997,7 +997,7 @@ _data = {
 radius = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r31wo"]
-size = Vector2(12, 6)
+size = Vector2(10, 5)
 
 [node name="Player" instance=ExtResource("1_cduph")]
 collision_layer = 2576
@@ -1006,6 +1006,7 @@ script = ExtResource("1_x33y1")
 action_buffer_ticks = 5
 hit_inv_time = 60
 spawn_inv_time = 60
+fall_damage = 2
 respawn_inv_time = 30
 teleport_shortcut = SubResource("Shortcut_n0007")
 noclip_shortcut = SubResource("Shortcut_vaytf")
@@ -1085,6 +1086,6 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="FloorDetectorArea" index="0"]
-position = Vector2(0, 2)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_r31wo")
 debug_color = Color(1, 1, 0, 0)

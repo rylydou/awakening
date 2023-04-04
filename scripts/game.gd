@@ -51,14 +51,15 @@ func save() -> void:
 
 func reload() -> void:
 	print('GAME: Reloading...')
-	if is_instance_valid(player):
-		get_tree().root.remove_child(player)
-		player.queue_free()
-		player = null
 	
 	randomize()
 	ds.load_from_cache()
 	get_tree().reload_current_scene()
+	
+	if is_instance_valid(player):
+		get_tree().root.remove_child(player)
+		player.queue_free()
+		player = null
 	
 	await get_tree().process_frame
 	

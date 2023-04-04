@@ -2,6 +2,13 @@ extends Actor
 
 var stun_timer := 0
 
+func _ready() -> void:
+	if Game.player.position.distance_squared_to(global_position) < 48*48:
+		queue_free()
+		return
+	super._ready()
+	
+
 var was_stunned := false
 func _physics_process(delta: float) -> void:
 	var is_stunned := stun_timer > 0
