@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cohg3y5hfikcs"]
+[gd_scene load_steps=8 format=3 uid="uid://by0o1hef21cob"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
-[ext_resource type="TileSet" uid="uid://c7p0xlu85mn0j" path="res://resources/tilesets/overworld.tres" id="1_kxelo"]
+[ext_resource type="TileSet" path="res://resources/tileset.tres" id="2_wrhog"]
 [ext_resource type="Script" path="res://scripts/objects/spawner.gd" id="3_4qpcs"]
 [ext_resource type="Script" path="res://scripts/objects/lillypad.gd" id="4_wors5"]
 [ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="5_eht1t"]
@@ -25,7 +25,7 @@ metadata/_edit_vertical_guides_ = [0.0, 1056.0]
 [node name="TileMap" type="TileMap" parent="."]
 unique_name_in_owner = true
 z_index = -1
-tile_set = ExtResource("1_kxelo")
+tile_set = ExtResource("2_wrhog")
 cell_quadrant_size = 11
 format = 2
 layer_0/name = "Terrain"

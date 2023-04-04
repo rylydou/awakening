@@ -10,7 +10,9 @@ var damage_source: Node2D
 var knockback_direction := Vector2.UP 
 
 func enter(old_state: Node) -> void:
-	knockback_direction = damage_source.global_position.direction_to(actor.global_position)
+	knockback_direction = Vector2.ZERO
+	if is_instance_valid(damage_source):
+		knockback_direction = damage_source.global_position.direction_to(actor.global_position)
 	
 	actor.play_sound(sound)
 	

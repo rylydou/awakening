@@ -154,6 +154,7 @@ status={
 2d_physics/layer_8="Object"
 2d_physics/layer_9="Vulerable to player"
 2d_physics/layer_10="Vulerable to enemy"
+2d_physics/layer_11="Vulerable to explosions"
 2d_physics/layer_12="Vulerable to world"
 
 [rendering]

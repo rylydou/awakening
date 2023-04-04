@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://jcx4xauhw2p6"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/objects.png" id="1_xclyf"]
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_xclyf"]
 
 [sub_resource type="GDScript" id="GDScript_f6tfk"]
 script/source = "extends StaticBody2D

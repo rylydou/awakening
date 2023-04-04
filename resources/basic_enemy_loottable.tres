@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cqgsmnlac1vte"]
-
-[ext_resource type="Script" path="res://scripts/resources/basic_loottable.gd" id="1_hn063"]
-
-[resource]
-script = ExtResource("1_hn063")
