@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
 [ext_resource type="PackedScene" uid="uid://bcpqis8idx1ks" path="res://scenes/player.tscn" id="2_td16x"]
 [ext_resource type="PackedScene" uid="uid://bgtveoe8d3x38" path="res://scenes/ui/hud.tscn" id="3_4w1cd"]
-[ext_resource type="PackedScene" uid="uid://cohg3y5hfikcs" path="res://scenes/map.tscn" id="3_ccu3q"]
+[ext_resource type="PackedScene" uid="uid://by0o1hef21cob" path="res://scenes/map.tscn" id="3_ccu3q"]
 [ext_resource type="Script" path="res://scripts/cheats.gd" id="5_yjp1d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ap3yk"]

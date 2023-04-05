@@ -9,6 +9,7 @@ id = &"boomerang"
 name = "boomerang"
 item_icon_coords = Vector2i(0, 1)
 item_fx_region = Rect2i(0, 0, 1, 1)
+sound_effect_name = &"swing_hollow"
 animation_name = &"throw"
 animation_type = 2
 hitbox_damage = 0

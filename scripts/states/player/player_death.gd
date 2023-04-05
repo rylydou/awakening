@@ -15,7 +15,7 @@ func enter(old_state: Node) -> void:
 	player.collision_layer = 0
 	player.collision_mask = 0
 	
-	Input.start_joy_vibration(0, .3, .3, .5)
+	Input.start_joy_vibration(0, .2, .2, .5)
 
 func _on_anim_finish() -> void:
 	Game.player_died.emit()

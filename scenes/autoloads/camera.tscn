@@ -6,6 +6,7 @@
 process_mode = 3
 top_level = true
 script = ExtResource("1_qramg")
+camera_speed = 32.0
 
 [node name="AudioListener" type="AudioListener2D" parent="."]
 current = true

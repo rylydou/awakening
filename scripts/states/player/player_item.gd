@@ -56,6 +56,9 @@ func enter(old_state: Node) -> void:
 	item_hitbox.damage = item_info.hitbox_damage
 	item_hitbox.forget_hits()
 	
+	if not item_info.sound_effect_name.is_empty():
+		SoundBank.play(item_info.sound_effect_name, player.position)
+	
 	player.animator.speed_scale = 1
 	player.animator.play('RESET')
 	player.animator.animation_finished.connect(_on_anim_finish, CONNECT_ONE_SHOT)

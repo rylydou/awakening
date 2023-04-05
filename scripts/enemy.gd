@@ -7,7 +7,6 @@ func _ready() -> void:
 		queue_free()
 		return
 	super._ready()
-	
 
 var was_stunned := false
 func _physics_process(delta: float) -> void:

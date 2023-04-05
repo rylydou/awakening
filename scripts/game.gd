@@ -18,9 +18,6 @@ func _enter_tree() -> void:
 	player_died.connect(_on_player_died)
 
 func _ready() -> void:
-	# load map
-	get_tree().change_scene_to_packed(map_scene)
-	
 	ds.format = DataStore.Format.TextFile
 	ds.path = 'user://save%s.json' % [save_index + 1]
 	ds.load_from_disk()
@@ -51,11 +48,14 @@ func save() -> void:
 
 func reload() -> void:
 	print('GAME: Reloading...')
-	
 	randomize()
-	ds.load_from_cache()
-	get_tree().reload_current_scene()
+	player_has_control = false
 	
+	# unload map
+	ds.load_from_cache()
+	get_tree().unload_current_scene()
+	
+	# unload player
 	if is_instance_valid(player):
 		get_tree().root.remove_child(player)
 		player.queue_free()
@@ -65,17 +65,19 @@ func reload() -> void:
 	
 	# spawn player
 	player = player_scene.instantiate() as Player
-	var start_marker := get_tree().current_scene.find_child('Start') as Marker2D
-	if is_instance_valid(start_marker):
-		player.position = start_marker.global_position
 	get_tree().root.add_child(player)
+	
+	# load level
+	get_tree().change_scene_to_packed(map_scene)
 	
 	fetch.emit(ds)
 	
-	Camera.target_room()
-	Camera.center_camera()
-	
 	player_has_control = true
+	
+	get_tree().create_timer(.25).timeout.connect(func():
+		Camera.target_room()
+		Camera.center_camera()
+	)
 
 func _on_player_died() -> void:
 	print('GAME: Player died!')

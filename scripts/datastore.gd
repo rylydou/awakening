@@ -30,7 +30,7 @@ func _update_prefix_str():
 	prefix_str = prefix_str.join(prefixes)
 
 func has(key: StringName) -> bool:
-	return _data.has(key)
+	return _data.has(prefix_str + key)
 
 func store(key: StringName, value: Variant) -> void:
 	_data[prefix_str + key] = value
@@ -40,7 +40,7 @@ func store_rng(key: StringName, value: RandomNumberGenerator) -> void:
 
 func fetch(key: StringName, default: Variant = null) -> Variant:
 	key = prefix_str + key
-	if has(key):
+	if _data.has(key):
 		return _data[key]
 	_data[key] = default
 	return default

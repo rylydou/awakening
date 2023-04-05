@@ -9,6 +9,7 @@ id = &"bow"
 name = "bow"
 item_icon_coords = Vector2i(1, 1)
 item_fx_region = Rect2i(0, 0, 1, 1)
+sound_effect_name = &"swing2"
 animation_name = &"throw"
 animation_type = 1
 hitbox_damage = 0

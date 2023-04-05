@@ -2,16 +2,14 @@ extends Camera2D
 
 signal room_entered(room_coords: Vector2i)
 
+@export var camera_speed := 24.
+
 var target := Vector2.ZERO
 var room_coords := Vector2i.ZERO
 var last_room_corrds := Vector2i(-42069, -42069)
 
-func _ready() -> void:
-	target_room()
-	center_camera()
-
 func _process(delta: float) -> void:
-	position = position.move_toward(target, 320*delta)
+	position = position.move_toward(target, camera_speed*16*delta)
 
 func _physics_process(delta: float) -> void:
 	target_room()

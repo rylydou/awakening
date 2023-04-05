@@ -21,18 +21,18 @@ func _enter_tree() -> void:
 	
 	Camera.room_entered.connect(func(room_coords: Vector2i): respawn_position = position)
 
-func _ready() -> void:
-	super._ready()
-	inv_timer = spawn_inv_time
-
 func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('player')
 	base_health = ds.fetch_int('max_health', base_health)
 	health = ds.fetch_int('health', base_health)
-	position = ds.fetch_vec2('position', position)
+	if ds.has('position'):
+		position = ds.fetch_vec2('position')
+	else:
+		position = get_tree().current_scene.find_child('Start').position
 	ds.pop_prefix()
 	
 	respawn_position = position
+	inv_timer = spawn_inv_time
 
 func _store(ds: DataStore) -> void:
 	ds.push_prefix('player')

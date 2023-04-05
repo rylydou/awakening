@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://da2j5yr3dmrdt"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_ioeuk"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_dypdx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hfyvx"]
+resource_local_to_scene = true
+shader = ExtResource("2_dypdx")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[node name="Shooter" instance=ExtResource("1_ioeuk")]
+id = "shooter"
+base_health = 4
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_hfyvx")

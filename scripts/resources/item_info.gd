@@ -5,7 +5,7 @@ class_name ItemInfo extends Resource
 @export var item_icon_coords := Vector2i(1, 0)
 
 @export var item_fx_region := Rect2i(0, 0, 1, 1)
-#@export var item_fx_frame_count := 1
+@export var sound_effect_name := &''
 
 @export var animation_name: StringName
 @export var animation_type: Animator.AnimationType = Animator.AnimationType.FourDirectional
