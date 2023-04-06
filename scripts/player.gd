@@ -19,15 +19,17 @@ func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
 	Game.store.connect(_store)
 	
-	Camera.room_entered.connect(func(room_coords: Vector2i): respawn_position = position)
+	#Camera.room_entered.connect(func(room_coords: Vector2i): respawn_position = position)
 
 func _fetch(ds: DataStore) -> void:
 	ds.push_prefix('player')
-	base_health = ds.fetch_int('max_health', base_health)
-	health = ds.fetch_int('health', base_health)
+	base_health = ds.fetch('max_health', base_health)
+	health = ds.fetch('health', base_health)
 	if ds.has('position'):
-		position = ds.fetch_vec2('position')
+		print(ds.fetch('position'))
+		position = ds.fetch('position')
 	else:
+		print('start')
 		position = get_tree().current_scene.find_child('Start').position
 	ds.pop_prefix()
 	
@@ -103,6 +105,9 @@ func _physics_process(delta: float) -> void:
 	if on_fall and not on_floor:
 		respawn()
 		take_damage(fall_damage, self)
+	
+	if on_floor and not on_fall:
+		respawn_position = position
 
 func take_damage(damage: int, source: Node) -> bool:
 	if inv_timer > 0 and source != self:
@@ -118,6 +123,8 @@ func take_damage(damage: int, source: Node) -> bool:
 @export var heal_shortcut: Shortcut
 @export var hurt_shortcut: Shortcut
 @export var kill_shortcut: Shortcut
+@export var quicksave_shortcut: Shortcut
+@export var quickload_shortcut: Shortcut
 func _shortcut_input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if not event.is_pressed(): return
@@ -150,4 +157,17 @@ func _shortcut_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Kill')
 		take_damage(health, self)
+		return
+	
+	if quicksave_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Quicksave')
+		_store(Game.ds)
+		return
+	
+	if quickload_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Quickload')
+		_fetch(Game.ds)
+		Game.ds.save_to_cache()
 		return

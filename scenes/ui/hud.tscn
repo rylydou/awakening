@@ -38,7 +38,7 @@ theme = ExtResource("1_xasgv")
 script = ExtResource("2_a7mki")
 
 [node name="LeftPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(72, 0)
+custom_minimum_size = Vector2(74, 0)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -158,7 +158,7 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="RightPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(72, 0)
+custom_minimum_size = Vector2(74, 0)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -385,6 +385,27 @@ size_flags_horizontal = 4
 size_flags_vertical = 1
 text = "10"
 vertical_alignment = 2
+
+[node name="TopBorder" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BottomBorder" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
 
 [node name="Cursor" type="NinePatchRect" parent="."]
 unique_name_in_owner = true

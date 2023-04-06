@@ -5,24 +5,26 @@
 [sub_resource type="GDScript" id="GDScript_rh4an"]
 script/source = "extends Area2D
 
-@export var item_id: StringName
+@export var item: Item
+@export var there_can_only_be_one := true
 
 func _ready() -> void:
-	if item_id.is_empty():
+	if not is_instance_valid(item):
 		printerr('ITEM PICKUP: You fogot to assign an item')
 		return
 	
-	#if Inventory.items.has(item_id):
-	#	queue_free()
-	#	return
-	var item_info := ItemDB.get_item(item_id)
-	%Sprite.region_rect.position = item_info.item_icon_coords*16.
+	if there_can_only_be_one and Inventory.items.has(item.id):
+		queue_free()
+		return
+	
+	%Sprite.region_rect.position = item.item_icon_coords*16.
 
 func _on_body_entered(body: Player) -> void:
-	if not Inventory.items.has(item_id):
-		SoundBank.play_ui('item_get')
-		Inventory.give_item(item_id)
-		queue_free()
+	if there_can_only_be_one and not Inventory.items.has(item.id): return
+	
+	SoundBank.play_ui('item_get')
+	Inventory.give_item(item.id)
+	queue_free()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2k3ef"]

@@ -8,10 +8,10 @@ enum StatusCode {
 	Error_OutOfDate,
 }
 
-const VERSION_KEY := '__version__'
+const VERSION_KEY := '__VERSION__'
 const CURRENT_VERSION := 1
 static func fix(ds: DataStore) -> StatusCode:
-	var data_version := ds.fetch_int(VERSION_KEY, 0)
+	var data_version := ds.fetch(VERSION_KEY, 0) as int
 	
 	if data_version > CURRENT_VERSION: return StatusCode.Error_OutOfDate
 	
@@ -21,7 +21,7 @@ static func fix(ds: DataStore) -> StatusCode:
 	# TODO: Upgrade data
 	elif data_version != CURRENT_VERSION:
 		for version in range(data_version, CURRENT_VERSION):
-			print('TODO: upgrade from data from version %s to %s' % [version, version + 1])
+			print('TODO: Upgrade from data from version %s to %s' % [version, version + 1])
 	
 	ds.store(VERSION_KEY, CURRENT_VERSION)
 	

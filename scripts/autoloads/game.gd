@@ -70,6 +70,8 @@ func reload() -> void:
 	# load level
 	get_tree().change_scene_to_packed(map_scene)
 	
+	await get_tree().process_frame
+	
 	fetch.emit(ds)
 	
 	player_has_control = true

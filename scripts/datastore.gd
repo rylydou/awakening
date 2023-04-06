@@ -35,9 +35,6 @@ func has(key: StringName) -> bool:
 func store(key: StringName, value: Variant) -> void:
 	_data[prefix_str + key] = value
 
-func store_rng(key: StringName, value: RandomNumberGenerator) -> void:
-	store(key, [value.seed, value.state])
-
 func fetch(key: StringName, default: Variant = null) -> Variant:
 	key = prefix_str + key
 	if _data.has(key):
@@ -45,22 +42,28 @@ func fetch(key: StringName, default: Variant = null) -> Variant:
 	_data[key] = default
 	return default
 
-func fetch_int(key: StringName, default: int = 0) -> int:
-	return fetch(key, default) as int
+func store_rng(key: StringName, value: RandomNumberGenerator) -> void:
+	store(key, [value.seed, value.state])
 
-func fetch_float(key: StringName, default: float = 0.) -> float:
-	return fetch(key, default) as float
-
-func fetch_str(key: StringName, default: String = '') -> String:
-	return fetch(key, default) as String
-
-func fetch_vec2(key: StringName, default: Vector2 = Vector2.ZERO) -> Vector2:
-	return fetch(key, default) as Vector2
-	
 func fetch_rng(key: StringName, rng: RandomNumberGenerator, default_seed := randi()) -> void:
 	var arr = fetch(key, [default_seed, 0])
+	assert(arr.size() == 2)
 	rng.seed = arr[0]
 	rng.state = arr[1]
+
+func fetch_flags(key: StringName) -> Dictionary:
+	var flag_arr := fetch(key, []) as Array
+	var flags := {}
+	for flag in flag_arr:
+		flags[flag] = true
+	return flags
+
+func store_flags(key: StringName, flags: Dictionary) -> void:
+	var flag_arr := []
+	for flag_name in flags:
+		if not flags[flag_name]: continue
+		flag_arr.append(flag_name)
+	store(key, flag_arr)
 
 func save_to_disk() -> void:
 	save_to_cache()

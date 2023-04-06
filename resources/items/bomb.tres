@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="ItemInfo" load_steps=3 format=3 uid="uid://d2vux62gth70a"]
+[gd_resource type="Resource" script_class="ItemInfo" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/item_specifics/bomb.gd" id="1_odoi1"]
-[ext_resource type="Script" path="res://scripts/resources/item_info.gd" id="2_nh1g3"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_nh1g3"]
 
 [resource]
 script = ExtResource("2_nh1g3")

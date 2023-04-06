@@ -68,5 +68,5 @@ func _input(event: InputEvent) -> void:
 
 func _on_item_dialog_file_selected(path: String) -> void:
 	print('CHEAT: Giving %s' % path)
-	var resource := load(path.trim_suffix('.remap')) as ItemInfo
+	var resource := load(path.trim_suffix('.remap')) as Item
 	Inventory.give_item(resource.id)

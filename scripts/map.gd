@@ -1,9 +1,6 @@
 extends Node2D
 
-@onready var tilemap: TileMap = %TileMap
 @onready var rooms_node: Node2D = %Rooms
-
-const OBJ_LAYER_INDEX := 1
 
 func _ready() -> void:
 	Camera.room_entered.connect(_on_room_entered)

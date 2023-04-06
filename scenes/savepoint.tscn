@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://d0oewt2gpsq2y"]
 
 [ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_xclyf"]
 
@@ -22,7 +22,7 @@ script = SubResource("GDScript_f6tfk")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_xclyf")
 region_enabled = true
-region_rect = Rect2(16, 0, 16, 16)
+region_rect = Rect2(16, 16, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hxpav")

@@ -7,16 +7,16 @@ var _item_database: Dictionary = {}
 var item_count := -1
 
 # for type safe dictionary access
-func get_item(item_id: StringName) -> ItemInfo:
+func get_item(item_id: StringName) -> Item:
 	return _item_database[item_id]
 
-func get_item_by_index(index: int) -> ItemInfo:
+func get_item_by_index(index: int) -> Item:
 	return _item_database.values()[index]
 
 func get_item_ids() -> Array[StringName]:
 	return _item_database.keys()
 
-func get_items() -> Array[ItemInfo]:
+func get_items() -> Array[Item]:
 	return _item_database.values()
 
 func _ready() -> void:
@@ -26,7 +26,7 @@ func _ready() -> void:
 		file = file.trim_suffix('.remap')
 		
 		var item_path := ITEM_DIR + file
-		var item_data = load(item_path) as ItemInfo
+		var item_data = load(item_path) as Item
 		assert(item_data, 'item def could not be loaded')
 		
 		_item_database[item_data.id] = item_data

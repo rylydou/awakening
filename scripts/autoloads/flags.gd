@@ -7,10 +7,10 @@ func _enter_tree() -> void:
 	Game.store.connect(_store)
 
 func _fetch(ds: DataStore) -> void:
-	flags = ds.fetch('flags', {})
+	flags = ds.fetch_flags('flags')
 
 func _store(ds: DataStore) -> void:
-	ds.store('flags', flags)
+	ds.store_flags('flags', flags)
 
 func raise(flag_name: StringName) -> void:
 	flags[flag_name] = true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cct2pnf02effx"]
+
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_xp25s"]
+
+[sub_resource type="GDScript" id="GDScript_j8vw1"]
+script/source = "extends Area2D
+
+@onready var sprite: Sprite2D = %Sprite
+
+@export var flag_name := &''
+
+func _ready() -> void:
+	update()
+
+func _on_body_entered(player: Player) -> void:
+	Flags.raise(flag_name)
+	update()
+
+func update() -> void:
+	sprite.frame = 1 if Flags.has(flag_name) else 0
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wa166"]
+radius = 6.0
+
+[node name="FloorButton" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = SubResource("GDScript_j8vw1")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_xp25s")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 32, 32, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wa166")
+debug_color = Color(0, 0.596078, 0.701961, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

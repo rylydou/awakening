@@ -4,9 +4,9 @@ extends Node
 @export var invert := false
 
 func setup() -> bool:
-	prints('check', Flags.has(flag_name))
-	if Flags.has(flag_name) == invert: return false
-	print('passed')
+	if Flags.has(flag_name) == invert:
+		queue_free()
+		return false
 	
 	for child in get_children():
 		if child is InstancePlaceholder:

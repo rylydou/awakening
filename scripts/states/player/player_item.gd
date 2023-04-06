@@ -8,15 +8,15 @@ var is_active := false
 var index := -1
 
 var spec_nodes := {}
-func get_spec_node(item_info: ItemInfo) -> Node:
-	var item_id := item_info.id
+func get_spec_node(item: Item) -> Node:
+	var item_id := item.id
 	
 	if spec_nodes.has(item_id):
 		return spec_nodes[item_id]
 	
 	var spec_node: Node = null
 	
-	var script := item_info.item_specifics_script
+	var script := item.item_specifics_script
 	if is_instance_valid(script):
 		spec_node = Node.new()
 		spec_node.set_script(script)
@@ -37,8 +37,8 @@ func enter(old_state: Node) -> void:
 		finish()
 		return
 	
-	var item_info := ItemDB.get_item(item_id)
-	var spec_node := get_spec_node(item_info)
+	var item := ItemDB.get_item(item_id)
+	var spec_node := get_spec_node(item)
 	
 	var can_use := true
 	if spec_node and spec_node.has_method('check_use'):
@@ -49,21 +49,21 @@ func enter(old_state: Node) -> void:
 		player.play_sound('item_drop')
 		return
 	
-	item_sprite.region_rect.position = item_info.item_fx_region.position*16.
-	item_sprite.region_rect.size = item_info.item_fx_region.size*16.
-	item_sprite.hframes = item_info.item_fx_region.size.x
-	item_sprite.vframes = item_info.item_fx_region.size.y
-	item_hitbox.damage = item_info.hitbox_damage
+	item_sprite.region_rect.position = item.item_fx_region.position*16.
+	item_sprite.region_rect.size = item.item_fx_region.size*16.
+	item_sprite.hframes = item.item_fx_region.size.x
+	item_sprite.vframes = item.item_fx_region.size.y
+	item_hitbox.damage = item.hitbox_damage
 	item_hitbox.forget_hits()
 	
-	if not item_info.sound_effect_name.is_empty():
-		SoundBank.play(item_info.sound_effect_name, player.position)
+	if not item.sound_effect_name.is_empty():
+		SoundBank.play(item.sound_effect_name, player.position)
 	
 	player.animator.speed_scale = 1
 	player.animator.play('RESET')
 	player.animator.animation_finished.connect(_on_anim_finish, CONNECT_ONE_SHOT)
 	
-	var found_animation := player.animator.play_anim(item_info.animation_name, item_info.animation_type)
+	var found_animation := player.animator.play_anim(item.animation_name, item.animation_type)
 	
 	if not found_animation:
 		player.play_sound('error')

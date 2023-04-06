@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
 
 func _fetch(ds: DataStore) -> void:
-	deaths_label.text = str(ds.fetch_int('counter.deaths', 0))
+	deaths_label.text = str(ds.fetch('counter.deaths', 0))
 
 func _process(delta: float) -> void:
 	process_cursor(delta)

@@ -1,4 +1,4 @@
-class_name ItemInfo extends Resource
+class_name Item extends Resource
 
 @export var id := &''
 @export var name := ''

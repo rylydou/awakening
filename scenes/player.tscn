@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bcpqis8idx1ks"]
+[gd_scene load_steps=45 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
@@ -56,6 +56,25 @@ unicode = 75
 
 [sub_resource type="Shortcut" id="Shortcut_nllfq"]
 events = [SubResource("InputEventKey_n074e")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hd1cm"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 81
+unicode = 81
+
+[sub_resource type="Shortcut" id="Shortcut_f3kat"]
+events = [SubResource("InputEventKey_hd1cm")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_7koxb"]
+device = -1
+ctrl_pressed = true
+keycode = 81
+unicode = 113
+
+[sub_resource type="Shortcut" id="Shortcut_lqeei"]
+events = [SubResource("InputEventKey_7koxb")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3iva"]
 size = Vector2(14, 14)
@@ -986,6 +1005,8 @@ noclip_shortcut = SubResource("Shortcut_vaytf")
 heal_shortcut = SubResource("Shortcut_3ixg3")
 hurt_shortcut = SubResource("Shortcut_0c065")
 kill_shortcut = SubResource("Shortcut_nllfq")
+quicksave_shortcut = SubResource("Shortcut_f3kat")
+quickload_shortcut = SubResource("Shortcut_lqeei")
 id = "player"
 base_health = 12
 
