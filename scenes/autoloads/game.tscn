@@ -1,6 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://duyactqxcmrlp"]
+[gd_scene load_steps=24 format=3 uid="uid://c4y6751wy7ap3"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_qxq2h"]
+[ext_resource type="Script" path="res://scripts/autoloads/game.gd" id="1_7raoi"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
 [ext_resource type="PackedScene" uid="uid://bcpqis8idx1ks" path="res://scenes/player.tscn" id="2_td16x"]
 [ext_resource type="PackedScene" uid="uid://bgtveoe8d3x38" path="res://scenes/ui/hud.tscn" id="3_4w1cd"]
@@ -93,7 +93,7 @@ default_font_size = 18
 
 [node name="Game" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource("1_qxq2h")
+script = ExtResource("1_7raoi")
 player_scene = ExtResource("2_td16x")
 map_scene = ExtResource("3_ccu3q")
 

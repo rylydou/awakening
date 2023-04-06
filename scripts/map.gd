@@ -22,3 +22,7 @@ func _on_room_entered(coords: Vector2i) -> void:
 		if child is InstancePlaceholder:
 			var inst := child.create_instance() as Node2D
 			inst.add_to_group('despawn')
+			continue
+		
+		if child.has_method('setup'):
+			child.call('setup')

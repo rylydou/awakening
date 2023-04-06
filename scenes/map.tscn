@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://by0o1hef21cob"]
+[gd_scene load_steps=10 format=3 uid="uid://by0o1hef21cob"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
 [ext_resource type="TileSet" uid="uid://cympy4xvsauks" path="res://resources/tileset.tres" id="2_wrhog"]
+[ext_resource type="Script" path="res://scripts/objects/flag_check.gd" id="3_1xbac"]
 [ext_resource type="Script" path="res://scripts/objects/spawner.gd" id="3_4qpcs"]
 [ext_resource type="PackedScene" path="res://scenes/savepoint.tscn" id="3_gsght"]
 [ext_resource type="Script" path="res://scripts/objects/lillypad.gd" id="4_wors5"]
@@ -167,6 +168,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Savepoint" parent="Rooms/4 2" instance_placeholder="res://scenes/savepoint.tscn"]
 position = Vector2(135, 152)
+
+[node name="FlagCheck" type="Node2D" parent="Rooms/4 2"]
+script = ExtResource("3_1xbac")
+flag_name = &"test"
+
+[node name="Gel" parent="Rooms/4 2/FlagCheck" instance_placeholder="res://scenes/enemies/gel.tscn"]
+position = Vector2(23, 136)
 
 [node name="5 2" type="ReferenceRect" parent="Rooms"]
 offset_left = 880.0

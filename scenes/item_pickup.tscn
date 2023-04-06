@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://cr6yhkbxwvwc1"]
 
 [ext_resource type="Texture2D" uid="uid://djdovgc7165vt" path="res://content/sprites/item_icon.png" id="1_iew1p"]
 
@@ -12,9 +12,9 @@ func _ready() -> void:
 		printerr('ITEM PICKUP: You fogot to assign an item')
 		return
 	
-	if Inventory.items.has(item_id):
-		queue_free()
-		return
+	#if Inventory.items.has(item_id):
+	#	queue_free()
+	#	return
 	var item_info := ItemDB.get_item(item_id)
 	%Sprite.region_rect.position = item_info.item_icon_coords*16.
 
