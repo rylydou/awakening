@@ -32,7 +32,7 @@ func take_damage(damage: int, source: Node) -> bool:
 			damaged.emit()
 		return took_damage
 	
-	damaged.emit()
+	damaged.emit(damage, source)
 	
 	health -= damage
 	if health <= 0:

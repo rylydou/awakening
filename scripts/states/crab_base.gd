@@ -2,17 +2,28 @@ extends ForeverLoop
 
 @export var speed := 2.
 
-@onready var point_a: Vector2 = actor.global_position
-@onready var point_b: Vector2 = actor.marker.global_position
-@onready var target := point_b
+@onready var point_a: Vector2
+@onready var point_b: Vector2
+@onready var target: Vector2
 
 var is_angry := false
+var was_angry := false
 
 func _ready() -> void:
-	actor.damaged.connect(_damaged)
 	actor = owner
+	init()
+	
+	point_a = actor.global_position
+	point_b = actor.marker.global_position
+	target = point_b
+	actor.damaged.connect(_damaged)
 
 func run(delta: float) -> void:
+	if is_angry and not was_angry:
+		start()
+		was_angry = is_angry
+		return
+	
 	if is_angry:
 		tick(delta)
 		return

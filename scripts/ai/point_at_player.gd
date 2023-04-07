@@ -13,7 +13,7 @@ func start() -> bool:
 	
 	match angle_restrictions:
 		AngleRestrictions.CardinalOnly:
-			if direction.max_axis_index() == 0:
+			if abs(direction.x) >= abs(direction.y):
 				direction.x = sign(direction.x)
 				direction.y = 0
 			else:
