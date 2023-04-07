@@ -1,19 +1,19 @@
 class_name Actor extends CharacterBody2D
 
 signal died()
-signal damaged()
+signal damaged(damage: int, source: Node)
 
 @export_placeholder('Enter an id for this actor...') var id := ''
 
 @export var base_health := 1
 @onready var health := base_health
 
+@export var direction := Vector2.DOWN
+
 @onready var hurt_state: Node = %Hurt
 @onready var death_state: Node = %Death
 @onready var state_machine: StateMachine = %StateMachine
 @onready var animator: Animator = %Animator
-
-var direction := Vector2.DOWN
 
 func _ready() -> void:
 	state_machine.start()

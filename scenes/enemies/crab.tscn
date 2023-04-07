@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://vy5l2re26s27"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_mxhpt"]
+[ext_resource type="Script" path="res://scripts/states/crab_base.gd" id="2_gim53"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_kwuv2"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_28mvk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nf0pl"]
+resource_local_to_scene = true
+shader = ExtResource("2_kwuv2")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kubh1"]
+size = Vector2(14, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnb25"]
+size = Vector2(12, 11)
+
+[sub_resource type="Animation" id="Animation_ko8fx"]
+resource_name = "walk"
+length = 0.500002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_q0mjw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8b47i"]
+_data = {
+"RESET": SubResource("Animation_q0mjw"),
+"walk": SubResource("Animation_ko8fx")
+}
+
+[node name="Crab" instance=ExtResource("1_mxhpt")]
+spawn_block_distance = 0.0
+id = "crab"
+base_health = 6
+direction = Vector2(1, 0)
+
+[node name="Base" parent="StateMachine" index="0"]
+script = ExtResource("2_gim53")
+speed = 2.0
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_nf0pl")
+position = Vector2(0, -4)
+texture = ExtResource("3_28mvk")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(96, 0, 32, 16)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_kubh1")
+
+[node name="Collision" parent="HitboxArea" index="0"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_gnb25")
+
+[node name="Animator" parent="." index="4"]
+autoplay = "walk"
+libraries = {
+"": SubResource("AnimationLibrary_8b47i")
+}

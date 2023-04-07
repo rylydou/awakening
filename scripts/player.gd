@@ -26,10 +26,8 @@ func _fetch(ds: DataStore) -> void:
 	base_health = ds.fetch('max_health', base_health)
 	health = ds.fetch('health', base_health)
 	if ds.has('position'):
-		print(ds.fetch('position'))
 		position = ds.fetch('position')
 	else:
-		print('start')
 		position = get_tree().current_scene.find_child('Start').position
 	ds.pop_prefix()
 	

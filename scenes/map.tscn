@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://by0o1hef21cob"]
+[gd_scene load_steps=14 format=3 uid="uid://by0o1hef21cob"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
 [ext_resource type="TileSet" uid="uid://cympy4xvsauks" path="res://resources/tileset.tres" id="2_wrhog"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="4_wxb63"]
 [ext_resource type="Resource" path="res://resources/items/boomerang.tres" id="5_a2vc8"]
 [ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="5_eht1t"]
-[ext_resource type="PackedScene" path="res://scenes/sign.tscn" id="5_o8ans"]
 [ext_resource type="Resource" path="res://resources/items/stick.tres" id="7_jrmh7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5nh6"]
@@ -162,6 +161,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Gel1" parent="Rooms/0 2" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(39, 40)
+spawn_block_distance = 0.0
 
 [node name="1 2" type="ReferenceRect" parent="Rooms"]
 offset_left = 176.0
@@ -206,9 +206,25 @@ offset_bottom = 528.0
 border_color = Color(1, 1, 1, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sign" parent="Rooms/3 2" instance=ExtResource("5_o8ans")]
+[node name="Sign" parent="Rooms/3 2" instance_placeholder="res://scenes/sign.tscn"]
 position = Vector2(103, 120)
 text = Array[String](["go north from here to reach fire mountain and sky mountian."])
+
+[node name="Crab" parent="Rooms/3 2" node_paths=PackedStringArray("marker") instance_placeholder="res://scenes/enemies/crab.tscn"]
+position = Vector2(23, 152)
+marker = NodePath("../Crab_Marker")
+
+[node name="Crab_Marker" type="Marker2D" parent="Rooms/3 2"]
+position = Vector2(151, 152)
+gizmo_extents = 8.0
+
+[node name="Crab2" parent="Rooms/3 2" node_paths=PackedStringArray("marker") instance_placeholder="res://scenes/enemies/crab.tscn"]
+position = Vector2(23, 136)
+marker = NodePath("../Crab2_Marker")
+
+[node name="Crab2_Marker" type="Marker2D" parent="Rooms/3 2"]
+position = Vector2(151, 136)
+gizmo_extents = 8.0
 
 [node name="4 2" type="ReferenceRect" parent="Rooms"]
 offset_left = 704.0
@@ -269,6 +285,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Gel1" parent="Rooms/3 3" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(120, 56)
+spawn_block_distance = 0.0
 
 [node name="4 3" type="ReferenceRect" parent="Rooms"]
 offset_left = 704.0
@@ -280,15 +297,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Gel1" parent="Rooms/4 3" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(40, 136)
+spawn_block_distance = 0.0
 
 [node name="Gel6" parent="Rooms/4 3" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(119, 40)
+spawn_block_distance = 8.0
 
 [node name="Gel5" parent="Rooms/4 3" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(39, 40)
+spawn_block_distance = 0.0
 
 [node name="Gel3" parent="Rooms/4 3" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(119, 136)
+spawn_block_distance = 8.0
 
 [node name="5 3" type="ReferenceRect" parent="Rooms"]
 offset_left = 880.0
@@ -323,9 +344,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Gel1" parent="Rooms/2 4" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(24, 56)
+spawn_block_distance = 6.0
 
 [node name="Gel2" parent="Rooms/2 4" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(40, 152)
+spawn_block_distance = 6.0
+
+[node name="Gel3" parent="Rooms/2 4" instance_placeholder="res://scenes/enemies/gel.tscn"]
+position = Vector2(151, 96)
+spawn_block_distance = 6.0
 
 [node name="BoomerangPickup" parent="Rooms/2 4" instance_placeholder="res://scenes/item_pickup.tscn"]
 position = Vector2(87, 104)
@@ -341,6 +368,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Gel1" parent="Rooms/3 4" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(56, 40)
+spawn_block_distance = 0.0
 
 [node name="Bush1" parent="Rooms/3 4" instance_placeholder="res://scenes/bush.tscn"]
 position = Vector2(24, 88)
@@ -372,6 +400,7 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="Gel1" parent="Rooms/4 4" instance_placeholder="res://scenes/enemies/gel.tscn"]
 position = Vector2(72, 56)
+spawn_block_distance = 0.0
 
 [node name="5 4" type="ReferenceRect" parent="Rooms"]
 offset_left = 880.0
@@ -422,12 +451,15 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="Spike1" parent="Rooms/4 5" instance_placeholder="res://scenes/enemies/spike.tscn"]
 position = Vector2(88, 72)
+spawn_block_distance = 0.0
 
 [node name="Spike2" parent="Rooms/4 5" instance_placeholder="res://scenes/enemies/spike.tscn"]
 position = Vector2(104, 72)
+spawn_block_distance = 0.0
 
 [node name="Spike3" parent="Rooms/4 5" instance_placeholder="res://scenes/enemies/spike.tscn"]
 position = Vector2(120, 72)
+spawn_block_distance = 0.0
 
 [node name="StickPickup" parent="Rooms/4 5" instance_placeholder="res://scenes/item_pickup.tscn"]
 position = Vector2(72, 136)

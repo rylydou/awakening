@@ -84,7 +84,7 @@ func reload() -> void:
 func _on_player_died() -> void:
 	print('GAME: Player died!')
 	reload()
-	ds.store('counter.deaths', ds.fetch_int('counter.deaths', 0) + 1)
+	ds.store('counter.deaths', ds.fetch('counter.deaths', 0) + 1)
 	ds.save_to_disk()
 
 var pause_locks := 0

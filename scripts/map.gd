@@ -18,6 +18,7 @@ func _on_room_entered(coords: Vector2i) -> void:
 	for child in room_node.get_children():
 		if child is InstancePlaceholder:
 			var inst := child.create_instance() as Node2D
+			inst.name = '_' + child.name
 			inst.add_to_group('despawn')
 			continue
 		

@@ -1,9 +1,12 @@
-extends Actor
+class_name Enemy extends Actor
+
+@export var spawn_block_distance := 0.
+@export var marker: Marker2D
 
 var stun_timer := 0
 
 func _ready() -> void:
-	if Game.player.position.distance_squared_to(global_position) < 48*48:
+	if spawn_block_distance > 0 and Game.player.position.distance_squared_to(global_position) <= (spawn_block_distance*16)*(spawn_block_distance*16):
 		queue_free()
 		return
 	super._ready()
@@ -14,6 +17,7 @@ func _physics_process(delta: float) -> void:
 	if is_stunned != was_stunned:
 		if not is_stunned:
 			animator.play()
+			%Flip.position.x = 0
 			%Flip.modulate = Color.WHITE
 	
 	was_stunned = is_stunned
@@ -22,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		stun_timer -= 1
 		animator.pause()
 		%Flip.modulate = Color.GRAY
-		%Flip.position.x = wrapi(stun_timer, -1, 1)
+		%Flip.position.x = wrapi(stun_timer/2, -1, 1)
 		return
 	
 	state_machine.run(delta)
