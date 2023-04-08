@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cs2krnpdvfn3t"
-path="res://.godot/imported/charge3.wav-d4aaf07e498a7c66fb4b13a29efb78b8.sample"
+path="res://.godot/imported/scare.wav-da6559ee36d1d4701edd4acc2efbffe0.sample"
 
 [deps]
 
-source_file="res://content/sounds/charge3.wav"
-dest_files=["res://.godot/imported/charge3.wav-d4aaf07e498a7c66fb4b13a29efb78b8.sample"]
+source_file="res://content/sounds/scare.wav"
+dest_files=["res://.godot/imported/scare.wav-da6559ee36d1d4701edd4acc2efbffe0.sample"]
 
 [params]
 

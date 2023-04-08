@@ -11,7 +11,6 @@ shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 
 [node name="Shooter" instance=ExtResource("1_ioeuk")]
-spawn_block_distance = 0.0
 id = "shooter"
 base_health = 4
 

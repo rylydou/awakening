@@ -15,14 +15,19 @@ signal damaged(damage: int, source: Node)
 @onready var state_machine: StateMachine = %StateMachine
 @onready var animator: Animator = %Animator
 
+var inv_timer := 0
+
 func _ready() -> void:
 	state_machine.start()
 
 func _physics_process(delta: float) -> void:
 	state_machine.run(delta)
+	if inv_timer > 0:
+		inv_timer -= 1
 
 func take_damage(damage: int, source: Node) -> bool:
 	if health <= 0: return false
+	if inv_timer > 0: return false
 	
 	var state := state_machine.get_state()
 	

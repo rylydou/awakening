@@ -1,0 +1,116 @@
+[gd_scene load_steps=19 format=3 uid="uid://df55f4rc0l0e7"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_4bhak"]
+[ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_bir0a"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_m3jaf"]
+[ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="3_6mr7n"]
+[ext_resource type="Script" path="res://scripts/parts/sound.gd" id="3_7ihvh"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_xs0rd"]
+[ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_yyo1i"]
+[ext_resource type="Script" path="res://scripts/ai/wait.gd" id="5_g4j6g"]
+[ext_resource type="Script" path="res://scripts/parts/spawn.gd" id="5_t2q8g"]
+[ext_resource type="PackedScene" uid="uid://cx8qhahosgtd3" path="res://scenes/bomb.tscn" id="6_3aaxk"]
+[ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="6_acv0v"]
+[ext_resource type="Script" path="res://scripts/parts/inv.gd" id="7_o104e"]
+[ext_resource type="Script" path="res://scripts/parts/drop_item.gd" id="11_bawkk"]
+[ext_resource type="Resource" path="res://resources/items/bomb.tres" id="12_h7gcl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_73x5c"]
+resource_local_to_scene = true
+shader = ExtResource("2_m3jaf")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_41l7q"]
+resource_name = "idle"
+length = 0.333335
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_h1cfu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pu2x8"]
+_data = {
+"RESET": SubResource("Animation_h1cfu"),
+"idle": SubResource("Animation_41l7q")
+}
+
+[node name="BombChicken" instance=ExtResource("1_4bhak")]
+id = "bomb_chicken"
+base_health = 8
+
+[node name="PlayerInRange" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("2_bir0a")
+detection_range = 2.5
+
+[node name="Sound" type="Node" parent="StateMachine/Base/PlayerInRange" index="0"]
+script = ExtResource("3_7ihvh")
+sound_name = &"scare"
+
+[node name="Spawn" type="Node" parent="StateMachine/Base/PlayerInRange" index="1"]
+script = ExtResource("5_t2q8g")
+scene = ExtResource("6_3aaxk")
+
+[node name="Inv" type="Node" parent="StateMachine/Base/PlayerInRange" index="2"]
+script = ExtResource("7_o104e")
+time = 20
+
+[node name="Move" type="Node" parent="StateMachine/Base/PlayerInRange" index="3"]
+script = ExtResource("4_yyo1i")
+distance = 4.0
+time = 30
+
+[node name="Repeat" type="Node" parent="StateMachine/Base/PlayerInRange" index="4"]
+script = ExtResource("6_acv0v")
+count_max = 2
+
+[node name="Wait" type="Node" parent="StateMachine/Base/PlayerInRange" index="5"]
+script = ExtResource("5_g4j6g")
+duration = 30
+
+[node name="RandomDirection" type="Node" parent="StateMachine/Base" index="1"]
+script = ExtResource("3_6mr7n")
+allow_diagonal = true
+
+[node name="DropItem" type="Node" parent="StateMachine/Death" index="2"]
+script = ExtResource("11_bawkk")
+item = ExtResource("12_h7gcl")
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_73x5c")
+position = Vector2(0, -2)
+texture = ExtResource("3_xs0rd")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(48, 16, 32, 16)
+
+[node name="Animator" parent="." index="4"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_pu2x8")
+}

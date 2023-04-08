@@ -21,8 +21,14 @@ func next() -> bool:
 	while true:
 		if next_index >= get_child_count(): return true
 		
-		current_step = get_child(next_index)
+		var step = get_child(next_index)
 		next_index += 1
+		
+		if step.has_method('trigger'):
+			step.call('trigger')
+			continue
+		
+		current_step = step
 		
 		var is_finished := current_step.start()
 		if not is_finished: return false

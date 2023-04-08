@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://ds5kph50cql77"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_ih21a"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
+[ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="3_ii1nu"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_sshkn"]
+[ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_g1c74"]
+[ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="6_hhbjx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bj514"]
+resource_local_to_scene = true
+shader = ExtResource("2_f0b36")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4qo8"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6k55t"]
+radius = 1.0
+
+[node name="Mama" instance=ExtResource("1_ih21a")]
+id = "mama"
+base_health = 2
+
+[node name="Aim" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("3_ii1nu")
+angle_restrictions = 2
+
+[node name="Move Move" type="Node" parent="StateMachine/Base" index="1"]
+script = ExtResource("4_g1c74")
+distance = 1.0
+time = 40
+
+[node name="Random Direction" type="Node" parent="StateMachine/Base" index="2"]
+script = ExtResource("6_hhbjx")
+allow_diagonal = true
+
+[node name="Random Move" type="Node" parent="StateMachine/Base" index="3"]
+script = ExtResource("4_g1c74")
+distance = 1.0
+time = 40
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_bj514")
+position = Vector2(0, -5)
+texture = ExtResource("3_sshkn")
+region_enabled = true
+region_rect = Rect2(0, 32, 16, 16)
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_j4qo8")
+
+[node name="Collision" parent="HitboxArea" index="0"]
+shape = SubResource("CircleShape2D_6k55t")
+
+[node name="Animator" parent="." index="4"]
+autoplay = "idle"

@@ -15,10 +15,10 @@ shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kubh1"]
-size = Vector2(14, 9)
+size = Vector2(12, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gnb25"]
-size = Vector2(12, 11)
+size = Vector2(8, 8)
 
 [sub_resource type="Animation" id="Animation_q0mjw"]
 length = 0.001
@@ -94,14 +94,14 @@ region_enabled = true
 region_rect = Rect2(96, 0, 32, 16)
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -0.5)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_kubh1")
 
 [node name="HitboxArea" parent="." index="3"]
 damage = 2
 
 [node name="Collision" parent="HitboxArea" index="0"]
-position = Vector2(0, -2.5)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_gnb25")
 
 [node name="Animator" parent="." index="4"]

@@ -10,6 +10,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	super._ready()
+	inv_timer = 10
 
 var was_stunned := false
 func _physics_process(delta: float) -> void:
@@ -29,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		%Flip.position.x = wrapi(stun_timer/2, -1, 1)
 		return
 	
-	state_machine.run(delta)
+	super._physics_process(delta)
 
 func apply_stun(amount: int) -> bool:
 	if amount > stun_timer:

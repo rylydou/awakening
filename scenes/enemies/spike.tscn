@@ -73,6 +73,7 @@ _data = {
 }
 
 [node name="Spike" instance=ExtResource("1_kyjn1")]
+collision_layer = 2338
 motion_mode = 0
 id = "spike"
 base_health = 8

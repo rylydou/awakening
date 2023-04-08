@@ -11,8 +11,6 @@ class_name Player extends Actor
 
 @export var action_buffer_ticks := 5
 
-var inv_timer := 0
-
 var facing_direction := Vector2i.DOWN
 
 func _enter_tree() -> void:
@@ -96,7 +94,6 @@ func update_direction_to_input() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	inv_timer -= 1
 	
 	var on_fall := fall_detector_area.has_overlapping_bodies()
 	var on_floor := floor_detector_area.has_overlapping_bodies()
@@ -108,9 +105,13 @@ func _physics_process(delta: float) -> void:
 		respawn_position = position
 
 func take_damage(damage: int, source: Node) -> bool:
-	if inv_timer > 0 and source != self:
-		return false
+	if source == self:
+		inv_timer = 0
+	
+	if inv_timer > 0: return false
+	
 	var took_damage := super.take_damage(damage, source)
+	
 	if took_damage:
 		inv_timer = hit_inv_time
 	return took_damage

@@ -103,7 +103,6 @@ _data = {
 
 [node name="Bomb" type="Node2D"]
 script = ExtResource("1_qonsp")
-fuse_timer = 90
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_yi8o7")
