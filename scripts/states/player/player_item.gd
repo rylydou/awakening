@@ -33,11 +33,17 @@ func enter(old_state: Node) -> void:
 	var item_id := Inventory.items[index] as StringName
 	if item_id.is_empty():
 		# no item equiped in that slot
-		player.play_sound('item_drop')
-		finish()
+		fail()
 		return
 	
-	var item := ItemDB.get_item(item_id)
+	var item := ItemDB.get_item(item_id) as Item
+	
+	if Inventory.magic < item.magic_cost:
+		fail()
+		return
+	
+	Inventory.magic -= item.magic_cost
+	
 	var spec_node := get_spec_node(item)
 	
 	var can_use := true
@@ -45,8 +51,7 @@ func enter(old_state: Node) -> void:
 		can_use = spec_node.call('check_use') as bool
 	
 	if not can_use:
-		finish()
-		player.play_sound('item_drop')
+		fail()
 		return
 	
 	item_sprite.region_rect.position = item.item_fx_region.position*16.
@@ -74,6 +79,10 @@ func enter(old_state: Node) -> void:
 
 func _on_anim_finish(anim_name: StringName) -> void:
 	if not is_active: return
+	finish()
+
+func fail() -> void:
+	player.play_sound('item_drop')
 	finish()
 
 func finish() -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemInfo" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bw41cufrba8ix"]
 
 [ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_o4uxw"]
 [ext_resource type="Script" path="res://scripts/item_specifics/boomerang.gd" id="1_ttrpg"]
@@ -8,9 +8,10 @@ script = ExtResource("1_o4uxw")
 id = &"boomerang"
 name = "boomerang"
 item_icon_coords = Vector2i(0, 1)
+magic_cost = 1
+hitbox_damage = 0
+item_specifics_script = ExtResource("1_ttrpg")
 item_fx_region = Rect2i(0, 0, 1, 1)
 sound_effect_name = &"swing_hollow"
 animation_name = &"throw"
 animation_type = 2
-hitbox_damage = 0
-item_specifics_script = ExtResource("1_ttrpg")

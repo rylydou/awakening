@@ -8,9 +8,10 @@ enum Type {
 	
 	Life,
 	Magic,
-	Arrow,
-	ArrowBundle,
-	Bomb,
+	Magic_LG,
+	
+	Arrow_Dud,
+	
 	Fariy,
 }
 
@@ -26,11 +27,11 @@ func _ready() -> void:
 		Type.Money_50: sprite.frame = 3
 		
 		Type.Life: sprite.frame = 4
+		
 		Type.Magic: sprite.frame = 8
-			
-		Type.Arrow: sprite.frame = 6
-		Type.ArrowBundle: sprite.frame = 7
-		Type.Bomb: sprite.frame = 10
+		Type.Magic_LG: sprite.frame = 9
+		Type.Arrow_Dud: sprite.frame = 10
+		
 		_: printerr('Unknown type:' + str(type))
 
 var picked_up := false
@@ -47,17 +48,15 @@ func _on_body_entered(body: Player) -> void:
 		Type.Money_50: Inventory.money += 50
 		
 		Type.Life: Game.player.health += 4
-		Type.Magic: print('TODO: Magic')
 		
-		Type.Arrow: Inventory.arrows += 1
-		Type.ArrowBundle: Inventory.arrows += 3
-		Type.Bomb: Inventory.bombs += 1
+		Type.Magic: Inventory.magic += 4
+		Type.Magic_LG: Inventory.magic += 16
+		Type.Arrow_Dud: Inventory.magic += 2
 		
 		_: printerr('Unknown type: ' + str(type))
 	
 	Inventory.money = min(Inventory.money, 5000)
-	Inventory.arrows = min(Inventory.arrows, 10)
+	Inventory.magic = min(Inventory.magic, Inventory.max_magic)
 	Game.player.health = min(Game.player.health, Game.player.base_health)
-	Inventory.bombs = min(Inventory.bombs, 10)
 	
 	queue_free()

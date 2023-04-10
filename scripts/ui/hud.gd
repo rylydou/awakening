@@ -1,12 +1,11 @@
 extends Control
 
 @onready var life_display: IconStatus = %LifeDisplay
+@onready var magic_display: IconStatus = %MagicDisplay
 @onready var inventory: GridContainer = %ItemGrid
 
 @onready var money_label: Label = %MoneyLabel
 @onready var deaths_label: Label = %DeathsLabel
-@onready var arrows_label: Label = %ArrowsLabel
-@onready var bombs_label: Label = %BombsLabel
 
 @onready var map_marker: Control = %MapMarker
 @onready var map_area_label: Label = %MapAreaLabel
@@ -20,15 +19,19 @@ func _fetch(ds: DataStore) -> void:
 	deaths_label.text = str(ds.fetch('counter.deaths', 0))
 
 func _process(delta: float) -> void:
+	var update_displays := get_tree().get_frame() % 5 == 0
+	
 	process_cursor(delta)
 	
-	if is_instance_valid(Game.player):
-		life_display.value = Game.player.health
-		life_display.max_value = Game.player.base_health
+	if update_displays:
+		if is_instance_valid(Game.player):
+			life_display.value = move_toward(life_display.value, Game.player.health, 1)
+			life_display.max_value = Game.player.base_health
+		
+		magic_display.value = move_toward(magic_display.value, Inventory.magic, 1)
+		magic_display.max_value = Inventory.max_magic
 	
 	money_label.text = str(Inventory.money)
-	arrows_label.text = str(Inventory.arrows)
-	bombs_label.text = str(Inventory.bombs)
 	
 	map_area_label.text = '%2s.%-2s' % [Camera.room_coords.x + 1, Camera.room_coords.y + 1]
 	map_marker.position = Camera.room_coords * 8

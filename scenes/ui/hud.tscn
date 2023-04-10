@@ -10,14 +10,14 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46fsf"]
 content_margin_left = 4.0
 content_margin_top = 4.0
-content_margin_right = 4.0
+content_margin_right = 6.0
 content_margin_bottom = 4.0
 texture = ExtResource("2_0ony4")
 texture_margin_right = 8.0
 region_rect = Rect2(8, 32, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ogn33"]
-content_margin_left = 4.0
+content_margin_left = 6.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
@@ -63,7 +63,7 @@ layout_mode = 2
 
 [node name="LifeDisplay" type="GridContainer" parent="LeftPanel/Top"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(64, 8)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/h_separation = 0
@@ -75,22 +75,23 @@ max_value = 64
 pregen_icon_count = 8
 texture = ExtResource("2_0ony4")
 icon_count = 6
-sprite_size = Vector2(7, 8)
 
 [node name="Spacer2" type="Control" parent="LeftPanel/Top"]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 
 [node name="MagicDisplay" type="GridContainer" parent="LeftPanel/Top"]
-custom_minimum_size = Vector2(0, 16)
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 8)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
-columns = 7
+columns = 8
 script = ExtResource("4_8ep8f")
 value = 24
 max_value = 24
+pregen_icon_count = 8
 texture = ExtResource("2_0ony4")
 start_coords = Vector2(0, 8)
 icon_count = 6
@@ -296,10 +297,10 @@ layout_mode = 2
 [node name="Extra" type="HBoxContainer" parent="RightPanel/Top"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 1
+theme_override_constants/separation = 0
 
 [node name="Money" type="HBoxContainer" parent="RightPanel/Top/Extra"]
-custom_minimum_size = Vector2(22, 0)
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 2
@@ -321,7 +322,6 @@ text = "5000"
 vertical_alignment = 2
 
 [node name="Deaths" type="HBoxContainer" parent="RightPanel/Top/Extra"]
-visible = false
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -339,10 +339,12 @@ region_rect = Rect2(8, 16, 8, 8)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 1
 text = "123"
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="Arrows" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+visible = false
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -365,6 +367,7 @@ text = "10"
 vertical_alignment = 2
 
 [node name="Bombs" type="HBoxContainer" parent="RightPanel/Top/Extra"]
+visible = false
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 size_flags_horizontal = 0

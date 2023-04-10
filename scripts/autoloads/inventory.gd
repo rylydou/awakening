@@ -23,9 +23,10 @@ signal gained_item(id: StringName, index: int)
 signal lost_item(id: StringName, index: int)
 signal swapped_items(from_index: int, to_index: int)
 
+var magic: int
+var max_magic: int
+
 var money: int
-var arrows: int
-var bombs: int
 
 func _ready() -> void:
 	Game.store.connect(_store)
@@ -34,9 +35,11 @@ func _ready() -> void:
 func _store(ds: DataStore) -> void:
 	ds.push_prefix('inventory')
 	ds.store('items', items)
+	
+	ds.store('magic', magic)
+	ds.store('max_magic', max_magic)
+	
 	ds.store('money', money)
-	ds.store('arrows', arrows)
-	ds.store('bombs', bombs)
 	ds.pop_prefix()
 
 func _fetch(ds: DataStore) -> void:
@@ -49,9 +52,10 @@ func _fetch(ds: DataStore) -> void:
 	else:
 		items = fetched_items
 	
+	magic = ds.fetch('magic', 32)
+	max_magic = ds.fetch('max_magic', 32)
+	
 	money = ds.fetch('money', 0)
-	arrows = ds.fetch('arrows', 0)
-	bombs = ds.fetch('bombs', 0)
 	
 	ds.pop_prefix()
 	

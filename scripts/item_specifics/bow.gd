@@ -7,12 +7,10 @@ var arrow: Node2D
 @onready var player := find_parent('Player') as Player
 
 func check_use() -> bool:
-	return Inventory.arrows > 0 and not is_instance_valid(arrow)
+	return not is_instance_valid(arrow)
 
 func use() -> void:
 	assert(check_use())
-	
-	Inventory.arrows -= 1
 	
 	arrow = ARROW_SCENE.instantiate() as Node2D
 	

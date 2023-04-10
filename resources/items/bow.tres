@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemInfo" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bqftnvvmfupo0"]
 
 [ext_resource type="Script" path="res://scripts/item_specifics/bow.gd" id="1_deaae"]
 [ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_urfq4"]
@@ -8,9 +8,10 @@ script = ExtResource("2_urfq4")
 id = &"bow"
 name = "bow"
 item_icon_coords = Vector2i(1, 1)
+magic_cost = 2
+hitbox_damage = 0
+item_specifics_script = ExtResource("1_deaae")
 item_fx_region = Rect2i(0, 0, 1, 1)
 sound_effect_name = &"swing2"
 animation_name = &"throw"
 animation_type = 1
-hitbox_damage = 0
-item_specifics_script = ExtResource("1_deaae")

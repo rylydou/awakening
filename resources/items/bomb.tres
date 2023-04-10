@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemInfo" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://o8nsta7ltn01"]
 
 [ext_resource type="Script" path="res://scripts/item_specifics/bomb.gd" id="1_odoi1"]
 [ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_nh1g3"]
@@ -8,9 +8,10 @@ script = ExtResource("2_nh1g3")
 id = &"bomb"
 name = "bomb"
 item_icon_coords = Vector2i(2, 1)
+magic_cost = 4
+hitbox_damage = 0
+item_specifics_script = ExtResource("1_odoi1")
 item_fx_region = Rect2i(0, 0, 1, 1)
 sound_effect_name = &"place"
 animation_name = &"throw"
 animation_type = 1
-hitbox_damage = 0
-item_specifics_script = ExtResource("1_odoi1")

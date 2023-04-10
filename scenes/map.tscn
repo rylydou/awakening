@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://by0o1hef21cob"]
+[gd_scene load_steps=22 format=3 uid="uid://by0o1hef21cob"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
 [ext_resource type="TileSet" uid="uid://cympy4xvsauks" path="res://resources/tileset.tres" id="2_wrhog"]
@@ -7,12 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://d0oewt2gpsq2y" path="res://scenes/savepoint.tscn" id="3_gsght"]
 [ext_resource type="Script" path="res://scripts/objects/lillypad.gd" id="4_wors5"]
 [ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="4_wxb63"]
-[ext_resource type="Resource" path="res://resources/items/boomerang.tres" id="5_a2vc8"]
+[ext_resource type="Resource" uid="uid://bw41cufrba8ix" path="res://resources/items/boomerang.tres" id="5_a2vc8"]
 [ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="5_eht1t"]
-[ext_resource type="Texture2D" uid="uid://7ff16aie58os" path="res://content/sprites/log.png" id="5_h2xw3"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_jvo35"]
+[ext_resource type="Texture2D" uid="uid://7ff16aie58os" path="res://content/sprites/log.png" id="6_ipdca"]
 [ext_resource type="Resource" path="res://resources/items/stick.tres" id="7_jrmh7"]
-[ext_resource type="PackedScene" uid="uid://b7l0wwmufgetm" path="res://scenes/objects/bombable_wall.tscn" id="10_hqgjr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5nh6"]
 size = Vector2(32, 16)
@@ -201,7 +200,7 @@ flag_name = &"river_log"
 
 [node name="Sprite" type="Sprite2D" parent="Rooms/2 1/Log"]
 material = SubResource("ShaderMaterial_6gb2u")
-texture = ExtResource("5_h2xw3")
+texture = ExtResource("6_ipdca")
 region_rect = Rect2(16, 0, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="Rooms/2 1/Log"]
@@ -603,7 +602,7 @@ offset_right = 704.0
 offset_bottom = 1056.0
 border_color = Color(1, 1, 1, 1)
 
-[node name="Wall" parent="Rooms/3 5" instance=ExtResource("10_hqgjr")]
+[node name="Wall" parent="Rooms/3 5" instance_placeholder="res://scenes/objects/bombable_wall.tscn"]
 flag_name = &"beach_secret_wall"
 
 [node name="4 5" type="ReferenceRect" parent="Rooms"]

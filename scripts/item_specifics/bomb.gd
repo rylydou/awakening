@@ -7,12 +7,10 @@ var bomb: Node2D
 @onready var player := find_parent('Player') as Player
 
 func check_use() -> bool:
-	return Inventory.bombs > 0 and not is_instance_valid(bomb)
+	return not is_instance_valid(bomb)
 
 func use() -> void:
 	assert(check_use())
-	
-	Inventory.bombs -= 1
 	
 	bomb = BOMB_SCENE.instantiate() as Node2D
 	
