@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4xy72fepnndn"]
+
+[ext_resource type="Script" path="res://scripts/objects/heart_container.gd" id="1_2wxj0"]
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_51ram"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ugb7d"]
+radius = 4.0
+
+[node name="HeartContainer" type="Area2D"]
+collision_layer = 128
+collision_mask = 16
+script = ExtResource("1_2wxj0")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_51ram")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ugb7d")
+debug_color = Color(0, 0.596078, 0.701961, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

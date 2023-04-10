@@ -45,6 +45,8 @@ gdscript/warnings/unused_signal=0
 gdscript/warnings/integer_division=0
 gdscript/warnings/redundant_await=0
 gdscript/warnings/empty_file=0
+shapes/paths/geometry_color=Color(1, 1, 1, 0.4)
+shapes/paths/geometry_width=1.0
 
 [display]
 

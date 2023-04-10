@@ -6,7 +6,6 @@ signal attacked(node: Node2D)
 @export var auto_attack := false
 @export var remember_hits := false
 @export var stun_amount := 0
-@export var is_explosive := false
 
 var things_hit: Array[Node2D] = []
 func forget_hits():
@@ -27,9 +26,13 @@ func attack_overlap(damage: int = -1) -> int:
 	return count
 
 func attack_node(node: Node2D, damage: int = -1) -> bool:
-	if not node.has_method('take_damage'): return false
+	if not node.has_method('take_damage'):
+		if node.owner and node.owner.has_method('take_damage'):
+			node = node.owner
+		else: return false
+	elif node == owner: return false
+	
 	if things_hit.has(node): return false
-	if node == owner: return false
 	if owner is Actor and owner.health <= 0: return false
 	
 	if damage < 0: damage = self.damage
@@ -38,9 +41,6 @@ func attack_node(node: Node2D, damage: int = -1) -> bool:
 	if did_attack:
 		if stun_amount > 0 and node.has_method('apply_stun'):
 			var stunned := node.call('apply_stun', stun_amount) as bool
-		
-		if is_explosive and node.has_method('explode'):
-			node.call('explode')
 		
 		attacked.emit(node)
 		if remember_hits:

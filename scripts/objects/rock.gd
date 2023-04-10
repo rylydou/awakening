@@ -1,12 +1,13 @@
-extends StaticBody2D
+extends Node2D
 
 @export var flag_name := &''
 
-func take_damage(damage: int, source: Node) -> bool:
-	SoundBank.play('blocked', global_position)
-	return true
+func _ready() -> void:
+	if Flags.has(flag_name):
+		queue_free()
 
-func explode() -> void:
+func take_damage(damage: int, source: Node) -> bool:
 	Flags.raise(flag_name)
 	SoundBank.play_ui('unlock')
 	queue_free()
+	return true

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7l0wwmufgetm"]
+
+[ext_resource type="Texture2D" uid="uid://biugy18q66mtx" path="res://content/sprites/tileset.png" id="1_mmy25"]
+[ext_resource type="Script" path="res://scripts/objects/rock.gd" id="2_0i42u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fslv"]
+size = Vector2(16, 16)
+
+[node name="BombableWall" type="Sprite2D"]
+position = Vector2(8, 88)
+texture = ExtResource("1_mmy25")
+region_enabled = true
+region_rect = Rect2(0, 96, 16, 16)
+script = ExtResource("2_0i42u")
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_7fslv")
+debug_color = Color(0, 1, 0, 0)
