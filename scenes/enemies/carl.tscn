@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://bo8cp7mph2vsy"]
+
+[ext_resource type="Script" path="res://scripts/enemies/carl.gd" id="1_j3mnx"]
+[ext_resource type="Texture2D" uid="uid://6ohod2ylrbcv" path="res://content/sprites/lillypad.png" id="1_klbf1"]
+[ext_resource type="Texture2D" uid="uid://bf8dn50jskx6n" path="res://content/sprites/target.png" id="2_5laas"]
+[ext_resource type="Shader" path="res://shaders/circle.gdshader" id="3_ch6rb"]
+[ext_resource type="Script" path="res://addons/ShaderStacker/SpriteStack/SpriteStack.gd" id="4_77p1n"]
+[ext_resource type="Texture2D" uid="uid://cjjuw8k80ds27" path="res://content/sprites/carl.png" id="5_2aw4n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xq4or"]
+radius = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnkyh"]
+resource_local_to_scene = true
+shader = ExtResource("3_ch6rb")
+shader_parameter/size_px = 64.0
+shader_parameter/radius_ratio = 1.0
+shader_parameter/border_px = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1lfg2"]
+radius = 32.0
+
+[node name="Carl" type="StaticBody2D"]
+collision_layer = 289
+collision_mask = 0
+script = ExtResource("1_j3mnx")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_klbf1")
+
+[node name="SpriteStack" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_77p1n")
+sprite_sheet = ExtResource("5_2aw4n")
+layers = 17
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xq4or")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Raycast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Target" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(32, 64)
+
+[node name="Sprite" type="Sprite2D" parent="Target"]
+visible = false
+texture = ExtResource("2_5laas")
+
+[node name="ColorRect" type="ColorRect" parent="Target"]
+material = SubResource("ShaderMaterial_hnkyh")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.890196, 0.258824, 0.384314, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Target"]
+shape = SubResource("CircleShape2D_1lfg2")
+debug_color = Color(1, 1, 0, 0)

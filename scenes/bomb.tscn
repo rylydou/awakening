@@ -123,6 +123,7 @@ collision_layer = 0
 collision_mask = 3840
 script = ExtResource("3_khtiy")
 damage = 4
+is_explosive = true
 
 [node name="Sprite" type="Sprite2D" parent="Explosion"]
 texture = ExtResource("3_oeklv")

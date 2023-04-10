@@ -1,11 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://ce8vth4j6jpq3"]
+[gd_scene load_steps=23 format=3 uid="uid://ce8vth4j6jpq3"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_ih21a"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
 [ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_i2yck"]
 [ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="3_ii1nu"]
 [ext_resource type="Script" path="res://scripts/ai/forever_loop.gd" id="3_sbjvo"]
-[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_sshkn"]
 [ext_resource type="Script" path="res://scripts/ai/play_anim.gd" id="4_cgnon"]
 [ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_g1c74"]
 [ext_resource type="Script" path="res://scripts/ai/wait.gd" id="4_gqt4d"]
@@ -190,21 +189,19 @@ duration = 20
 script = ExtResource("13_cfiq5")
 scene = ExtResource("14_cp7q5")
 offset = Vector2(-4, -4)
-stun_time = 10
+stun_time = 45
 
 [node name="Spawn2" type="Node" parent="StateMachine/Death" index="3"]
 script = ExtResource("13_cfiq5")
 scene = ExtResource("14_cp7q5")
 offset = Vector2(4, 4)
-stun_time = 10
+stun_time = 45
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
 position = Vector2(0, -3)
-texture = ExtResource("3_sshkn")
 hframes = 3
 frame = 1
-region_enabled = true
 region_rect = Rect2(0, 32, 48, 16)
 
 [node name="CollisionShape2D" parent="." index="2"]

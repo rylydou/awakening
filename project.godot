@@ -57,7 +57,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/ActionIcon/plugin.cfg")
+enabled=PackedStringArray("res://addons/soundbank/plugin.cfg", "res://addons/ShaderStacker/plugin.cfg")
 
 [gui]
 

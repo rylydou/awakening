@@ -82,7 +82,7 @@ base_health = 8
 material = SubResource("ShaderMaterial_g5ptb")
 texture = ExtResource("2_tmwto")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+region_rect = Rect2(16, 0, 16, 16)
 
 [node name="HitboxArea" parent="." index="3"]
 damage = 2

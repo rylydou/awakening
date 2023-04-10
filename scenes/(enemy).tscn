@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7c32cw4ihiwx"]
+[gd_scene load_steps=11 format=3 uid="uid://b7c32cw4ihiwx"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_akjck"]
 [ext_resource type="Script" path="res://scripts/enemy_base.gd" id="2_4xchv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/states/enemy_death.gd" id="2_fqn5k"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="2_p6e6k"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_4v4qc"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="7_dgbog"]
 [ext_resource type="Script" path="res://scripts/parts/drop_loot.gd" id="8_txi1h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sraan"]
@@ -17,7 +18,7 @@ shader_parameter/flash_color = Color(1, 1, 1, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_75tuq"]
 radius = 3.0
 
-[node name="Enemy" instance=ExtResource("1_akjck")]
+[node name="Enemy" groups=["enemy"] instance=ExtResource("1_akjck")]
 collision_layer = 2336
 collision_mask = 43
 script = ExtResource("2_p6e6k")
@@ -35,6 +36,9 @@ drops = Array[int]([0, 1, 4, 7, 8])
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_sraan")
+texture = ExtResource("7_dgbog")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="HitboxArea" type="Area2D" parent="." index="3"]
 collision_layer = 0

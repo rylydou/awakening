@@ -37,9 +37,15 @@ func _ready() -> void:
 		# Creating a new save. Save it to disk.
 		ds.save_to_disk()
 	
+	var current_scene := get_tree().current_scene
+	if current_scene.get_child_count() != 0:
+		print('Editor forced loading a diffrent map: ' + current_scene.scene_file_path)
+		map_scene = load(current_scene.scene_file_path)
+	
 	reload.call_deferred()
 	
-	get_window().move_to_foreground()
+	# For editor purposes...
+	get_window().move_to_foreground.call_deferred()
 
 func save() -> void:
 	print('GAME: Saving...')

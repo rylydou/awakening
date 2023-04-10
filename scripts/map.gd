@@ -14,8 +14,9 @@ func _on_room_entered(coords: Vector2i) -> void:
 	
 	for child in room.get_children():
 		if child is InstancePlaceholder:
+			print(child.name)
 			var inst := child.create_instance() as Node2D
-			inst.name = '_' + child.name
+			
 			inst.add_to_group('despawn')
 			continue
 		
@@ -26,6 +27,6 @@ func get_room(coords: Vector2i) -> Node:
 	var string := str(coords.x, ' ', coords.y)
 	var room := rooms_node.find_child(string) as Node
 	if not is_instance_valid(room):
-		printerr('Room not found: %s' % string)
+		#printerr('Room not found: %s' % string)
 		return null
 	return room

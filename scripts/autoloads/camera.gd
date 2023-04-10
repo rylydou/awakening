@@ -26,7 +26,7 @@ func target_room() -> void:
 	var player := Game.player.global_position
 	var ref := target
 	
-	var half_bounds := Consts.ROOM_SIZE_PX/2
+	var half_bounds := Consts.ROOM_SIZE_PX/2 + Vector2i.ONE*2
 	
 	if player.x >= ref.x + half_bounds.x:
 		room_coords.x += 1

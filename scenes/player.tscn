@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bcpqis8idx1ks"]
+[gd_scene load_steps=47 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/states/player/player_item.gd" id="4_y850i"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_xvgci"]
 [ext_resource type="Texture2D" uid="uid://cvdwv8whw4chk" path="res://content/sprites/item_fx.png" id="7_qi6ch"]
+[ext_resource type="Script" path="res://scripts/states/player/player_drown.gd" id="7_rioiw"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_pnby4"]
 device = -1
@@ -967,10 +968,28 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_7l85h"]
+resource_name = "drown"
+length = 0.001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ks7cx"]
 _data = {
 "RESET": SubResource("Animation_3ewpr"),
 "death": SubResource("Animation_7ce8r"),
+"drown": SubResource("Animation_7l85h"),
 "sword_stab_south": SubResource("Animation_b3ivo"),
 "sword_swing_east": SubResource("Animation_2uwys"),
 "sword_swing_north": SubResource("Animation_nkeq7"),
@@ -992,10 +1011,10 @@ radius = 0.5
 size = Vector2(10, 5)
 
 [node name="Player" instance=ExtResource("1_cduph")]
+z_index = 10
 collision_layer = 2576
 collision_mask = 3
 script = ExtResource("1_x33y1")
-fall_damage = 2
 hit_inv_time = 60
 spawn_inv_time = 60
 respawn_inv_time = 30
@@ -1022,6 +1041,9 @@ script = ExtResource("4_65juj")
 
 [node name="Item" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("4_y850i")
+
+[node name="Drown" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("7_rioiw")
 
 [node name="ItemSprite" type="Sprite2D" parent="Flip" index="0"]
 unique_name_in_owner = true

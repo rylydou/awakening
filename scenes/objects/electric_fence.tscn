@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpna5i5nnqt4m"]
+
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_mg6gm"]
+[ext_resource type="Texture2D" uid="uid://cldi806faxo11" path="res://content/sprites/elec.png" id="2_qqwhw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tctgr"]
+size = Vector2(8, 12)
+
+[node name="ElectricFence" type="StaticBody2D"]
+
+[node name="PostA" type="StaticBody2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="PostA"]
+texture = ExtResource("1_mg6gm")
+region_enabled = true
+region_rect = Rect2(64, 0, 8, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="PostA"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_tctgr")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+
+[node name="Line" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 32, 0)
+width = 16.0
+texture = ExtResource("2_qqwhw")
+texture_mode = 1

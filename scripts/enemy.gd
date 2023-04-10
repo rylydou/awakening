@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	var is_stunned := stun_timer > 0
 	if is_stunned != was_stunned:
 		if not is_stunned:
-			animator.play()
+			animator.playback_active = true
 			%Flip.position.x = 0
 			%Flip.modulate = Color.WHITE
 	
@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_stunned and health > 0:
 		stun_timer -= 1
-		animator.pause()
+		animator.playback_active = false
 		%Flip.modulate = Color.GRAY
 		%Flip.position.x = wrapi(stun_timer/2, -1, 1)
 		return
