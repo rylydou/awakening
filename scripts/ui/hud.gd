@@ -1,7 +1,16 @@
 extends Control
 
+@export var life_dec_speed := 32.
+@export var life_inc_speed := 16.
+
+@export var magic_dec_speed := 16.
+@export var magic_inc_speed := 16.
+
 @onready var life_display: IconStatus = %LifeDisplay
+var life_value: float
 @onready var magic_display: IconStatus = %MagicDisplay
+var magic_value: float
+
 @onready var inventory: GridContainer = %ItemGrid
 
 @onready var money_label: Label = %MoneyLabel
@@ -17,19 +26,27 @@ func _enter_tree() -> void:
 
 func _fetch(ds: DataStore) -> void:
 	deaths_label.text = str(ds.fetch('counter.deaths', 0))
+	#life_value = ds.fetch('player.health', 4*3)
+	#magic_value = ds.fetch('inventory.magic', 4*8)
+	
+	life_value = 0.
+	magic_value = 0.
 
 func _process(delta: float) -> void:
-	var update_displays := get_tree().get_frame() % 5 == 0
+	#var update_displays := get_tree().get_frame() % 5 == 0
 	
 	process_cursor(delta)
 	
-	if update_displays:
-		if is_instance_valid(Game.player):
-			life_display.value = move_toward(life_display.value, Game.player.health, 1)
-			life_display.max_value = Game.player.base_health
-		
-		magic_display.value = move_toward(magic_display.value, Inventory.magic, 1)
-		magic_display.max_value = Inventory.max_magic
+	if is_instance_valid(Game.player):
+		var life_speed := life_inc_speed if life_value > life_display.value else life_dec_speed
+		life_value = move_toward(life_value, Game.player.health, life_speed*delta)
+		life_display.value = life_value
+		life_display.max_value = Game.player.base_health
+	
+	var magic_speed := magic_inc_speed if magic_value > magic_display.value else magic_dec_speed
+	magic_value = move_toward(magic_value, Inventory.magic, magic_speed*delta)
+	magic_display.value = magic_value
+	magic_display.max_value = Inventory.max_magic
 	
 	money_label.text = str(Inventory.money)
 	

@@ -1,10 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpsl8ebp022lk"]
+[gd_scene load_steps=19 format=3 uid="uid://dpsl8ebp022lk"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_eght0"]
+[ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="2_gxspx"]
 [ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="2_sjp1n"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_x3oqd"]
-[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_et76j"]
+[ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="3_aje18"]
 [ext_resource type="Script" path="res://scripts/ai/move.gd" id="3_fkh72"]
+[ext_resource type="Script" path="res://scripts/ai/random.gd" id="3_texkh"]
+[ext_resource type="Script" path="res://scripts/ai/group.gd" id="5_rnjwy"]
+[ext_resource type="Script" path="res://scripts/ai/set_anim.gd" id="7_cb2we"]
+[ext_resource type="Script" path="res://scripts/ai/wait.gd" id="7_cdrv4"]
+[ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="7_w10b8"]
+[ext_resource type="Script" path="res://scripts/ai/warn.gd" id="11_o43cs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wkvkj"]
 resource_local_to_scene = true
@@ -141,18 +148,73 @@ _data = {
 id = "ram"
 base_health = 6
 
-[node name="PointAtPlayer" type="Node" parent="StateMachine/Base" index="0"]
+[node name="Roam" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("2_gxspx")
+count_max = 3
+
+[node name="WaitRandom" type="Node" parent="StateMachine/Base/Roam" index="0"]
+script = ExtResource("3_texkh")
+denominator = 3
+
+[node name="Wait" type="Node" parent="StateMachine/Base/Roam/WaitRandom" index="0"]
+script = ExtResource("7_cdrv4")
+duration = 30
+
+[node name="RandomDirection" type="Node" parent="StateMachine/Base/Roam" index="1"]
+script = ExtResource("3_aje18")
+offscreen_check_distance = 1.0
+
+[node name="AimRandom" type="Node" parent="StateMachine/Base/Roam" index="2"]
+script = ExtResource("3_texkh")
+
+[node name="PointAtPlayer" type="Node" parent="StateMachine/Base/Roam/AimRandom" index="0"]
 script = ExtResource("2_sjp1n")
 angle_restrictions = 1
 
-[node name="Move" type="Node" parent="StateMachine/Base" index="1"]
+[node name="WalkAnim" type="Node" parent="StateMachine/Base/Roam" index="3"]
+script = ExtResource("7_cb2we")
+animation_name = &"walk"
+animation_type = 1
+
+[node name="Move" type="Node" parent="StateMachine/Base/Roam" index="4"]
 script = ExtResource("3_fkh72")
+distance = 1.0
+time = 30
+
+[node name="PlayerInRange" type="Node" parent="StateMachine/Base" index="1"]
+script = ExtResource("7_w10b8")
+detection_range = 6.0
+
+[node name="Attack" type="Node" parent="StateMachine/Base/PlayerInRange" index="0"]
+script = ExtResource("5_rnjwy")
+
+[node name="PointAtPlayer" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="0"]
+script = ExtResource("2_sjp1n")
+angle_restrictions = 1
+
+[node name="WalkAnim" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="1"]
+script = ExtResource("7_cb2we")
+animation_name = &"walk"
+animation_type = 1
+
+[node name="Warn" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="2" node_paths=PackedStringArray("node")]
+script = ExtResource("11_o43cs")
+time = 45
+node = NodePath("../../../../../Flip/BodySprite")
+
+[node name="Charge" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="3"]
+script = ExtResource("3_fkh72")
+distance = 5.0
+time = 20
+
+[node name="Followthrough" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="4"]
+script = ExtResource("3_fkh72")
+distance = 1.0
+time = 10
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_wkvkj")
-texture = ExtResource("3_et76j")
 hframes = 4
-region_enabled = true
 region_rect = Rect2(0, 48, 64, 16)
 
 [node name="HitboxArea" parent="." index="3"]

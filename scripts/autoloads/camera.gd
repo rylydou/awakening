@@ -10,6 +10,9 @@ var last_room_corrds := Vector2i(-42069, -42069)
 
 func _process(delta: float) -> void:
 	position = position.move_toward(target, camera_speed*16*delta)
+	if not is_instance_valid(Game.player): return
+	
+	RenderingServer.global_shader_parameter_set('PLAYER_UV', (Game.player.position - position)/Vector2(320, 180) + Vector2(0.5, 0.5))
 
 func _physics_process(delta: float) -> void:
 	target_room()
