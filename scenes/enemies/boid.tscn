@@ -1,14 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://ouftrwh7tmno"]
+[gd_scene load_steps=9 format=3 uid="uid://ouftrwh7tmno"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_06t63"]
+[ext_resource type="Script" path="res://scripts/ai/move_to_node.gd" id="2_efcwk"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_mfa30"]
-[ext_resource type="Script" path="res://scripts/ai/fly_circle.gd" id="2_v36fx"]
+[ext_resource type="Script" path="res://scripts/parts/spinner.gd" id="4_8k0wj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m5ftv"]
 resource_local_to_scene = true
 shader = ExtResource("2_mfa30")
 shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_6lkpn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_xrqmq"]
 resource_name = "idle"
@@ -28,21 +44,6 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_6lkpn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flip/BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ey8kq"]
 _data = {
 "RESET": SubResource("Animation_6lkpn"),
@@ -53,8 +54,8 @@ _data = {
 id = "boid"
 base_health = 4
 
-[node name="Fly" type="Node" parent="StateMachine/Base" index="0"]
-script = ExtResource("2_v36fx")
+[node name="Orbit" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("2_efcwk")
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_m5ftv")
@@ -66,3 +67,10 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_ey8kq")
 }
+
+[node name="Spinner" type="Node2D" parent="." index="5"]
+top_level = true
+script = ExtResource("4_8k0wj")
+
+[node name="Target" type="Marker2D" parent="Spinner" index="0"]
+position = Vector2(0, 64)

@@ -1,11 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://by0o1hef21cob"]
+[gd_scene load_steps=24 format=3 uid="uid://by0o1hef21cob"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
 [ext_resource type="TileSet" uid="uid://cympy4xvsauks" path="res://resources/tileset.tres" id="2_wrhog"]
 [ext_resource type="Script" path="res://scripts/objects/flag_check.gd" id="3_1xbac"]
 [ext_resource type="Script" path="res://scripts/objects/spawner.gd" id="3_4qpcs"]
 [ext_resource type="PackedScene" uid="uid://d0oewt2gpsq2y" path="res://scenes/savepoint.tscn" id="3_gsght"]
-[ext_resource type="PackedScene" uid="uid://ouftrwh7tmno" path="res://scenes/enemies/boid.tscn" id="4_e8i7n"]
 [ext_resource type="Script" path="res://scripts/objects/lillypad.gd" id="4_wors5"]
 [ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="4_wxb63"]
 [ext_resource type="Resource" uid="uid://bw41cufrba8ix" path="res://resources/items/boomerang.tres" id="5_a2vc8"]
@@ -157,7 +156,7 @@ offset_right = 704.0
 offset_bottom = 176.0
 border_color = Color(1, 1, 1, 1)
 
-[node name="Boid" parent="Rooms/3 0" instance=ExtResource("4_e8i7n")]
+[node name="Boid" parent="Rooms/3 0" instance_placeholder="res://scenes/enemies/boid.tscn"]
 position = Vector2(24, 88)
 
 [node name="4 0" type="ReferenceRect" parent="Rooms"]
