@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bcpqis8idx1ks"]
+[gd_scene load_steps=49 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
@@ -38,6 +38,15 @@ unicode = 104
 
 [sub_resource type="Shortcut" id="Shortcut_3ixg3"]
 events = [SubResource("InputEventKey_fkd0o")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_a6wgr"]
+device = -1
+ctrl_pressed = true
+keycode = 70
+unicode = 102
+
+[sub_resource type="Shortcut" id="Shortcut_gmsog"]
+events = [SubResource("InputEventKey_a6wgr")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_aww2c"]
 device = -1
@@ -1022,6 +1031,7 @@ action_buffer_ticks = 5
 teleport_shortcut = SubResource("Shortcut_n0007")
 noclip_shortcut = SubResource("Shortcut_vaytf")
 heal_shortcut = SubResource("Shortcut_3ixg3")
+refill_shortcut = SubResource("Shortcut_gmsog")
 hurt_shortcut = SubResource("Shortcut_0c065")
 kill_shortcut = SubResource("Shortcut_nllfq")
 quicksave_shortcut = SubResource("Shortcut_f3kat")

@@ -1,9 +1,16 @@
 shader_type canvas_item;
 
-uniform float radius = 0.25;
-uniform float feather = 0.1;
+uniform float radius : hint_range(0.0, 1.0) = 0.25;
+
+group_uniforms noise;
+uniform float noise_feather : hint_range(0.0, 1.0) = 0.1;
 uniform float noise_scale = 32.0;
 uniform float noise_speed = 0.25;
+
+group_uniforms colors;
+uniform vec3 fill_color : source_color = vec3(0.9, 0.9, 0.9);
+uniform vec3 border_color : source_color = vec3(1.0, 1.0, 1.0);
+uniform float border_feather : hint_range(0.0, 1.0) = 0.02;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
 global uniform vec2 PLAYER_UV;
@@ -82,14 +89,36 @@ float cnoise(vec3 P){
 
 void fragment() {
 	vec2 screen_size = 1./SCREEN_PIXEL_SIZE;
-	float ratio = screen_size.x/screen_size.y;
-	vec2 scale = vec2(ratio, 1.);
-	//float ratio = SCREEN_PIXEL_SIZE.x/SCREEN_PIXEL_SIZE.y;
-	vec2 uv = SCREEN_UV*scale;
-	float l = distance(PLAYER_UV, uv);
-	float t = noise_speed; //*TIME
-	float f = cnoise(vec3(uv*noise_scale, t))*feather;
+	float aspect_ratio = screen_size.x/screen_size.y;
 	
-	//COLOR.a = smoothstep(radius-feather, radius+feather, l + f);
-	COLOR.a = step(radius, l + f);
+	// Circle
+	vec2 circle_uv = SCREEN_UV-PLAYER_UV;
+	circle_uv.x = circle_uv.x*aspect_ratio;
+	
+	float l = length(circle_uv);
+	
+	// NOISE
+	vec2 noise_uv = SCREEN_UV;
+	noise_uv.x *= aspect_ratio;
+	
+	float noise_t = noise_speed*TIME;
+	float f = cnoise(vec3(noise_uv*noise_scale, noise_t));
+	
+	float alpha = smoothstep(radius-border_feather, radius+border_feather, l + f*noise_feather);
+	//float a = step(radius, l + f);
+	
+	// COLORS
+	//find where the border is
+	float alpha_border = (1. - alpha)*alpha;
+	//harden the border and expand it a little bit (4x)
+	alpha_border = step(0.01, alpha_border);
+	//mix for border and fill variation
+	float color_mix = step(0.0, mix(f, 1.0, alpha_border));
+	
+	//if the color is white it must be opaque
+	alpha = mix(alpha, 1.0, alpha_border);
+	
+	// SET
+	COLOR.a = alpha;
+	COLOR.rgb = mix(fill_color, border_color, color_mix);
 }

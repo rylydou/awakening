@@ -119,6 +119,7 @@ func take_damage(damage: int, source: Node) -> bool:
 @export var teleport_shortcut: Shortcut
 @export var noclip_shortcut: Shortcut
 @export var heal_shortcut: Shortcut
+@export var refill_shortcut: Shortcut
 @export var hurt_shortcut: Shortcut
 @export var kill_shortcut: Shortcut
 @export var quicksave_shortcut: Shortcut
@@ -143,6 +144,12 @@ func _shortcut_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Heal')
 		health = base_health
+		return
+	
+	if refill_shortcut.matches_event(event):
+		get_viewport().set_input_as_handled()
+		print('CHEAT: Refill magic')
+		Inventory.magic = Inventory.max_magic
 		return
 	
 	if hurt_shortcut.matches_event(event):
