@@ -94,7 +94,7 @@ max_value = 24
 pregen_icon_count = 8
 texture = ExtResource("2_0ony4")
 start_coords = Vector2(0, 8)
-icon_count = 6
+icon_count = 8
 
 [node name="Bottom" type="VBoxContainer" parent="LeftPanel"]
 layout_mode = 2

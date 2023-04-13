@@ -1005,9 +1005,9 @@ _data = {
 "sword_swing_south": SubResource("Animation_hkk63"),
 "throw_east": SubResource("Animation_hnxgo"),
 "throw_north": SubResource("Animation_ktaut"),
-"throw_northeast": SubResource("Animation_74lur"),
+"throw_north_east": SubResource("Animation_74lur"),
 "throw_south": SubResource("Animation_e5shc"),
-"throw_southeast": SubResource("Animation_37pib"),
+"throw_south_east": SubResource("Animation_37pib"),
 "walk_east": SubResource("Animation_rjq75"),
 "walk_north": SubResource("Animation_sl0et"),
 "walk_south": SubResource("Animation_3wsm6")

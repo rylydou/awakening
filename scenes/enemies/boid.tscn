@@ -51,11 +51,13 @@ _data = {
 }
 
 [node name="Boid" instance=ExtResource("1_06t63")]
+collision_mask = 32
 id = "boid"
 base_health = 4
 
-[node name="Orbit" type="Node" parent="StateMachine/Base" index="0"]
+[node name="Orbit" type="Node" parent="StateMachine/Base" index="0" node_paths=PackedStringArray("node")]
 script = ExtResource("2_efcwk")
+node = NodePath("../../../Spinner/Target")
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_m5ftv")
@@ -71,6 +73,7 @@ libraries = {
 [node name="Spinner" type="Node2D" parent="." index="5"]
 top_level = true
 script = ExtResource("4_8k0wj")
+rate = 0.25
 
 [node name="Target" type="Marker2D" parent="Spinner" index="0"]
-position = Vector2(0, 64)
+position = Vector2(0, 48)

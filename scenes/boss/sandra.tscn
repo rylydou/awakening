@@ -1,0 +1,272 @@
+[gd_scene load_steps=16 format=3 uid="uid://b20pnvp80bq1s"]
+
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="1_1glas"]
+[ext_resource type="Script" path="res://scripts/boss/sandra.gd" id="1_o10lr"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="2_ual8m"]
+[ext_resource type="Script" path="res://scripts/animator.gd" id="4_mem5u"]
+[ext_resource type="Script" path="res://scripts/boss/sandra_butt.gd" id="5_dgrko"]
+
+[sub_resource type="Curve" id="Curve_ldxq2"]
+max_value = 10.0
+_data = [Vector2(0, 2), 0.0, 10.0, 0, 1, Vector2(0.2, 4), 10.0, 6.66667, 1, 1, Vector2(0.5, 6), 6.66667, 2.0, 1, 1, Vector2(1, 7), 2.0, 3.33333, 1, 1]
+point_count = 4
+
+[sub_resource type="Animation" id="Animation_mhisx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/Sprite:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/Sprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sqfgt"]
+resource_name = "pinch_east"
+length = 0.266668
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/Sprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_l23yb"]
+resource_name = "pinch_south"
+length = 0.266668
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/Sprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ggoqy"]
+resource_name = "pinch_southeast"
+length = 0.266668
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/Sprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7oy1m"]
+_data = {
+"RESET": SubResource("Animation_mhisx"),
+"pinch_east": SubResource("Animation_sqfgt"),
+"pinch_south": SubResource("Animation_l23yb"),
+"pinch_south_east": SubResource("Animation_ggoqy")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s70my"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5iuht"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_owpn2"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlar8"]
+radius = 8.0
+
+[node name="Sandra" type="CharacterBody2D" node_paths=PackedStringArray("segment_node", "butt_segment_node")]
+collision_layer = 32
+motion_mode = 1
+script = ExtResource("1_o10lr")
+speed_over_health = SubResource("Curve_ldxq2")
+segment_count = 10
+segment_node = NodePath("Segment")
+butt_segment_node = NodePath("Butt")
+
+[node name="Animator" type="AnimationPlayer" parent="." node_paths=PackedStringArray("flip_node")]
+libraries = {
+"": SubResource("AnimationLibrary_7oy1m")
+}
+script = ExtResource("4_mem5u")
+flip_node = NodePath("../Flip")
+
+[node name="Flip" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite" type="Sprite2D" parent="Flip"]
+texture = ExtResource("1_1glas")
+hframes = 6
+region_enabled = true
+region_rect = Rect2(32, 64, 96, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s70my")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("2_ual8m")
+damage = 4
+auto_attack = true
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_5iuht")
+debug_color = Color(1, 0, 0, 0)
+
+[node name="Segment" type="Area2D" parent="."]
+top_level = true
+position = Vector2(0, -12)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("2_ual8m")
+damage = 2
+auto_attack = true
+
+[node name="Sprite" type="Sprite2D" parent="Segment"]
+texture = ExtResource("1_1glas")
+region_enabled = true
+region_rect = Rect2(16, 64, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="Segment"]
+shape = SubResource("CircleShape2D_owpn2")
+debug_color = Color(1, 0, 0, 0)
+
+[node name="Butt" type="CharacterBody2D" parent="."]
+top_level = true
+position = Vector2(0, -24)
+collision_layer = 1280
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("5_dgrko")
+
+[node name="Sprite" type="Sprite2D" parent="Butt"]
+texture = ExtResource("1_1glas")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="Butt"]
+shape = SubResource("CircleShape2D_hlar8")
+debug_color = Color(0, 1, 0, 0)

@@ -52,8 +52,8 @@ func _fetch(ds: DataStore) -> void:
 	else:
 		items = fetched_items
 	
-	magic = ds.fetch('magic', 32)
-	max_magic = ds.fetch('max_magic', 32)
+	magic = ds.fetch('magic', 6*8)
+	max_magic = ds.fetch('max_magic', 6*8)
 	
 	money = ds.fetch('money', 0)
 	

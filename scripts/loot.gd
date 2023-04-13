@@ -30,7 +30,7 @@ func _ready() -> void:
 		
 		Type.Magic: sprite.frame = 8
 		Type.Magic_LG: sprite.frame = 9
-		Type.Arrow_Dud: sprite.frame = 10
+		Type.Arrow_Dud: sprite.frame = 6
 		
 		_: printerr('Unknown type:' + str(type))
 
@@ -49,8 +49,8 @@ func _on_body_entered(body: Player) -> void:
 		
 		Type.Life: Game.player.health += 4
 		
-		Type.Magic: Inventory.magic += 4
-		Type.Magic_LG: Inventory.magic += 16
+		Type.Magic: Inventory.magic += 6
+		Type.Magic_LG: Inventory.magic += 6*4
 		Type.Arrow_Dud: Inventory.magic += 2
 		
 		_: printerr('Unknown type: ' + str(type))

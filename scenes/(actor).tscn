@@ -108,7 +108,8 @@ texture = ExtResource("5_whnx7")
 shape = SubResource("CircleShape2D_7gu85")
 debug_color = Color(0, 1, 0, 0)
 
-[node name="Animator" type="AnimationPlayer" parent="."]
+[node name="Animator" type="AnimationPlayer" parent="." node_paths=PackedStringArray("flip_node")]
 unique_name_in_owner = true
 playback_process_mode = 0
 script = ExtResource("1_f8rig")
+flip_node = NodePath("../Flip")

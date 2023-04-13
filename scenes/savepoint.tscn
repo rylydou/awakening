@@ -6,6 +6,7 @@
 script/source = "extends StaticBody2D
 
 func interact() -> bool:
+	Game.player.health = Game.player.base_health;
 	Game.save()
 	Dialog.say(['progress has been saved!'])
 	return true
