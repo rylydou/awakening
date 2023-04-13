@@ -1,6 +1,9 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cympy4xvsauks"]
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://cympy4xvsauks"]
 
 [ext_resource type="Texture2D" uid="uid://biugy18q66mtx" path="res://content/sprites/tileset.png" id="1_jxytr"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_bd3sn"]
+tile_data = PackedInt32Array(0, 0, 5, 65536, 0, 6, 131072, 0, 6, 196608, 0, 6, 262144, 0, 6, 327680, 0, 6, 393216, 0, 6, 458752, 0, 6, 524288, 0, 6, 589824, 0, 6, 655360, 0, 7, 1, 65536, 5, 655361, 65536, 7, 2, 65536, 5, 655362, 65536, 7, 3, 65536, 5, 655363, 65536, 7, 4, 65536, 5, 655364, 65536, 7, 5, 65536, 5, 655365, 65536, 7, 6, 65536, 5, 655366, 65536, 7, 7, 65536, 5, 655367, 65536, 7, 8, 65536, 5, 655368, 65536, 7, 9, 65536, 5, 655369, 65536, 7, 10, 131072, 5, 65546, 131072, 6, 131082, 131072, 6, 196618, 131072, 6, 262154, 131072, 6, 327690, 131072, 6, 393226, 131072, 6, 458762, 131072, 6, 524298, 131072, 6, 589834, 131072, 6, 655370, 131072, 7)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx5pa"]
 resource_name = "Tiles"
@@ -1797,3 +1800,4 @@ terrain_set_0/terrain_2/color = Color(0, 0, 1, 1)
 terrain_set_0/terrain_3/name = "Sky"
 terrain_set_0/terrain_3/color = Color(0, 1, 1, 1)
 sources/0 = SubResource("TileSetAtlasSource_fx5pa")
+pattern_0 = SubResource("TileMapPattern_bd3sn")

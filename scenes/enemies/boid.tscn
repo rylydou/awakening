@@ -62,7 +62,7 @@ node = NodePath("../../../Spinner/Target")
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_m5ftv")
 hframes = 2
-region_rect = Rect2(48, 16, 32, 16)
+region_rect = Rect2(0, 16, 32, 16)
 
 [node name="Animator" parent="." index="4"]
 autoplay = "idle"

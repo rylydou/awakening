@@ -6,9 +6,10 @@
 script/source = "extends StaticBody2D
 
 func interact() -> bool:
-	Game.player.health = Game.player.base_health;
+	Game.player.health = Game.player.base_health
+	Inventory.magic = Inventory.max_magic
 	Game.save()
-	Dialog.say(['progress has been saved!'])
+	Dialog.say(['PROGRESS HAS BEEN SAVED!\\nlife and magic has also been refilled'])
 	return true
 "
 

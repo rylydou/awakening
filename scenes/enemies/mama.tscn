@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds5kph50cql77"]
+[gd_scene load_steps=12 format=3 uid="uid://ds5kph50cql77"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_ih21a"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_f0b36"]
 [ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="3_ii1nu"]
-[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_sshkn"]
 [ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_g1c74"]
 [ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="6_hhbjx"]
 
@@ -18,6 +17,45 @@ radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6k55t"]
 radius = 1.0
+
+[sub_resource type="Animation" id="Animation_qci5i"]
+resource_name = "idle"
+length = 0.500002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_o80rg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f6cu1"]
+_data = {
+"RESET": SubResource("Animation_o80rg"),
+"idle": SubResource("Animation_qci5i")
+}
 
 [node name="Mama" instance=ExtResource("1_ih21a")]
 id = "mama"
@@ -44,9 +82,8 @@ time = 40
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
 position = Vector2(0, -5)
-texture = ExtResource("3_sshkn")
-region_enabled = true
-region_rect = Rect2(0, 32, 16, 16)
+hframes = 2
+region_rect = Rect2(96, 0, 32, 16)
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_j4qo8")
@@ -56,3 +93,6 @@ shape = SubResource("CircleShape2D_6k55t")
 
 [node name="Animator" parent="." index="4"]
 autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_f6cu1")
+}

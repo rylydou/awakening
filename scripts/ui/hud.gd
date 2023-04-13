@@ -1,10 +1,10 @@
 extends Control
 
-@export var life_dec_speed := 32.
-@export var life_inc_speed := 16.
+@export var life_dec_speed := 8.0*4
+@export var life_inc_speed := 4.0*4
 
-@export var magic_dec_speed := 16.
-@export var magic_inc_speed := 16.
+@export var magic_dec_speed := 4.0*6
+@export var magic_inc_speed := 4.0*6
 
 @onready var life_display: IconStatus = %LifeDisplay
 var life_value: float
@@ -26,11 +26,8 @@ func _enter_tree() -> void:
 
 func _fetch(ds: DataStore) -> void:
 	deaths_label.text = str(ds.fetch('counter.deaths', 0))
-	#life_value = ds.fetch('player.health', 4*3)
-	#magic_value = ds.fetch('inventory.magic', 4*8)
-	
-	life_value = 0.
-	magic_value = 0.
+	life_value = ds.fetch('player.health', 4*3)
+	magic_value = ds.fetch('inventory.magic', 4*8)
 
 func _process(delta: float) -> void:
 	#var update_displays := get_tree().get_frame() % 5 == 0

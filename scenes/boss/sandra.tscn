@@ -8,8 +8,9 @@
 
 [sub_resource type="Curve" id="Curve_ldxq2"]
 max_value = 10.0
-_data = [Vector2(0, 2), 0.0, 10.0, 0, 1, Vector2(0.2, 4), 10.0, 6.66667, 1, 1, Vector2(0.5, 6), 6.66667, 2.0, 1, 1, Vector2(1, 7), 2.0, 3.33333, 1, 1]
-point_count = 4
+bake_resolution = 10
+_data = [Vector2(0, 2.5), 0.0, 10.0, 0, 0, Vector2(1, 8), 0.0, 0.0, 0, 1]
+point_count = 2
 
 [sub_resource type="Animation" id="Animation_mhisx"]
 length = 0.001
@@ -219,7 +220,7 @@ unique_name_in_owner = true
 texture = ExtResource("1_1glas")
 hframes = 6
 region_enabled = true
-region_rect = Rect2(32, 64, 96, 16)
+region_rect = Rect2(32, 32, 96, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_s70my")
@@ -237,7 +238,6 @@ shape = SubResource("CircleShape2D_5iuht")
 debug_color = Color(1, 0, 0, 0)
 
 [node name="Segment" type="Area2D" parent="."]
-top_level = true
 position = Vector2(0, -12)
 collision_layer = 0
 collision_mask = 512
@@ -248,14 +248,13 @@ auto_attack = true
 [node name="Sprite" type="Sprite2D" parent="Segment"]
 texture = ExtResource("1_1glas")
 region_enabled = true
-region_rect = Rect2(16, 64, 16, 16)
+region_rect = Rect2(16, 32, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="Segment"]
 shape = SubResource("CircleShape2D_owpn2")
 debug_color = Color(1, 0, 0, 0)
 
 [node name="Butt" type="CharacterBody2D" parent="."]
-top_level = true
 position = Vector2(0, -24)
 collision_layer = 1280
 collision_mask = 0
@@ -265,7 +264,7 @@ script = ExtResource("5_dgrko")
 [node name="Sprite" type="Sprite2D" parent="Butt"]
 texture = ExtResource("1_1glas")
 region_enabled = true
-region_rect = Rect2(0, 64, 16, 16)
+region_rect = Rect2(0, 32, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="Butt"]
 shape = SubResource("CircleShape2D_hlar8")

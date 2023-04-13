@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @export var speed_over_health: Curve
 @export var turn_speed := 0.0
-#@export var segment_offset_frames := 10
 
 @export var segment_spacing := 12.0
 @export var segment_count := 4
@@ -10,6 +9,9 @@ extends CharacterBody2D
 var segments: Array[Node2D]
 
 @export var butt_segment_node: Node2D
+
+@export var inv_time := 10
+@export var inv_timer := 0
 
 var history: Array[Vector2]
 
@@ -23,20 +25,24 @@ func _ready() -> void:
 	for i in segment_count:
 		var segment := segments[i]
 		segment.name = 'Seg%s' % i
+		segment.top_level = true
 		segment.position = global_position
 		segment.position.x -= (i+1)*16
 		segment.z_index = -(i+1)
 	
-	history.resize(1000)
+	history.resize(Engine.physics_ticks_per_second/speed_over_health.sample_baked(0)*segment_spacing)
 	history.fill(global_position)
+	
+	butt_segment_node.top_level = true
 
-var rot := 0.0
-var direction := Vector2.RIGHT
+var rot := PI/6
+var direction := Vector2.DOWN
 var age := 0.0
 func _physics_process(delta: float) -> void:
-	var health := float(segments.size())/segment_count
-	
+	inv_timer -= 1
 	age += delta
+	
+	var health := float(segments.size())/segment_count
 	
 	turn_speed = sin(age*PI*2)*1.0
 	rot += turn_speed*PI*2*delta
@@ -50,7 +56,6 @@ func _physics_process(delta: float) -> void:
 		#rot = hit.get_normal().reflect(direction).angle()
 		rot = global_position.angle_to_point(Game.player.position)
 		direction = Vector2.from_angle(rot)
-	
 	
 	var segment_frame_gap := (1./delta)/move_speed*segment_spacing
 	
@@ -75,6 +80,9 @@ func _physics_process(delta: float) -> void:
 	history.pop_back()
 
 func take_damage(damage: int, source: Node) -> bool:
+	if inv_timer > 0: return false
+	inv_timer = inv_time
+	
 	if segments.size() == 0:
 		queue_free()
 		return true
