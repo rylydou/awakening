@@ -30,6 +30,7 @@ Flags="*res://scripts/autoloads/flags.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 Camera="*res://scenes/autoloads/camera.tscn"
 Dialog="*res://scenes/autoloads/dialog.tscn"
+Enviorment="*res://scenes/autoloads/enviorment.tscn"
 
 [debug]
 

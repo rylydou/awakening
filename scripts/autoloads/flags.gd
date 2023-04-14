@@ -20,4 +20,8 @@ func lower(flag_name: StringName) -> void:
 	flags.erase(flag_name)
 
 func has(flag_name: StringName) -> bool:
+	# mirror items for QoL
+	if flag_name.begins_with(&'item_'):
+		return Inventory.items.has(flag_name.trim_prefix(&'item_'))
+	
 	return flags.has(flag_name)

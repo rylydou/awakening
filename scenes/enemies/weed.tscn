@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://by72fikkdgaes"]
+
+[ext_resource type="Script" path="res://scripts/enemies/weed.gd" id="1_x0jt0"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_joltv"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_57l6u"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="4_nouhq"]
+[ext_resource type="Animation" uid="uid://twlic2p7aft0" path="res://resources/roll.res" id="5_yvkn4"]
+[ext_resource type="Script" path="res://scripts/parts/drop_loot.gd" id="6_fard1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hh7oy"]
+resource_local_to_scene = true
+shader = ExtResource("2_joltv")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekxl2"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0dha"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_bku5p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_36jb0"]
+_data = {
+"RESET": SubResource("Animation_bku5p"),
+"roll": ExtResource("5_yvkn4")
+}
+
+[node name="Weed" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2336
+collision_mask = 43
+motion_mode = 1
+script = ExtResource("1_x0jt0")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hh7oy")
+texture = ExtResource("3_57l6u")
+region_enabled = true
+region_rect = Rect2(32, 64, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ekxl2")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="HitboxArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("4_nouhq")
+auto_attack = true
+
+[node name="Collision" type="CollisionShape2D" parent="HitboxArea"]
+shape = SubResource("CircleShape2D_r0dha")
+debug_color = Color(1, 0, 0, 0)
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+autoplay = "roll"
+playback_process_mode = 0
+speed_scale = 10.0
+libraries = {
+"": SubResource("AnimationLibrary_36jb0")
+}
+
+[node name="DropLoot" type="Node" parent="."]
+script = ExtResource("6_fard1")
+drops = Array[int]([4, 5, 0])
+
+[connection signal="died" from="." to="DropLoot" method="trigger"]

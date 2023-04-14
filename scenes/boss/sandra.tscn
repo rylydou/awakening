@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://b20pnvp80bq1s"]
+[gd_scene load_steps=17 format=3 uid="uid://b20pnvp80bq1s"]
 
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="1_1glas"]
 [ext_resource type="Script" path="res://scripts/boss/sandra.gd" id="1_o10lr"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="2_ual8m"]
 [ext_resource type="Script" path="res://scripts/animator.gd" id="4_mem5u"]
-[ext_resource type="Script" path="res://scripts/boss/sandra_butt.gd" id="5_dgrko"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="6_s31w0"]
 
 [sub_resource type="Curve" id="Curve_ldxq2"]
@@ -268,7 +267,6 @@ position = Vector2(0, -24)
 collision_layer = 1280
 collision_mask = 0
 motion_mode = 1
-script = ExtResource("5_dgrko")
 
 [node name="Sprite" type="Sprite2D" parent="Butt"]
 material = SubResource("ShaderMaterial_e4xfp")

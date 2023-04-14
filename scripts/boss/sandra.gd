@@ -94,4 +94,8 @@ func take_damage(damage: int, source: Node) -> bool:
 	remove_child(segment)
 	segment.queue_free()
 	
+	var n = preload('res://scenes/enemies/weed.tscn').instantiate() as Node2D
+	get_parent().add_child(n)
+	n.global_position = butt_segment_node.global_position
+	
 	return true

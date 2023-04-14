@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://kexnavn7getg"]
+[gd_scene load_steps=7 format=3 uid="uid://kexnavn7getg"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_kyjn1"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_ess2i"]
-[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="2_tmwto"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5ptb"]
 resource_local_to_scene = true
@@ -80,8 +79,6 @@ base_health = 8
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_g5ptb")
-texture = ExtResource("2_tmwto")
-region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
 [node name="HitboxArea" parent="." index="3"]
