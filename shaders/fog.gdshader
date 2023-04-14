@@ -14,6 +14,7 @@ uniform float border_feather : hint_range(0.0, 1.0) = 0.02;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
 global uniform vec2 PLAYER_UV;
+global uniform float FOG_RADIUS;
 
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -104,7 +105,8 @@ void fragment() {
 	float noise_t = noise_speed*TIME;
 	float f = cnoise(vec3(noise_uv*noise_scale, noise_t));
 	
-	float alpha = smoothstep(radius-border_feather, radius+border_feather, l + f*noise_feather);
+	float r = FOG_RADIUS;
+	float alpha = smoothstep(r-border_feather, r+border_feather, l + f*noise_feather);
 	//float a = step(radius, l + f);
 	
 	// COLORS

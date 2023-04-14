@@ -13,8 +13,10 @@ enum AnimationType {
 func play_anim(animation_name: StringName, animation_type: AnimationType) -> bool:
 	var direction: Vector2 = owner.direction
 	match animation_type:
+		AnimationType.Single:
+			flip_node.scale.x = 1 if owner.direction.x >= 0 else -1
+		
 		AnimationType.FourDirectional:
-			
 			if direction.y != 0:
 				if direction.y > 0:
 					animation_name += '_south'

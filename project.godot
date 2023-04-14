@@ -171,3 +171,7 @@ PLAYER_UV={
 "type": "vec2",
 "value": Vector2(0.5, 0.5)
 }
+FOG_RADIUS={
+"type": "float",
+"value": 1.0
+}

@@ -88,7 +88,7 @@ time = 40
 material = SubResource("ShaderMaterial_nf0pl")
 position = Vector2(0, -4)
 hframes = 2
-region_rect = Rect2(96, 0, 32, 16)
+region_rect = Rect2(32, 16, 32, 16)
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -2)

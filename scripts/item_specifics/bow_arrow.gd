@@ -1,4 +1,4 @@
-extends "res://scripts/projectile.gd"
+extends Projectile
 
 @onready var hitbox: Hitbox = %Hitbox
 func die() -> void:

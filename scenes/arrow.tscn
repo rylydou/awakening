@@ -17,6 +17,7 @@ size = Vector2(9, 16)
 
 [node name="Arrow" type="CharacterBody2D"]
 collision_layer = 0
+motion_mode = 1
 script = ExtResource("1_goxu5")
 distance_over_lifetime = SubResource("Curve_6pxc2")
 lifetime = 40

@@ -9,6 +9,7 @@ extends CharacterBody2D
 var segments: Array[Node2D]
 
 @export var butt_segment_node: Node2D
+@export var butt_sprite: Sprite2D
 
 @export var inv_time := 10
 @export var inv_timer := 0
@@ -39,7 +40,9 @@ var rot := PI/6
 var direction := Vector2.DOWN
 var age := 0.0
 func _physics_process(delta: float) -> void:
-	inv_timer -= 1
+	if inv_timer > 0:
+		inv_timer -= 1
+	butt_sprite.material.set_shader_parameter('invert_intensity', inv_timer % 2)
 	age += delta
 	
 	var health := float(segments.size())/segment_count

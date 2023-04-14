@@ -1,0 +1,264 @@
+[gd_scene load_steps=17 format=3 uid="uid://ckvpwct7cngye"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_q12nh"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_3052r"]
+[ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="2_nnw0h"]
+[ext_resource type="Script" path="res://scripts/ai/move.gd" id="3_cme6x"]
+[ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="4_2377h"]
+[ext_resource type="Script" path="res://scripts/ai/warn.gd" id="5_s3kfb"]
+[ext_resource type="Script" path="res://scripts/ai/set_anim.gd" id="6_1ali6"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="6_73vfv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ympj4"]
+resource_local_to_scene = true
+shader = ExtResource("2_3052r")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_f2wd7"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m6ih6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ee6kp"]
+resource_name = "attack_start"
+length = 0.50005
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_4780j"]
+resource_name = "attack_end"
+length = 1.00005
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o8odc"]
+resource_name = "attack"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/BodySprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8dmo8"]
+_data = {
+"RESET": SubResource("Animation_m6ih6"),
+"attack": SubResource("Animation_o8odc"),
+"attack_end": SubResource("Animation_4780j"),
+"attack_start": SubResource("Animation_ee6kp"),
+"idle": SubResource("Animation_f2wd7")
+}
+
+[sub_resource type="GDScript" id="GDScript_is1al"]
+resource_name = "teleport_random"
+script/source = "extends Node
+
+@export var teleport_distance := 2.0
+@export var stun_time := 30
+
+@onready var ghost: Sprite2D = $Ghost
+
+var tween: Tween
+func teleport(source: Node2D) -> void:
+	if owner.health <= 0: return
+	
+	var from := owner.global_position as Vector2
+	var to := source.global_position + Vector2.from_angle(RNG.misc.randf()*PI*2)*teleport_distance*16
+	
+	owner.global_position = to
+	owner.apply_stun(stun_time)
+	
+	if is_instance_valid(tween):
+		tween.kill()
+	
+	ghost.show()
+	ghost.scale.x = 1 if owner.direction.x >= 0 else -1
+	tween = create_tween()
+	tween.tween_property(ghost, 'position', to, 15/60.).from(from).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	tween.tween_callback(ghost.hide)
+
+func _on_kyle_damaged(damage: int, source: Node) -> void:
+	teleport(source)
+
+func _on_hitbox_area_attacked(node: Node2D) -> void:
+	teleport(node)
+"
+
+[node name="Kyle" instance=ExtResource("1_q12nh")]
+collision_mask = 0
+base_health = 8
+
+[node name="PointAtPlayer" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("2_nnw0h")
+
+[node name="SetAnim" type="Node" parent="StateMachine/Base" index="1"]
+script = ExtResource("6_1ali6")
+animation_name = &"idle"
+
+[node name="Move" type="Node" parent="StateMachine/Base" index="2"]
+script = ExtResource("3_cme6x")
+distance = 1.0
+time = 30
+
+[node name="PlayerInRange" type="Node" parent="StateMachine/Base" index="3"]
+script = ExtResource("4_2377h")
+detection_range = 2.0
+
+[node name="Warn" type="Node" parent="StateMachine/Base/PlayerInRange" index="0" node_paths=PackedStringArray("node")]
+script = ExtResource("5_s3kfb")
+time = 15
+node = NodePath("../../../../Flip/BodySprite")
+
+[node name="SetAnim" type="Node" parent="StateMachine/Base/PlayerInRange" index="1"]
+script = ExtResource("6_1ali6")
+animation_name = &"attack"
+
+[node name="Move" type="Node" parent="StateMachine/Base/PlayerInRange" index="2"]
+script = ExtResource("3_cme6x")
+distance = 2.0
+time = 30
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_ympj4")
+hframes = 2
+region_rect = Rect2(0, 48, 32, 16)
+
+[node name="HitboxArea" parent="." index="3"]
+damage = 2
+
+[node name="Animator" parent="." index="4"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_8dmo8")
+}
+
+[node name="Teleport" type="Node" parent="." index="5"]
+script = SubResource("GDScript_is1al")
+teleport_distance = 3.0
+stun_time = 20
+
+[node name="Ghost" type="Sprite2D" parent="Teleport" index="0"]
+visible = false
+top_level = true
+texture = ExtResource("6_73vfv")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[connection signal="damaged" from="." to="Teleport" method="_on_kyle_damaged"]
+[connection signal="attacked" from="HitboxArea" to="Teleport" method="_on_hitbox_area_attacked"]

@@ -1,4 +1,4 @@
-extends Step
+class_name Warn extends Step
 
 @export var time := 30
 @export var amplitude := 1

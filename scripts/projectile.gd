@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Projectile extends CharacterBody2D
 
 enum SpriteMode {
 	Single,
@@ -16,8 +16,8 @@ var direction: Vector2
 @onready var offset_direction := direction.rotated(PI/2)
 @onready var starting_position := position
 
-@onready var sprite: Sprite2D = %Sprite
-@onready var collision: CollisionShape2D = %Collision
+@onready var sprite: Sprite2D = $Sprite
+@onready var collision: CollisionShape2D = $Collision
 
 func _ready() -> void:
 	sprite.flip_h = direction.x < 0

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://di4x2bfgqy2c2"]
+
+[ext_resource type="Script" path="res://scripts/item_specifics/candle.gd" id="1_e8qug"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_f6ipu"]
+
+[resource]
+script = ExtResource("1_f6ipu")
+id = &"candle"
+name = "candle"
+item_icon_coords = Vector2i(3, 1)
+magic_cost = 6
+hitbox_damage = 0
+item_specifics_script = ExtResource("1_e8qug")
+item_fx_region = Rect2i(0, 0, 1, 1)
+sound_effect_name = &"buff"
+animation_name = &"throw"
+animation_type = 1

@@ -42,8 +42,6 @@ func enter(old_state: Node) -> void:
 		fail()
 		return
 	
-	Inventory.magic -= item.magic_cost
-	
 	var spec_node := get_spec_node(item)
 	
 	var can_use := true
@@ -53,6 +51,8 @@ func enter(old_state: Node) -> void:
 	if not can_use:
 		fail()
 		return
+	
+	Inventory.magic -= item.magic_cost
 	
 	item_sprite.region_rect.position = item.item_fx_region.position*16.
 	item_sprite.region_rect.size = item.item_fx_region.size*16.

@@ -123,7 +123,7 @@ collision_mask = 256
 script = ExtResource("3_814l0")
 auto_attack = true
 remember_hits = true
-stun_amount = 150
+stun_amount = 180
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_m1nsp")

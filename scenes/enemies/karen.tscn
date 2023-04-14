@@ -1,0 +1,213 @@
+[gd_scene load_steps=25 format=3 uid="uid://k3thocy1sba5"]
+
+[ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_xacr8"]
+[ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_akuwn"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_mt0o1"]
+[ext_resource type="Script" path="res://scripts/ai/set_anim.gd" id="2_sqint"]
+[ext_resource type="Script" path="res://scripts/ai/point_at_player.gd" id="4_t14en"]
+[ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="5_k78ss"]
+[ext_resource type="Script" path="res://scripts/ai/shoot.gd" id="5_vof4k"]
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="6_k0k6u"]
+[ext_resource type="Texture2D" uid="uid://5tiaf3h7sq4k" path="res://content/sprites/proj.png" id="6_y52kh"]
+[ext_resource type="Script" path="res://scripts/ai/warn.gd" id="7_btq4a"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="7_ijcio"]
+[ext_resource type="Script" path="res://scripts/ai/wait.gd" id="9_gf2yh"]
+
+[sub_resource type="Curve" id="Curve_a1575"]
+max_value = 16.0
+_data = [Vector2(0, 0), 0.0, 16.0, 0, 1, Vector2(1, 16), 16.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7bmpr"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bjihs"]
+radius = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ca03m"]
+resource_local_to_scene = true
+shader = ExtResource("2_mt0o1")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ylp7d"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bj2ef"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_ogevc"]
+resource_name = "look_south"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lotjb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d851l"]
+resource_name = "look_east"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_110y0"]
+resource_name = "look_south_east"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_3tk8f"]
+resource_name = "close"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trpvo"]
+_data = {
+"RESET": SubResource("Animation_lotjb"),
+"close": SubResource("Animation_3tk8f"),
+"look_east": SubResource("Animation_d851l"),
+"look_south": SubResource("Animation_ogevc"),
+"look_south_east": SubResource("Animation_110y0")
+}
+
+[node name="Karen" instance=ExtResource("1_xacr8")]
+collision_layer = 2338
+id = "karen"
+base_health = 2
+
+[node name="Repeat" type="Node" parent="StateMachine/Base" index="0"]
+script = ExtResource("5_k78ss")
+count_min = 5
+
+[node name="PlayerInRange" type="Node" parent="StateMachine/Base/Repeat" index="0"]
+script = ExtResource("2_akuwn")
+detection_range = 2.0
+
+[node name="SetAnim" type="Node" parent="StateMachine/Base/Repeat/PlayerInRange" index="0"]
+script = ExtResource("2_sqint")
+animation_name = &"close"
+
+[node name="Wait" type="Node" parent="StateMachine/Base/Repeat/PlayerInRange" index="1"]
+script = ExtResource("9_gf2yh")
+duration = 600
+
+[node name="PointAtPlayer" type="Node" parent="StateMachine/Base/Repeat" index="1"]
+script = ExtResource("4_t14en")
+
+[node name="SetAnim" type="Node" parent="StateMachine/Base/Repeat" index="2"]
+script = ExtResource("2_sqint")
+animation_name = &"look"
+animation_type = 4
+
+[node name="Wait" type="Node" parent="StateMachine/Base/Repeat" index="3"]
+script = ExtResource("9_gf2yh")
+duration = 10
+
+[node name="Warn" type="Node" parent="StateMachine/Base" index="1" node_paths=PackedStringArray("node")]
+script = ExtResource("7_btq4a")
+time = 15
+node = NodePath("../../../Flip/BodySprite")
+
+[node name="Shoot" type="Node" parent="StateMachine/Base" index="2"]
+script = ExtResource("5_vof4k")
+
+[node name="Projectile" type="CharacterBody2D" parent="StateMachine/Base/Shoot" index="0"]
+z_index = -1
+collision_layer = 0
+motion_mode = 1
+script = ExtResource("6_k0k6u")
+distance_over_lifetime = SubResource("Curve_a1575")
+lifetime = 240
+
+[node name="Sprite" type="Sprite2D" parent="StateMachine/Base/Shoot/Projectile" index="0"]
+texture = ExtResource("6_y52kh")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="Collision" type="CollisionShape2D" parent="StateMachine/Base/Shoot/Projectile" index="1"]
+shape = SubResource("CircleShape2D_7bmpr")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Hitbox" type="Area2D" parent="StateMachine/Base/Shoot/Projectile" index="2"]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("7_ijcio")
+damage = 2
+auto_attack = true
+
+[node name="Collision" type="CollisionShape2D" parent="StateMachine/Base/Shoot/Projectile/Hitbox" index="0"]
+shape = SubResource("CircleShape2D_bjihs")
+debug_color = Color(1, 0, 0, 0)
+
+[node name="DropLoot" parent="StateMachine/Death" index="1"]
+drops = Array[int]([4, 1, 6])
+
+[node name="BodySprite" parent="Flip" index="0"]
+material = SubResource("ShaderMaterial_ca03m")
+hframes = 4
+region_rect = Rect2(64, 48, 64, 16)
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_ylp7d")
+
+[node name="Collision" parent="HitboxArea" index="0"]
+shape = SubResource("CircleShape2D_bj2ef")
+
+[node name="Animator" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_trpvo")
+}
