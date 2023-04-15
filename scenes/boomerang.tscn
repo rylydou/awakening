@@ -111,6 +111,7 @@ texture = ExtResource("1_kmgv8")
 hframes = 3
 region_enabled = true
 region_rect = Rect2(64, 0, 48, 16)
+region_filter_clip_enabled = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gilic")

@@ -1,4 +1,4 @@
-class_name Loot extends Area2D
+class_name Loot extends Node2D
 
 enum Type {
 	Money_1,
@@ -17,6 +17,10 @@ enum Type {
 
 var type: Type
 
+@export var nopickup_time := 20
+@export var sprite_bounce_curve: Curve
+@export var sprite_bounce_time := 30
+
 @onready var sprite: Sprite2D = %Sprite
 
 func _ready() -> void:
@@ -34,8 +38,22 @@ func _ready() -> void:
 		
 		_: printerr('Unknown type:' + str(type))
 
+var age := 0
+func _physics_process(delta: float) -> void:
+	age += 1
+	sprite.offset.y = -sprite_bounce_curve.sample_baked(float(age)/sprite_bounce_time)
+
+func _on_pickup_area_body_entered(body: Node2D) -> void:
+	pickup()
+
+func take_damage(damage: int, source: Node) -> bool:
+	pickup()
+	return false
+
 var picked_up := false
-func _on_body_entered(body: Player) -> void:
+func pickup() -> void:
+	if age < nopickup_time: return
+	
 	if picked_up: return
 	picked_up = true
 	

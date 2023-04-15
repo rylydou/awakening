@@ -215,7 +215,7 @@ time = 10
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_wkvkj")
 hframes = 4
-region_rect = Rect2(0, 48, 64, 16)
+region_rect = Rect2(64, 16, 64, 16)
 
 [node name="HitboxArea" parent="." index="3"]
 damage = 4

@@ -14,6 +14,8 @@ func start() -> bool:
 	return false
 
 func tick(delta: float) -> bool:
-	actor.move_and_slide()
+	var hit := actor.move_and_slide()
+	if hit:
+		return true
 	timer -= 1
 	return timer <= 0

@@ -19,7 +19,6 @@ func _physics_process(delta: float) -> void:
 			charge -= 1
 	else:
 		charge += charge_inc
-		print('charge')
 	
 	if charge > max_charge:
 		charge = 0

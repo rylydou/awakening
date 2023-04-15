@@ -1066,7 +1066,7 @@ region_rect = Rect2(0, 0, 64, 16)
 
 [node name="ItemHitbox" type="Area2D" parent="Flip/ItemSprite" index="1"]
 unique_name_in_owner = true
-collision_layer = 0
+collision_layer = 16
 collision_mask = 256
 script = ExtResource("3_e38ue")
 damage = 0

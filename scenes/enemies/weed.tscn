@@ -14,10 +14,10 @@ shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ekxl2"]
-radius = 8.0
+radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r0dha"]
-radius = 6.0
+radius = 4.47214
 
 [sub_resource type="Animation" id="Animation_bku5p"]
 length = 0.001
@@ -57,12 +57,14 @@ collision_layer = 2336
 collision_mask = 43
 motion_mode = 1
 script = ExtResource("1_x0jt0")
+speed = 5.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hh7oy")
 texture = ExtResource("3_57l6u")
 region_enabled = true
-region_rect = Rect2(32, 64, 16, 16)
+region_rect = Rect2(64, 64, 16, 16)
+region_filter_clip_enabled = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ekxl2")
@@ -72,7 +74,6 @@ debug_color = Color(0, 1, 0, 0)
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("4_nouhq")
-auto_attack = true
 
 [node name="Collision" type="CollisionShape2D" parent="HitboxArea"]
 shape = SubResource("CircleShape2D_r0dha")
@@ -88,6 +89,6 @@ libraries = {
 
 [node name="DropLoot" type="Node" parent="."]
 script = ExtResource("6_fard1")
-drops = Array[int]([4, 5, 0])
+drops = Array[int]([4, 5])
 
 [connection signal="died" from="." to="DropLoot" method="trigger"]

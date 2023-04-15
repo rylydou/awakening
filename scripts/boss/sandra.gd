@@ -42,7 +42,7 @@ var age := 0.0
 func _physics_process(delta: float) -> void:
 	if inv_timer > 0:
 		inv_timer -= 1
-	butt_sprite.material.set_shader_parameter('invert_intensity', inv_timer % 2)
+	butt_sprite.material.set_shader_parameter('invert_intensity', (inv_timer/2)%2)
 	age += delta
 	
 	var health := float(segments.size())/segment_count
@@ -56,8 +56,11 @@ func _physics_process(delta: float) -> void:
 	var hit := move_and_collide(motion*delta)
 	
 	if hit:
-		#rot = hit.get_normal().reflect(direction).angle()
-		rot = global_position.angle_to_point(Game.player.position)
+		if RNG.ai.randi()%2 == 0:
+			rot = hit.get_normal().reflect(direction).angle()
+		else:
+			rot = global_position.angle_to_point(Game.player.position)
+		
 		direction = Vector2.from_angle(rot)
 	
 	var segment_frame_gap := (1./delta)/move_speed*segment_spacing
@@ -66,15 +69,6 @@ func _physics_process(delta: float) -> void:
 		var segment := segments[i]
 		segment.position = history[(i + 1)*segment_frame_gap]
 	butt_segment_node.global_position = history[(segments.size() + 1)*segment_frame_gap]
-	
-#	var segs := segments.duplicate()
-#	segs.push_front(self)
-#	segs.push_back(butt_segment_node)
-#	for i in range(1, segs.size()):
-#		var current := segs[i] as Node2D
-#		var previous := segs[i - 1] as Node2D
-#		if current.global_position.distance_squared_to(previous.global_position) >= 12*12:
-#			current.global_position = current.global_position.move_toward(previous.global_position, move_speed*delta)
 	
 	direction = Vector2.from_angle(rot)
 	$Animator.play_anim('pinch', Animator.AnimationType.EightDirectional_DoubleFlip)
@@ -90,12 +84,11 @@ func take_damage(damage: int, source: Node) -> bool:
 		queue_free()
 		return true
 	
-	var segment := segments.pop_back() as Node2D
-	remove_child(segment)
-	segment.queue_free()
-	
 	var n = preload('res://scenes/enemies/weed.tscn').instantiate() as Node2D
-	get_parent().add_child(n)
+	get_parent().add_child.call_deferred(n)
 	n.global_position = butt_segment_node.global_position
+	
+	var segment := segments.pop_back() as Node2D
+	segment.queue_free.call_deferred()
 	
 	return true

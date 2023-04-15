@@ -160,11 +160,22 @@ status={
 2d_physics/layer_10="Vulerable to enemy"
 2d_physics/layer_11="Vulerable to explosions"
 2d_physics/layer_12="Vulerable to world"
+2d_physics/layer_25="Lillypad log blocker"
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/default_filters/use_nearest_mipmap_filter=true
+textures/default_filters/anisotropic_filtering_level=0
+textures/decals/filter=0
+textures/light_projectors/filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]
 

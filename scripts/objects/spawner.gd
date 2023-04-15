@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var activation_flag := &''
+
 @export var time := 1.
 @export var start_delay := 0.
 
@@ -13,7 +15,9 @@ func _enter_tree() -> void:
 func _physics_process(delta: float) -> void:
 	timer -= 1
 	if timer >= 0: return
+	if not activation_flag.is_empty() and not Flags.has(activation_flag): return
 	timer = time*60
+	
 	spawn()
 
 func spawn() -> void:

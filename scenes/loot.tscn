@@ -1,15 +1,25 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://c8gh3yc5n1iqa"]
 
 [ext_resource type="Script" path="res://scripts/loot.gd" id="1_jjgiy"]
 [ext_resource type="Texture2D" uid="uid://d1eossbcsp3i2" path="res://content/sprites/loot.png" id="1_o47w4"]
 
+[sub_resource type="Curve" id="Curve_ewtmy"]
+max_value = 8.0
+_data = [Vector2(0, 0), 0.0, 80.0, 0, 1, Vector2(0.1, 8), 0.0, 0.0, 0, 0, Vector2(0.75, 0), -12.3077, 20.0, 1, 1, Vector2(0.85, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), -13.3333, 0.0, 1, 0]
+point_count = 5
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j043"]
 radius = 4.0
 
-[node name="Loot" type="Area2D"]
-collision_layer = 0
-collision_mask = 16
+[sub_resource type="CircleShape2D" id="CircleShape2D_jw8hd"]
+radius = 4.0
+
+[node name="Loot" type="StaticBody2D"]
+position = Vector2(1, 0)
+collision_layer = 256
+collision_mask = 0
 script = ExtResource("1_jjgiy")
+sprite_bounce_curve = SubResource("Curve_ewtmy")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -18,8 +28,24 @@ hframes = 4
 vframes = 4
 region_rect = Rect2(0, 0, 32, 8)
 
+[node name="Shadow" type="Sprite2D" parent="Sprite"]
+self_modulate = Color(1, 1, 1, 0.501961)
+show_behind_parent = true
+position = Vector2(0, 4)
+texture = ExtResource("1_o47w4")
+region_enabled = true
+region_rect = Rect2(24, 24, 8, 8)
+
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1j043")
 debug_color = Color(1, 0, 1, 0)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="Collision" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_jw8hd")
+debug_color = Color(1, 0, 1, 0)
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
