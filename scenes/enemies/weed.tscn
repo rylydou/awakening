@@ -53,7 +53,7 @@ _data = {
 }
 
 [node name="Weed" type="CharacterBody2D" groups=["enemy"]]
-collision_layer = 2336
+collision_layer = 3360
 collision_mask = 43
 motion_mode = 1
 script = ExtResource("1_x0jt0")

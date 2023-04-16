@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
 	if on_floor and not on_fall:
 		respawn_position = position
 	
-	$Flip/BodySprite.modulate.a = 0.5 if inv_timer%2 else 1.0
+	$Flip/BodySprite.modulate.a = 0.33 if (inv_timer/2)%2 else 1.0
 
 func take_damage(damage: int, source: Node) -> bool:
 	if source == self:

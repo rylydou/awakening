@@ -81,14 +81,18 @@ func take_damage(damage: int, source: Node) -> bool:
 	inv_timer = inv_time
 	
 	if segments.size() == 0:
-		queue_free()
+		die()
 		return true
 	
 	var n = preload('res://scenes/enemies/weed.tscn').instantiate() as Node2D
-	get_parent().add_child.call_deferred(n)
+	get_parent().add_child(n)
 	n.global_position = butt_segment_node.global_position
 	
 	var segment := segments.pop_back() as Node2D
 	segment.queue_free.call_deferred()
 	
 	return true
+
+func die() -> void:
+	Game.boss_defeated.emit(self)
+	queue_free()

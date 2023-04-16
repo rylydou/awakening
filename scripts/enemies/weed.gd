@@ -4,7 +4,7 @@ signal died()
 
 @export var speed := 6.0
 
-var inv_timer := 10
+var inv_timer := 20
 var direction: Vector2
 
 func _ready() -> void:

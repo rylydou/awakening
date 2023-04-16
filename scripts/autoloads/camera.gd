@@ -8,6 +8,9 @@ var target := Vector2.ZERO
 var room_coords := Vector2i.ZERO
 var last_room_corrds := Vector2i(-42069, -42069)
 
+func _enter_tree() -> void:
+	Game.boss_defeated.connect(func(boss: Node): %BossFlash.flash())
+
 func _process(delta: float) -> void:
 	position = position.move_toward(target, camera_speed*16*delta)
 	if not is_instance_valid(Game.player): return
@@ -26,7 +29,7 @@ func center_camera() -> void:
 func target_room() -> void:
 	if not is_instance_valid(Game.player): return
 	
-	var player := Game.player.global_position
+	var player := Game.player.position
 	var ref := target
 	
 	var half_bounds := Consts.ROOM_SIZE_PX/2 + Vector2i.ONE*2
@@ -42,3 +45,4 @@ func target_room() -> void:
 		room_coords.y -= 1
 	
 	target = room_coords*Consts.ROOM_SIZE_PX+Consts.ROOM_SIZE_PX/2
+	#position = target

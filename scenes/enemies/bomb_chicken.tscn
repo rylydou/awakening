@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://df55f4rc0l0e7"]
+[gd_scene load_steps=18 format=3 uid="uid://df55f4rc0l0e7"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_4bhak"]
 [ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="2_bir0a"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="2_m3jaf"]
 [ext_resource type="Script" path="res://scripts/ai/random_direction.gd" id="3_6mr7n"]
 [ext_resource type="Script" path="res://scripts/parts/sound.gd" id="3_7ihvh"]
-[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="3_xs0rd"]
 [ext_resource type="Script" path="res://scripts/ai/move.gd" id="4_yyo1i"]
 [ext_resource type="Script" path="res://scripts/ai/wait.gd" id="5_g4j6g"]
 [ext_resource type="Script" path="res://scripts/parts/spawn.gd" id="5_t2q8g"]
@@ -13,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="6_acv0v"]
 [ext_resource type="Script" path="res://scripts/parts/inv.gd" id="7_o104e"]
 [ext_resource type="Script" path="res://scripts/parts/drop_item.gd" id="11_bawkk"]
-[ext_resource type="Resource" path="res://resources/items/bomb.tres" id="12_h7gcl"]
+[ext_resource type="Resource" uid="uid://o8nsta7ltn01" path="res://resources/items/bomb.tres" id="12_h7gcl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_73x5c"]
 resource_local_to_scene = true
@@ -85,6 +84,7 @@ _data = {
 }
 
 [node name="BombChicken" instance=ExtResource("1_4bhak")]
+collision_layer = 2336
 id = "bomb_chicken"
 base_health = 8
 
@@ -128,9 +128,6 @@ item = ExtResource("12_h7gcl")
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_73x5c")
 position = Vector2(0, -2)
-texture = ExtResource("3_xs0rd")
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Animator" parent="." index="4"]
 autoplay = "idle"

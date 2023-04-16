@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4y6751wy7ap3"]
+[gd_scene load_steps=23 format=3 uid="uid://c4y6751wy7ap3"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/game.gd" id="1_7raoi"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
 [ext_resource type="PackedScene" uid="uid://bcpqis8idx1ks" path="res://scenes/player.tscn" id="2_td16x"]
 [ext_resource type="PackedScene" uid="uid://bgtveoe8d3x38" path="res://scenes/ui/hud.tscn" id="3_4w1cd"]
-[ext_resource type="PackedScene" uid="uid://by0o1hef21cob" path="res://scenes/map.tscn" id="3_ccu3q"]
+[ext_resource type="PackedScene" uid="uid://cw5oe0jek5uil" path="res://scenes/map.tscn" id="3_ccu3q"]
 [ext_resource type="Script" path="res://scripts/cheats.gd" id="5_yjp1d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ap3yk"]
@@ -88,23 +88,11 @@ font_names = PackedStringArray("Monospace")
 default_font = SubResource("SystemFont_yvjbq")
 default_font_size = 16
 
-[sub_resource type="Theme" id="Theme_48qd8"]
-default_font_size = 18
-
 [node name="Game" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_7raoi")
 player_scene = ExtResource("2_td16x")
 map_scene = ExtResource("3_ccu3q")
-
-[node name="Iris" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="HUD" parent="." instance=ExtResource("3_4w1cd")]
 
@@ -244,7 +232,7 @@ popup_window = true
 min_size = Vector2i(400, 400)
 content_scale_mode = 1
 content_scale_aspect = 4
-theme = SubResource("Theme_48qd8")
+theme = SubResource("Theme_8w501")
 ok_button_text = "Open"
 mode_overrides_title = false
 file_mode = 0

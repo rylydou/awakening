@@ -1,4 +1,4 @@
-extends NinePatchRect
+extends Control
 
 @export var slot_index := -1
 
