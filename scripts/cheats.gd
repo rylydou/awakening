@@ -1,13 +1,13 @@
 extends Node
 
-@export var save_shortcut: Shortcut
-@export var load_shortcut: Shortcut
+@export var save_shortcut: InputEvent
+@export var load_shortcut: InputEvent
 
-@export var reload_shortcut: Shortcut
-@export var restart_shortcut: Shortcut
-@export var spawn_shortcut: Shortcut
+@export var reload_shortcut: InputEvent
+@export var restart_shortcut: InputEvent
+@export var spawn_shortcut: InputEvent
 
-@export var give_shortcut: Shortcut
+@export var give_shortcut: InputEvent
 
 @onready var spawn_dialog: FileDialog = %SpawnDialog
 @onready var give_dialog: FileDialog = %GiveDialog
@@ -16,36 +16,36 @@ func _shortcut_input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if not event.is_pressed(): return
 	
-	if save_shortcut.matches_event(event):
+	if save_shortcut and save_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: save')
 		Game.save()
 		return
 	
-	if load_shortcut.matches_event(event):
+	if load_shortcut and load_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: load')
 		Game.ds.load_from_disk()
 		return
 	
-	if reload_shortcut.matches_event(event):
+	if reload_shortcut and reload_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Reload map')
 		get_tree().reload_current_scene()
 		return
 	
-	if restart_shortcut.matches_event(event):
+	if restart_shortcut and restart_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Restart game')
 		Game.reload()
 		return
 	
-	if spawn_shortcut.matches_event(event):
+	if spawn_shortcut and spawn_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		spawn_dialog.popup_centered()
 		return
 	
-	if give_shortcut.matches_event(event):
+	if give_shortcut and give_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		give_dialog.popup_centered()
 		return

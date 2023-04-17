@@ -10,6 +10,7 @@ class_name Player extends Actor
 @export var action_buffer_ticks := 5
 
 var facing_direction := Vector2i.DOWN
+var godmode := false
 
 func _enter_tree() -> void:
 	Game.fetch.connect(_fetch)
@@ -95,7 +96,7 @@ func _physics_process(delta: float) -> void:
 	
 	var on_fall := fall_detector_area.has_overlapping_bodies()
 	var on_floor := floor_detector_area.has_overlapping_bodies()
-	if on_fall and not on_floor and state_machine.state_override != $StateMachine/Drown:
+	if on_fall and not on_floor and state_machine.state_override != $StateMachine/Drown and not godmode:
 		state_machine.enter_state($StateMachine/Drown)
 		#respawn()
 		#take_damage(fall_damage, self)
@@ -106,6 +107,8 @@ func _physics_process(delta: float) -> void:
 	$Flip/BodySprite.modulate.a = 0.33 if (inv_timer/2)%2 else 1.0
 
 func take_damage(damage: int, source: Node) -> bool:
+	if godmode: return false
+	
 	if source == self:
 		inv_timer = 0
 	
@@ -118,61 +121,69 @@ func take_damage(damage: int, source: Node) -> bool:
 	return took_damage
 
 @export_group('Cheats')
-@export var teleport_shortcut: Shortcut
-@export var noclip_shortcut: Shortcut
-@export var heal_shortcut: Shortcut
-@export var refill_shortcut: Shortcut
-@export var hurt_shortcut: Shortcut
-@export var kill_shortcut: Shortcut
-@export var quicksave_shortcut: Shortcut
-@export var quickload_shortcut: Shortcut
+@export var teleport_shortcut: InputEvent
+@export var noclip_shortcut: InputEvent
+@export var god_shortcut: InputEvent
+@export var heal_shortcut: InputEvent
+@export var refill_shortcut: InputEvent
+@export var hurt_shortcut: InputEvent
+@export var kill_shortcut: InputEvent
+@export var quicksave_shortcut: InputEvent
+@export var quickload_shortcut: InputEvent
+
 func _shortcut_input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if not event.is_pressed(): return
 	
-	if teleport_shortcut.matches_event(event):
+	if teleport_shortcut and teleport_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Teleport')
 		global_position = get_global_mouse_position()
 		return
 	
-	if noclip_shortcut and noclip_shortcut.matches_event(event):
+	if noclip_shortcut and noclip_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Collision enabled? %s' % not get_collision_mask_value(1))
 		set_collision_mask_value(1, not get_collision_mask_value(1))
 		return
 	
-	if heal_shortcut.matches_event(event):
+	if god_shortcut and god_shortcut.is_match(event):
+		get_viewport().set_input_as_handled()
+		godmode = !godmode
+		print('CHEAT: God mode enabled? %s' % godmode)
+		return
+	
+	if heal_shortcut and heal_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Heal')
 		health = base_health
 		return
 	
-	if refill_shortcut.matches_event(event):
+	if refill_shortcut and refill_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Refill magic')
 		Inventory.magic = Inventory.max_magic
 		return
 	
-	if hurt_shortcut.matches_event(event):
+	if hurt_shortcut and hurt_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Hurt')
 		take_damage(1, self)
 		return
 	
-	if kill_shortcut.matches_event(event):
+	if kill_shortcut and kill_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Kill')
 		take_damage(health, self)
 		return
 	
-	if quicksave_shortcut.matches_event(event):
+	if quicksave_shortcut and quicksave_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Quicksave')
 		_store(Game.ds)
 		return
 	
-	if quickload_shortcut.matches_event(event):
+	if quickload_shortcut and quickload_shortcut.is_match(event):
 		get_viewport().set_input_as_handled()
 		print('CHEAT: Quickload')
 		_fetch(Game.ds)

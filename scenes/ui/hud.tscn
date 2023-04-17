@@ -63,16 +63,16 @@ layout_mode = 2
 
 [node name="LifeDisplay" type="GridContainer" parent="LeftPanel/Top"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 8)
+custom_minimum_size = Vector2(64, 16)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
 script = ExtResource("4_8ep8f")
-value = 24
-max_value = 64
-pregen_icon_count = 8
+value = 0
+max_value = 0
+pregen_icon_count = 16
 texture = ExtResource("2_0ony4")
 icon_count = 6
 
@@ -89,8 +89,8 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
 script = ExtResource("4_8ep8f")
-value = 24
-max_value = 24
+value = 0
+max_value = 0
 pregen_icon_count = 8
 texture = ExtResource("2_0ony4")
 start_coords = Vector2(0, 8)

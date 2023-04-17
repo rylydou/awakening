@@ -9,7 +9,7 @@
 [sub_resource type="Curve" id="Curve_ldxq2"]
 max_value = 10.0
 bake_resolution = 10
-_data = [Vector2(0, 2.5), 0.0, 10.0, 0, 0, Vector2(1, 8), 0.0, 0.0, 0, 1]
+_data = [Vector2(0, 2.5), 0.0, 15.0, 0, 0, Vector2(1, 8), 0.0, 0.0, 0, 1]
 point_count = 2
 
 [sub_resource type="Animation" id="Animation_mhisx"]

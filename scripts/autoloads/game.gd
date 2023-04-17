@@ -3,7 +3,6 @@ extends CanvasLayer
 signal store(ds: DataStore)
 signal fetch(ds: DataStore)
 
-signal enter_room()
 signal player_dying()
 signal player_died()
 signal boss_defeated(boss: Node)
@@ -85,15 +84,8 @@ func reload() -> void:
 	
 	player_has_control = true
 	
-	await get_tree().process_frame
-	
-	Camera.target_room()
+	Camera.target_player()
 	Camera.center_camera()
-	
-	#get_tree().create_timer(.25).timeout.connect(func():
-	#	Camera.target_room()
-	#	Camera.center_camera()
-	#)
 
 func _on_player_dying() -> void:
 	pause()
@@ -114,3 +106,8 @@ func unpause():
 	assert(pause_locks > 0)
 	pause_locks -= 1
 	get_tree().paused = pause_locks > 0
+
+func goto_room(target: Marker2D) -> void:
+	player.position = target.global_position
+	Camera.target_player()
+	Camera.center_camera()

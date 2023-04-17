@@ -14,12 +14,15 @@ func _enter_tree() -> void:
 
 func _process(delta: float) -> void:
 	position = position.move_toward(target, camera_speed*16*delta)
+	#position = position.lerp(target, 1 - exp(-5*delta))
+	
 	if not is_instance_valid(Game.player): return
 	
 	RenderingServer.global_shader_parameter_set('PLAYER_UV', (Game.player.position - position)/Vector2(320, 180) + Vector2(0.5, 0.5))
 
 func _physics_process(delta: float) -> void:
-	target_room()
+	target_player()
+	
 	if room_coords != last_room_corrds:
 		last_room_corrds = room_coords
 		room_entered.emit(room_coords)
@@ -27,23 +30,12 @@ func _physics_process(delta: float) -> void:
 func center_camera() -> void:
 	position = target
 
-func target_room() -> void:
-	if not is_instance_valid(Game.player): return
-	
-	var player := Game.player.position
+func target_player() -> void:
+	if is_instance_valid(Game.player):
+		target_room_at(Game.player.position)
+
+func target_room_at(world_pos: Vector2) -> void:
 	var ref := target
 	
-	var half_bounds := Consts.ROOM_SIZE_PX/2 + Vector2i.ONE*2
-	
-	if player.x >= ref.x + half_bounds.x:
-		room_coords.x += 1
-	elif player.x <= ref.x - half_bounds.x:
-		room_coords.x -= 1
-	
-	if player.y >= ref.y + half_bounds.y:
-		room_coords.y += 1
-	elif player.y <= ref.y - half_bounds.y:
-		room_coords.y -= 1
-	
+	room_coords = floor(world_pos/Vector2(Consts.ROOM_SIZE_PX))
 	target = room_coords*Consts.ROOM_SIZE_PX+Consts.ROOM_SIZE_PX/2
-	#position = target

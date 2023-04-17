@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c4y6751wy7ap3"]
+[gd_scene load_steps=17 format=3 uid="uid://c4y6751wy7ap3"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/game.gd" id="1_7raoi"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
@@ -25,61 +25,44 @@ texture_margin_right = 6.0
 texture_margin_bottom = 2.0
 region_rect = Rect2(0, 24, 8, 8)
 
-[sub_resource type="InputEventKey" id="InputEventKey_8ante"]
+[sub_resource type="InputEventKey" id="InputEventKey_w6ks5"]
 device = -1
 shift_pressed = true
 ctrl_pressed = true
 keycode = 83
 unicode = 83
 
-[sub_resource type="Shortcut" id="Shortcut_8ansm"]
-events = [SubResource("InputEventKey_8ante")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_64ntw"]
+[sub_resource type="InputEventKey" id="InputEventKey_o8wcp"]
 device = -1
 ctrl_pressed = true
 keycode = 83
 unicode = 115
 
-[sub_resource type="Shortcut" id="Shortcut_m0gja"]
-events = [SubResource("InputEventKey_64ntw")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_48jjt"]
+[sub_resource type="InputEventKey" id="InputEventKey_3it8w"]
 device = -1
 ctrl_pressed = true
 keycode = 82
 unicode = 114
 
-[sub_resource type="Shortcut" id="Shortcut_le0sk"]
-events = [SubResource("InputEventKey_48jjt")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_fcv6l"]
+[sub_resource type="InputEventKey" id="InputEventKey_a0jlw"]
 device = -1
 shift_pressed = true
 ctrl_pressed = true
 keycode = 82
 unicode = 82
 
-[sub_resource type="Shortcut" id="Shortcut_2wdfo"]
-events = [SubResource("InputEventKey_fcv6l")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_2x22t"]
+[sub_resource type="InputEventKey" id="InputEventKey_0lf55"]
 device = -1
 ctrl_pressed = true
 keycode = 86
 unicode = 118
 
-[sub_resource type="Shortcut" id="Shortcut_cmcie"]
-events = [SubResource("InputEventKey_2x22t")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_eossw"]
+[sub_resource type="InputEventKey" id="InputEventKey_plu3p"]
 device = -1
+shift_pressed = true
 ctrl_pressed = true
 keycode = 71
-unicode = 103
-
-[sub_resource type="Shortcut" id="Shortcut_2w6di"]
-events = [SubResource("InputEventKey_eossw")]
+unicode = 71
 
 [sub_resource type="SystemFont" id="SystemFont_yvjbq"]
 font_names = PackedStringArray("Monospace")
@@ -197,12 +180,12 @@ text = "erase"
 
 [node name="Cheats" type="Node" parent="."]
 script = ExtResource("5_yjp1d")
-save_shortcut = SubResource("Shortcut_8ansm")
-load_shortcut = SubResource("Shortcut_m0gja")
-reload_shortcut = SubResource("Shortcut_le0sk")
-restart_shortcut = SubResource("Shortcut_2wdfo")
-spawn_shortcut = SubResource("Shortcut_cmcie")
-give_shortcut = SubResource("Shortcut_2w6di")
+save_shortcut = SubResource("InputEventKey_w6ks5")
+load_shortcut = SubResource("InputEventKey_o8wcp")
+reload_shortcut = SubResource("InputEventKey_3it8w")
+restart_shortcut = SubResource("InputEventKey_a0jlw")
+spawn_shortcut = SubResource("InputEventKey_0lf55")
+give_shortcut = SubResource("InputEventKey_plu3p")
 
 [node name="SpawnDialog" type="FileDialog" parent="Cheats"]
 unique_name_in_owner = true

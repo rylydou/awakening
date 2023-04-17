@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bcpqis8idx1ks"]
+[gd_scene load_steps=42 format=3 uid="uid://bcpqis8idx1ks"]
 
 [ext_resource type="PackedScene" uid="uid://cp3if8qvp1hgw" path="res://scenes/(actor).tscn" id="1_cduph"]
 [ext_resource type="Texture2D" uid="uid://1cmgiu2adalx" path="res://content/sprites/player.png" id="1_lwlkd"]
@@ -12,79 +12,60 @@
 [ext_resource type="Texture2D" uid="uid://cvdwv8whw4chk" path="res://content/sprites/item_fx.png" id="7_qi6ch"]
 [ext_resource type="Script" path="res://scripts/states/player/player_drown.gd" id="7_rioiw"]
 
-[sub_resource type="InputEventKey" id="InputEventKey_pnby4"]
+[sub_resource type="InputEventKey" id="InputEventKey_7y3lj"]
 device = -1
-ctrl_pressed = true
 keycode = 84
 unicode = 116
 
-[sub_resource type="Shortcut" id="Shortcut_n0007"]
-events = [SubResource("InputEventKey_pnby4")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_wyu77"]
+[sub_resource type="InputEventKey" id="InputEventKey_yewsk"]
 device = -1
 ctrl_pressed = true
 keycode = 67
 unicode = 99
 
-[sub_resource type="Shortcut" id="Shortcut_vaytf"]
-events = [SubResource("InputEventKey_wyu77")]
+[sub_resource type="InputEventKey" id="InputEventKey_tf6b3"]
+device = -1
+ctrl_pressed = true
+keycode = 71
+unicode = 103
 
-[sub_resource type="InputEventKey" id="InputEventKey_fkd0o"]
+[sub_resource type="InputEventKey" id="InputEventKey_h011b"]
 device = -1
 ctrl_pressed = true
 keycode = 72
 unicode = 104
 
-[sub_resource type="Shortcut" id="Shortcut_3ixg3"]
-events = [SubResource("InputEventKey_fkd0o")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_a6wgr"]
+[sub_resource type="InputEventKey" id="InputEventKey_0wekr"]
 device = -1
 ctrl_pressed = true
 keycode = 70
 unicode = 102
 
-[sub_resource type="Shortcut" id="Shortcut_gmsog"]
-events = [SubResource("InputEventKey_a6wgr")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_aww2c"]
+[sub_resource type="InputEventKey" id="InputEventKey_r160a"]
 device = -1
 ctrl_pressed = true
 keycode = 65
 unicode = 97
 
-[sub_resource type="Shortcut" id="Shortcut_0c065"]
-events = [SubResource("InputEventKey_aww2c")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_n074e"]
+[sub_resource type="InputEventKey" id="InputEventKey_y3uwc"]
 device = -1
 shift_pressed = true
 ctrl_pressed = true
 keycode = 75
 unicode = 75
 
-[sub_resource type="Shortcut" id="Shortcut_nllfq"]
-events = [SubResource("InputEventKey_n074e")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_hd1cm"]
+[sub_resource type="InputEventKey" id="InputEventKey_ga0m5"]
 device = -1
 shift_pressed = true
 ctrl_pressed = true
 keycode = 81
 unicode = 81
 
-[sub_resource type="Shortcut" id="Shortcut_f3kat"]
-events = [SubResource("InputEventKey_hd1cm")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_7koxb"]
+[sub_resource type="InputEventKey" id="InputEventKey_j5lte"]
 device = -1
 ctrl_pressed = true
 keycode = 81
 unicode = 113
-
-[sub_resource type="Shortcut" id="Shortcut_lqeei"]
-events = [SubResource("InputEventKey_7koxb")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3iva"]
 size = Vector2(14, 14)
@@ -1028,14 +1009,15 @@ hit_inv_time = 60
 spawn_inv_time = 60
 respawn_inv_time = 30
 action_buffer_ticks = 5
-teleport_shortcut = SubResource("Shortcut_n0007")
-noclip_shortcut = SubResource("Shortcut_vaytf")
-heal_shortcut = SubResource("Shortcut_3ixg3")
-refill_shortcut = SubResource("Shortcut_gmsog")
-hurt_shortcut = SubResource("Shortcut_0c065")
-kill_shortcut = SubResource("Shortcut_nllfq")
-quicksave_shortcut = SubResource("Shortcut_f3kat")
-quickload_shortcut = SubResource("Shortcut_lqeei")
+teleport_shortcut = SubResource("InputEventKey_7y3lj")
+noclip_shortcut = SubResource("InputEventKey_yewsk")
+god_shortcut = SubResource("InputEventKey_tf6b3")
+heal_shortcut = SubResource("InputEventKey_h011b")
+refill_shortcut = SubResource("InputEventKey_0wekr")
+hurt_shortcut = SubResource("InputEventKey_r160a")
+kill_shortcut = SubResource("InputEventKey_y3uwc")
+quicksave_shortcut = SubResource("InputEventKey_ga0m5")
+quickload_shortcut = SubResource("InputEventKey_j5lte")
 id = "player"
 base_health = 12
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7wwt1vpck72p"]
+
+[sub_resource type="GDScript" id="GDScript_h1vch"]
+script/source = "extends Area2D
+
+@export var target: Marker2D
+
+func _on_body_entered(body: Player) -> void:
+	Game.goto_room(target)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cih2w"]
+radius = 2.0
+
+[node name="Entry" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = SubResource("GDScript_h1vch")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cih2w")
+debug_color = Color(1, 0, 1, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
