@@ -57,7 +57,7 @@ collision_layer = 3360
 collision_mask = 43
 motion_mode = 1
 script = ExtResource("1_x0jt0")
-speed = 5.0
+speed = 4.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hh7oy")
@@ -89,6 +89,8 @@ libraries = {
 
 [node name="DropLoot" type="Node" parent="."]
 script = ExtResource("6_fard1")
-drops = Array[int]([4, 5])
+can_drop_money = false
+pool2 = 1
+pool3 = 0
 
 [connection signal="died" from="." to="DropLoot" method="trigger"]

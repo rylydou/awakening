@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/place.wav-002e61e6a0e6c48567567e76aee2e355.sa
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

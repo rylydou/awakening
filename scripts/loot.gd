@@ -6,13 +6,12 @@ enum Type {
 	Money_10,
 	Money_50,
 	
-	Life,
-	Magic,
+	Life_SM,
+	Life_LG,
+	
+	Magic_SM,
 	Magic_LG,
-	
 	Arrow_Dud,
-	
-	Fariy,
 }
 
 var type: Type
@@ -30,13 +29,14 @@ func _ready() -> void:
 		Type.Money_10: sprite.frame = 2
 		Type.Money_50: sprite.frame = 3
 		
-		Type.Life: sprite.frame = 4
+		Type.Life_SM: sprite.frame = 4
+		Type.Life_LG: sprite.frame = 5
 		
-		Type.Magic: sprite.frame = 8
+		Type.Magic_SM: sprite.frame = 8
 		Type.Magic_LG: sprite.frame = 9
 		Type.Arrow_Dud: sprite.frame = 6
 		
-		_: printerr('Unknown type:' + str(type))
+		_: printerr('Unknown loot type:' + str(type))
 
 var age := 0
 func _physics_process(delta: float) -> void:
@@ -65,13 +65,14 @@ func pickup() -> void:
 		Type.Money_10: Inventory.money += 10
 		Type.Money_50: Inventory.money += 50
 		
-		Type.Life: Game.player.health += 4
+		Type.Life_SM: Game.player.health += 1 *4 # one heart
+		Type.Life_LG: Game.player.health += 3 *4 # three hearts
 		
-		Type.Magic: Inventory.magic += 6
-		Type.Magic_LG: Inventory.magic += 6*4
-		Type.Arrow_Dud: Inventory.magic += 2
+		Type.Magic_SM: Inventory.magic += 1 *6 # one pouch
+		Type.Magic_LG: Inventory.magic += 3 *6 # three pouches
+		Type.Arrow_Dud: Inventory.magic += 2 # one-third of a pouch
 		
-		_: printerr('Unknown type: ' + str(type))
+		_: printerr('Unknown loot type: ' + str(type))
 	
 	Inventory.money = min(Inventory.money, 5000)
 	Inventory.magic = min(Inventory.magic, Inventory.max_magic)

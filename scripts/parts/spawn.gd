@@ -6,9 +6,8 @@ extends Node
 
 func trigger() -> void:
 	var node := scene.instantiate() as Node2D
-	node.global_position = owner.global_position + offset
-	for group in owner.get_groups():
-		node.add_to_group(group)
+	node.add_to_group('despawn')
+	node.position = owner.position + offset
 	if stun_time > 0:
 		node.stun_timer = stun_time
-	get_tree().current_scene.add_child(node)
+	owner.get_parent().add_child(node)

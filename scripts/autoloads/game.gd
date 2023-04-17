@@ -4,6 +4,7 @@ signal store(ds: DataStore)
 signal fetch(ds: DataStore)
 
 signal enter_room()
+signal player_dying()
 signal player_died()
 signal boss_defeated(boss: Node)
 
@@ -17,7 +18,7 @@ var player_has_control: bool
 
 func _enter_tree() -> void:
 	player_died.connect(_on_player_died)
-	#boss_defeated.connect(func(boss: Node): prints('defeated', boss))
+	player_dying.connect(_on_player_dying)
 
 func _ready() -> void:
 	ds.format = DataStore.Format.TextFile
@@ -94,11 +95,15 @@ func reload() -> void:
 	#	Camera.center_camera()
 	#)
 
+func _on_player_dying() -> void:
+	pause()
+
 func _on_player_died() -> void:
 	print('GAME: Player died!')
 	reload()
 	ds.store('counter.deaths', ds.fetch('counter.deaths', 0) + 1)
 	ds.save_to_disk()
+	unpause()
 
 var pause_locks := 0
 func pause():

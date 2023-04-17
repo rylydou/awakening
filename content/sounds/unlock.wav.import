@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/unlock.wav-ea85aaeb956ba59fe8b42b25bd83f8e4.s
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

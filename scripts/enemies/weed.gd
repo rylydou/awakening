@@ -47,5 +47,5 @@ func take_damage(damage: int, source: Node) -> bool:
 	if inv_timer > 0: return false
 	died.emit()
 	queue_free()
-	SoundBank.play('clean_cut', global_position)
+	SoundBank.play('cut.grass', global_position)
 	return true

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bo7anhae5q3p0"
-path="res://.godot/imported/squel3.wav-31190e7567e24fb3c662112a74536600.sample"
+uid="uid://c7dqhwg4uex1f"
+path="res://.godot/imported/cut.grass.wav-8b97badd6220fd3605e1387e455dc4dc.sample"
 
 [deps]
 
-source_file="res://content/sounds/squel3.wav"
-dest_files=["res://.godot/imported/squel3.wav-31190e7567e24fb3c662112a74536600.sample"]
+source_file="res://content/sounds/cut.grass.wav"
+dest_files=["res://.godot/imported/cut.grass.wav-8b97badd6220fd3605e1387e455dc4dc.sample"]
 
 [params]
 

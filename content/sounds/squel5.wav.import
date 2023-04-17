@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/squel5.wav-6f48eda8acf98f46c45ec3411591cc92.s
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

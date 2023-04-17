@@ -78,9 +78,9 @@ wav={
 "edit/loop_mode": 1,
 "edit/normalize": false,
 "edit/trim": true,
-"force/8_bit": true,
+"force/8_bit": false,
 "force/max_rate": true,
-"force/max_rate_hz": 44100,
+"force/max_rate_hz": 22050.0,
 "force/mono": true
 }
 
@@ -179,7 +179,6 @@ textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
-2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]
 

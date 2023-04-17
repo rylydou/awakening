@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bo7anhae5q3p0"
-path="res://.godot/imported/squel3.wav-31190e7567e24fb3c662112a74536600.sample"
+uid="uid://c001e6wku6tvj"
+path="res://.godot/imported/menu_ok.wav-89746024bd57862d532b87207d32b309.sample"
 
 [deps]
 
-source_file="res://content/sounds/squel3.wav"
-dest_files=["res://.godot/imported/squel3.wav-31190e7567e24fb3c662112a74536600.sample"]
+source_file="res://content/sounds/menu_ok.wav"
+dest_files=["res://.godot/imported/menu_ok.wav-89746024bd57862d532b87207d32b309.sample"]
 
 [params]
 

@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/rutters.wav-35807829101e347defe52c35cccf4644.
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

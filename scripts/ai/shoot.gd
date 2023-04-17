@@ -10,5 +10,6 @@ func start() -> bool:
 	var proj := proj_ref.duplicate() as Projectile
 	proj.position = actor.position
 	proj.direction = actor.direction
+	proj.add_to_group('despawn')
 	actor.get_parent().add_child(proj)
 	return true

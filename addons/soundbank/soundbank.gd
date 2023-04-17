@@ -32,6 +32,7 @@ func get_player_ui() -> AudioStreamPlayer:
 func generate_pool_ui(count: int) -> void:
 	for i in count:
 		var player := AudioStreamPlayer.new()
+		player.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(player)
 		player_pool_ui.append(player)
 

@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/car_idle.wav-366a2777cff79f8662bfce2d368bf6e6
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

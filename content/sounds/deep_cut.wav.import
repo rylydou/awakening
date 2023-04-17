@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/deep_cut.wav-20a7009c3d6c1d0e1d26856a5bbd3bcb
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

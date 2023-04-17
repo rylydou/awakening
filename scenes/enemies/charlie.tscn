@@ -36,7 +36,7 @@ shader_parameter/invert_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_emsij"]
-radius = 8.0
+radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34lv6"]
 radius = 7.0
@@ -167,7 +167,7 @@ _data = {
 }
 
 [node name="Charlie" instance=ExtResource("1_vqx3p")]
-collision_layer = 2336
+collision_layer = 2338
 id = "charlie"
 base_health = 10
 
@@ -198,6 +198,7 @@ script = ExtResource("6_vitd2")
 z_index = -1
 position = Vector2(16, 0)
 collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("7_psw6q")
 distance_over_lifetime = SubResource("Curve_b25sn")
@@ -263,6 +264,13 @@ script = ExtResource("2_ei5lh")
 distance = 1.0
 time = 30
 
+[node name="Hurt" parent="StateMachine" index="1"]
+knockback_speed = 0.0
+
+[node name="DropLoot" parent="StateMachine/Death" index="1"]
+pool1 = 1
+pool3 = 3
+
 [node name="Spawn" type="Node" parent="StateMachine/Death" index="2"]
 script = ExtResource("15_pgjk8")
 scene = ExtResource("16_0vex5")
@@ -277,6 +285,7 @@ shape = SubResource("CircleShape2D_emsij")
 
 [node name="HitboxArea" parent="." index="3"]
 damage = 4
+auto_attack = false
 
 [node name="Collision" parent="HitboxArea" index="0"]
 shape = SubResource("CircleShape2D_34lv6")

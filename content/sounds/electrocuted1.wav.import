@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/electrocuted1.wav-9d01bfde7ac5c8385ec54240ad7
 
 [params]
 
-force/8_bit=true
+force/8_bit=false
 force/mono=true
 force/max_rate=true
-force/max_rate_hz=44100
+force/max_rate_hz=22050.0
 edit/trim=true
 edit/normalize=false
 edit/loop_mode=1

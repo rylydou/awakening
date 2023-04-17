@@ -19,6 +19,7 @@ position = Vector2(1, 0)
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_jjgiy")
+nopickup_time = 15
 sprite_bounce_curve = SubResource("Curve_ewtmy")
 
 [node name="Sprite" type="Sprite2D" parent="."]

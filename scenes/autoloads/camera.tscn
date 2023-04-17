@@ -14,6 +14,8 @@ current = true
 
 [node name="BossFlash" type="ColorRect" parent="."]
 unique_name_in_owner = true
+process_mode = 3
+visible = false
 z_index = 9
 custom_minimum_size = Vector2(320, 180)
 anchors_preset = 15
@@ -22,4 +24,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(1, 0.956863, 0.878431, 1)
+script = ExtResource("2_tac1g")
+
+[node name="DeathFlash" type="ColorRect" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+z_index = 9
+custom_minimum_size = Vector2(320, 180)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.890196, 0.258824, 0.384314, 1)
 script = ExtResource("2_tac1g")

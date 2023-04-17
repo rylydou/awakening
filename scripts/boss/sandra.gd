@@ -84,9 +84,10 @@ func take_damage(damage: int, source: Node) -> bool:
 		die()
 		return true
 	
-	var n = preload('res://scenes/enemies/weed.tscn').instantiate() as Node2D
-	get_parent().add_child(n)
-	n.global_position = butt_segment_node.global_position
+	var weed = preload('res://scenes/enemies/weed.tscn').instantiate() as Node2D
+	weed.add_to_group('despawn')
+	get_parent().add_child(weed)
+	weed.global_position = butt_segment_node.global_position
 	
 	var segment := segments.pop_back() as Node2D
 	segment.queue_free.call_deferred()
@@ -94,5 +95,6 @@ func take_damage(damage: int, source: Node) -> bool:
 	return true
 
 func die() -> void:
+	SoundBank.play_ui('death.boss')
 	Game.boss_defeated.emit(self)
 	queue_free()

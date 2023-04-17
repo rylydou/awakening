@@ -10,6 +10,7 @@ var last_room_corrds := Vector2i(-42069, -42069)
 
 func _enter_tree() -> void:
 	Game.boss_defeated.connect(func(boss: Node): %BossFlash.flash())
+	Game.player_dying.connect(func(): %DeathFlash.flash())
 
 func _process(delta: float) -> void:
 	position = position.move_toward(target, camera_speed*16*delta)
