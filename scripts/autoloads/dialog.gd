@@ -23,10 +23,13 @@ func update() -> void:
 		tween.kill()
 	
 	if index >= current_text.size():
+		SoundBank.play_ui('ui_dialog.finish')
 		index = -1
 		hide()
 		Game.unpause()
 		return
+	
+	SoundBank.play_ui('ui_dialog.continue')
 	
 	var text := current_text[index]
 	dialog_text.text = text
@@ -44,6 +47,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	
 	if dialog_text.visible_ratio < 1:
+		SoundBank.play_ui('ui_dialog.skip')
+		
 		if is_instance_valid(tween):
 			tween.kill()
 		

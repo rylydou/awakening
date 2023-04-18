@@ -1,6 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgavdlfskr6l3"]
+[gd_scene load_steps=7 format=3 uid="uid://bgavdlfskr6l3"]
 
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="1_e3xvd"]
+[ext_resource type="Script" path="res://scripts/boss/ufo.gd" id="1_lifj8"]
+
+[sub_resource type="Animation" id="Animation_bbh67"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_y160j"]
 resource_name = "idle"
@@ -32,33 +60,6 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
-[sub_resource type="Animation" id="Animation_bbh67"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BodySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nod2y"]
 _data = {
 "RESET": SubResource("Animation_bbh67"),
@@ -68,26 +69,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_ca4fl"]
 
 [node name="UFO" type="CharacterBody2D"]
+collision_layer = 1280
+script = ExtResource("1_lifj8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_nod2y")
 }
-
-[node name="BodySprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_e3xvd")
-hframes = 3
-region_enabled = true
-region_rect = Rect2(16, 112, 48, 16)
-
-[node name="EyesSprite" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
-texture = ExtResource("1_e3xvd")
-hframes = 2
-vframes = 2
-region_enabled = true
-region_rect = Rect2(0, 112, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ca4fl")
@@ -96,7 +85,21 @@ debug_color = Color(0, 1, 0, 0)
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.25098)
 z_index = -9
-position = Vector2(0, 24)
 texture = ExtResource("1_e3xvd")
 region_enabled = true
 region_rect = Rect2(64, 112, 16, 16)
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("1_e3xvd")
+hframes = 3
+region_enabled = true
+region_rect = Rect2(16, 112, 48, 16)
+
+[node name="EyesSprite" type="Sprite2D" parent="BodySprite"]
+position = Vector2(0, -4)
+texture = ExtResource("1_e3xvd")
+hframes = 2
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 112, 16, 16)

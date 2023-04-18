@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cw5oe0jek5uil"]
+[gd_scene load_steps=26 format=3 uid="uid://cw5oe0jek5uil"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eqpbk"]
 [ext_resource type="TileSet" uid="uid://cympy4xvsauks" path="res://resources/tileset.tres" id="2_wrhog"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://scripts/objects/flag_region.gd" id="5_gtgrb"]
 [ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_jvo35"]
 [ext_resource type="Texture2D" uid="uid://7ff16aie58os" path="res://content/sprites/log.png" id="6_ipdca"]
-[ext_resource type="PackedScene" uid="uid://bgavdlfskr6l3" path="res://scenes/boss/ufo.tscn" id="6_jdfxm"]
 [ext_resource type="Resource" path="res://resources/items/stick.tres" id="7_jrmh7"]
 [ext_resource type="PackedScene" uid="uid://b7l0wwmufgetm" path="res://scenes/objects/bombable_wall.tscn" id="10_inces"]
 [ext_resource type="Script" path="res://scripts/objects/boss_room.gd" id="11_xjeob"]
@@ -217,8 +216,8 @@ flag_name = &"heart_boss_sandra"
 [node name="SingleWall" parent="Rooms/5 0/BossRoom" instance_placeholder="res://scenes/objects/single_wall.tscn"]
 position = Vector2(88, 168)
 
-[node name="UFO" parent="Rooms/5 0/BossRoom" instance=ExtResource("6_jdfxm")]
-position = Vector2(88, 64)
+[node name="UFO" parent="Rooms/5 0/BossRoom" instance_placeholder="res://scenes/boss/ufo.tscn"]
+position = Vector2(88, 88)
 
 [node name="0 1" type="ReferenceRect" parent="Rooms"]
 offset_top = 176.0
