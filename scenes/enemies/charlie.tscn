@@ -183,15 +183,11 @@ script = ExtResource("4_g7h1w")
 animation_name = &"move"
 animation_type = 1
 
-[node name="Wait" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="2"]
-script = ExtResource("5_pqiy3")
-duration = 0
-
-[node name="Warn" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="3" node_paths=PackedStringArray("node")]
+[node name="Warn" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="2" node_paths=PackedStringArray("node")]
 script = ExtResource("6_yseii")
 node = NodePath("../../../../Flip/BodySprite")
 
-[node name="Shoot" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="4"]
+[node name="Shoot" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="3"]
 script = ExtResource("6_vitd2")
 
 [node name="Projectile" type="CharacterBody2D" parent="StateMachine/Base/AlignedWithPlayer/Shoot" index="0"]
@@ -227,14 +223,13 @@ remember_hits = true
 shape = SubResource("RectangleShape2D_81v31")
 debug_color = Color(1, 0, 0, 0)
 
-[node name="Move" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="5"]
+[node name="Move" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="4"]
 script = ExtResource("2_ei5lh")
 distance = -1.0
 time = 10
 
-[node name="Wait2" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="6"]
+[node name="Wait" type="Node" parent="StateMachine/Base/AlignedWithPlayer" index="5"]
 script = ExtResource("5_pqiy3")
-duration = 30
 
 [node name="Roam" type="Node" parent="StateMachine/Base" index="1"]
 script = ExtResource("10_m6y1y")
@@ -245,6 +240,7 @@ script = ExtResource("9_4ya6y")
 
 [node name="Random" type="Node" parent="StateMachine/Base/Roam" index="1"]
 script = ExtResource("12_iyuut")
+numerator = 0
 
 [node name="PointAtPlayer" type="Node" parent="StateMachine/Base/Roam/Random" index="0"]
 script = ExtResource("3_65mpa")
@@ -268,6 +264,7 @@ time = 30
 knockback_speed = 0.0
 
 [node name="DropLoot" parent="StateMachine/Death" index="1"]
+drop_chance = Vector2i(1, 1)
 pool1 = 1
 pool3 = 3
 

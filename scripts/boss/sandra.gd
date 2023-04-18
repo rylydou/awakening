@@ -89,6 +89,8 @@ func take_damage(damage: int, source: Node) -> bool:
 	get_parent().add_child(weed)
 	weed.global_position = butt_segment_node.global_position
 	
+	SoundBank.play('hurt.boss', butt_segment_node.global_position)
+	
 	var segment := segments.pop_back() as Node2D
 	segment.queue_free.call_deferred()
 	

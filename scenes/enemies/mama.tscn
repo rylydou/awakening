@@ -81,9 +81,8 @@ time = 40
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
-position = Vector2(0, -5)
 hframes = 2
-region_rect = Rect2(96, 0, 32, 16)
+region_rect = Rect2(96, 8, 16, 8)
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_j4qo8")

@@ -63,7 +63,7 @@ speed = 4.0
 material = SubResource("ShaderMaterial_hh7oy")
 texture = ExtResource("3_57l6u")
 region_enabled = true
-region_rect = Rect2(64, 64, 16, 16)
+region_rect = Rect2(112, 0, 16, 16)
 region_filter_clip_enabled = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]

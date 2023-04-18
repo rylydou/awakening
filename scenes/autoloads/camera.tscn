@@ -15,7 +15,6 @@ current = true
 [node name="BossFlash" type="ColorRect" parent="."]
 unique_name_in_owner = true
 process_mode = 3
-visible = false
 z_index = 9
 custom_minimum_size = Vector2(320, 180)
 anchors_preset = 15
@@ -30,7 +29,6 @@ script = ExtResource("2_tac1g")
 [node name="DeathFlash" type="ColorRect" parent="."]
 unique_name_in_owner = true
 process_mode = 3
-visible = false
 z_index = 9
 custom_minimum_size = Vector2(320, 180)
 anchors_preset = 15
