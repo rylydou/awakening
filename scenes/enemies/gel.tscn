@@ -185,6 +185,7 @@ duration = 20
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
+position = Vector2(0, -3)
 hframes = 2
 region_rect = Rect2(32, 0, 32, 16)
 

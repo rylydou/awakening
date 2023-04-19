@@ -9,7 +9,7 @@ size = Vector2(16, 16)
 [node name="BombableWall" type="Sprite2D"]
 texture = ExtResource("1_mmy25")
 region_enabled = true
-region_rect = Rect2(80, 96, 16, 16)
+region_rect = Rect2(64, 144, 16, 16)
 script = ExtResource("2_0i42u")
 
 [node name="Body" type="StaticBody2D" parent="."]
