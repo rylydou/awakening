@@ -2,6 +2,7 @@ class_name Item extends Resource
 
 @export var id := &''
 @export var name := ''
+@export var desc := ''
 @export var item_icon_coords := Vector2i(1, 0)
 
 @export_category('')

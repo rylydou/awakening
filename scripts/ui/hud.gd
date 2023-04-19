@@ -49,6 +49,12 @@ func _process(delta: float) -> void:
 	
 	map_area_label.text = '%2s.%-2s' % [Camera.room_coords.x + 1, Camera.room_coords.y + 1]
 	map_marker.position = Camera.room_coords * 8
+	
+	%ItemInfo.visible = is_equip_menu_open and not Inventory.items[equip_grid_index].is_empty()
+	if %ItemInfo.visible:
+		var item_id := Inventory.items[equip_grid_index] as StringName
+		var item := ItemDB.get_item(item_id)
+		%ItemInfoLabel.text = '[center]%s[/center]\n\n%s' % [item.name, item.desc]
 
 @onready var cursor: NinePatchRect = %Cursor
 var cursor_target: Control
@@ -75,9 +81,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed('equip'):
 		get_viewport().set_input_as_handled()
+		
 		SoundBank.play_ui('menu_select1')
+		
 		is_equip_menu_open = true
 		Game.player_has_control = false
+		
+		%ItemInfo.show()
 		equip_update_cursor()
 		return
 
