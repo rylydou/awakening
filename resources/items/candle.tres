@@ -7,6 +7,8 @@
 script = ExtResource("1_f6ipu")
 id = &"candle"
 name = "candle"
+desc = "lights your way though fog.
+uses 1 magic pouch."
 item_icon_coords = Vector2i(3, 1)
 magic_cost = 6
 hitbox_damage = 0

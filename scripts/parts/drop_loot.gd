@@ -25,6 +25,7 @@ const POOL3: Array[Loot.Type] = [
 @export var pool3 := 1 
 
 func trigger() -> void:
+	if drop_chance.x <= 0: return
 	if RNG.drop.randi_range(0, drop_chance.y) > drop_chance.x: return 
 	
 	var sum := pool1 + pool2 + pool3

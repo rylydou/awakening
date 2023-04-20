@@ -185,6 +185,9 @@ script = ExtResource("8_426lb")
 script = ExtResource("4_gqt4d")
 duration = 20
 
+[node name="DropLoot" parent="StateMachine/Death" index="1"]
+drop_chance = Vector2i(0, 2)
+
 [node name="Spawn1" type="Node" parent="StateMachine/Death" index="2"]
 script = ExtResource("13_cfiq5")
 scene = ExtResource("14_cp7q5")

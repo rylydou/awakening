@@ -28,6 +28,8 @@ func _fetch(ds: DataStore) -> void:
 	deaths_label.text = str(ds.fetch('counter.deaths', 0))
 	life_value = ds.fetch('player.health', 4*3)
 	magic_value = ds.fetch('inventory.magic', 4*8)
+	
+	%ItemInfo.hide()
 
 func _process(delta: float) -> void:
 	#var update_displays := get_tree().get_frame() % 5 == 0
@@ -49,12 +51,6 @@ func _process(delta: float) -> void:
 	
 	map_area_label.text = '%2s.%-2s' % [Camera.room_coords.x + 1, Camera.room_coords.y + 1]
 	map_marker.position = Camera.room_coords * 8
-	
-	%ItemInfo.visible = is_equip_menu_open and not Inventory.items[equip_grid_index].is_empty()
-	if %ItemInfo.visible:
-		var item_id := Inventory.items[equip_grid_index] as StringName
-		var item := ItemDB.get_item(item_id)
-		%ItemInfoLabel.text = '[center]%s[/center]\n\n%s' % [item.name, item.desc]
 
 @onready var cursor: NinePatchRect = %Cursor
 var cursor_target: Control
@@ -98,6 +94,7 @@ func process_equip(event: InputEvent) -> void:
 		cursor_target = null
 		Game.player_has_control = true
 		SoundBank.play_ui('menu_back')
+		%ItemInfo.hide()
 		return
 	
 	var STRENGTH := .9
@@ -121,16 +118,27 @@ func process_equip(event: InputEvent) -> void:
 	if event.is_action_pressed('action_a'):
 		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 0)
+		equip_update_cursor()
 		return
 	if event.is_action_pressed('action_b'):
 		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 1)
+		equip_update_cursor()
 		return
 	if event.is_action_pressed('action_c'):
 		SoundBank.play_ui('menu_select2')
 		Inventory.swap_items(equip_grid_index + 3, 2)
+		equip_update_cursor()
 		return
 
 func equip_update_cursor() -> void:
 	equip_grid_index = equip_grid_index%inventory.get_child_count()
+	print_debug(equip_grid_index)
 	cursor_target = inventory.get_child(equip_grid_index)
+	
+	%ItemInfo.visible = not Inventory.items[equip_grid_index + 3].is_empty()
+	if %ItemInfo.visible:
+		var item_id := Inventory.items[equip_grid_index + 3] as StringName
+		var item := ItemDB.get_item(item_id)
+		%ItemName.text = item.name
+		%ItemDesc.text = item.desc

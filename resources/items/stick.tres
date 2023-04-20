@@ -6,7 +6,7 @@
 script = ExtResource("1_pctvw")
 id = &"stick"
 name = "stick"
-desc = "swing it at enmies to slowly"
+desc = "swing it to kill enmies slowly."
 item_icon_coords = Vector2i(1, 0)
 magic_cost = 0
 hitbox_damage = 2

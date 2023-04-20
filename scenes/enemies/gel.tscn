@@ -183,6 +183,9 @@ script = ExtResource("8_426lb")
 script = ExtResource("4_gqt4d")
 duration = 20
 
+[node name="DropLoot" parent="StateMachine/Death" index="1"]
+drop_chance = Vector2i(1, 3)
+
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_bj514")
 position = Vector2(0, -3)

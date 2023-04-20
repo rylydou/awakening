@@ -7,6 +7,8 @@
 script = ExtResource("2_urfq4")
 id = &"bow"
 name = "bow"
+desc = "shoot enmies form afar.
+uses half a magic pouch."
 item_icon_coords = Vector2i(1, 1)
 magic_cost = 3
 hitbox_damage = 0

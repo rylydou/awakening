@@ -7,6 +7,8 @@
 script = ExtResource("2_nh1g3")
 id = &"bomb"
 name = "bomb"
+desc = "the explosions can explode chorus rocks.
+costs 1 magic pouch."
 item_icon_coords = Vector2i(2, 1)
 magic_cost = 6
 hitbox_damage = 0

@@ -28,7 +28,7 @@ grow_vertical = 2
 
 [node name="DialogPanel" type="PanelContainer" parent="CenterContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 13)
+custom_minimum_size = Vector2(140, 13)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
