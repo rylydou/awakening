@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://i3jkvxkgsko1"]
+
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_dkonl"]
+[ext_resource type="Texture2D" uid="uid://5tiaf3h7sq4k" path="res://content/sprites/proj.png" id="1_syxba"]
+
+[sub_resource type="GDScript" id="GDScript_yn6fs"]
+script/source = "extends StaticBody2D
+
+func take_damage(damage: int, source: Node) -> bool:
+	SoundBank.play('drop', global_position)
+	queue_free()
+	return true
+"
+
+[sub_resource type="Animation" id="Animation_etvtd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dm2ky"]
+resource_name = "fire"
+length = 2.0001
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4gr08"]
+_data = {
+"RESET": SubResource("Animation_etvtd"),
+"fire": SubResource("Animation_dm2ky")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b1r2p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_osut8"]
+radius = 6.0
+
+[node name="Fire" type="StaticBody2D"]
+collision_layer = 256
+collision_mask = 0
+script = SubResource("GDScript_yn6fs")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_syxba")
+region_enabled = true
+region_rect = Rect2(0, 32, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+root_node = NodePath("../..")
+autoplay = "fire"
+playback_process_mode = 0
+speed_scale = 8.0
+libraries = {
+"": SubResource("AnimationLibrary_4gr08")
+}
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b1r2p")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1024
+script = ExtResource("1_dkonl")
+damage = 4
+auto_attack = true
+remember_hits = true
+stun_amount = 20
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_osut8")
+debug_color = Color(1, 0, 0, 0)
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]

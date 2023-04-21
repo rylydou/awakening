@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dff48cx3o31bd"]
+
+[ext_resource type="Script" path="res://scripts/objects/stump.gd" id="1_en7v2"]
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_maqv0"]
+[ext_resource type="Script" path="res://scripts/parts/drop_loot.gd" id="3_8p0pa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqhka"]
+size = Vector2(16, 16)
+
+[node name="Stump" type="StaticBody2D"]
+collision_layer = 129
+collision_mask = 0
+script = ExtResource("1_en7v2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_maqv0")
+region_enabled = true
+region_rect = Rect2(80, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_aqhka")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="DropLoot" type="Node" parent="."]
+script = ExtResource("3_8p0pa")
+can_drop_money = false

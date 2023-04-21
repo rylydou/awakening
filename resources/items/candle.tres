@@ -10,7 +10,7 @@ name = "candle"
 desc = "lights your way though fog.
 uses 1 magic pouch."
 item_icon_coords = Vector2i(3, 1)
-magic_cost = 6
+magic_cost = 3
 hitbox_damage = 0
 item_specifics_script = ExtResource("1_e8qug")
 item_fx_region = Rect2i(0, 0, 1, 1)

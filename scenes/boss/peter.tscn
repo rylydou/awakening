@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6q33fubco5mu"]
+
+[ext_resource type="Script" path="res://scripts/boss/peter.gd" id="1_iriyj"]
+[ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="1_mpcaw"]
+
+[sub_resource type="Animation" id="Animation_bkt2h"]
+resource_name = "crawl"
+length = 4.0001
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_iy4iy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o077i"]
+_data = {
+"RESET": SubResource("Animation_iy4iy"),
+"crawl": SubResource("Animation_bkt2h")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0tvhi"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7p6a"]
+radius = 16.0
+
+[node name="Peter" type="CharacterBody2D"]
+script = ExtResource("1_iriyj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BodySprite")
+autoplay = "crawl"
+speed_scale = 8.0
+libraries = {
+"": SubResource("AnimationLibrary_o077i")
+}
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_mpcaw")
+region_enabled = true
+region_rect = Rect2(0, 80, 32, 32)
+
+[node name="HeadSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+texture = ExtResource("1_mpcaw")
+region_enabled = true
+region_rect = Rect2(32, 80, 16, 16)
+
+[node name="Butt" type="StaticBody2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 1280
+
+[node name="Sprite" type="Sprite2D" parent="Butt"]
+texture = ExtResource("1_mpcaw")
+region_enabled = true
+region_rect = Rect2(0, 32, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="Butt"]
+shape = SubResource("CircleShape2D_0tvhi")
+debug_color = Color(0, 1, 0, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x7p6a")
+debug_color = Color(0, 1, 0, 0)

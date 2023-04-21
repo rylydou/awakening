@@ -52,7 +52,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:visible")
+tracks/0/path = NodePath("GroupA:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -64,18 +64,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/path = NodePath("GroupB:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Color(1, 1, 1, 1)]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_nnb4e"]
 resource_name = "explode"
+length = 0.533336
 step = 0.0166667
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -84,7 +85,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.533334),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [-1],
@@ -97,26 +98,46 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:visible")
+tracks/1/path = NodePath("GroupA:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333334, 0.0666668, 0.1, 0.133334, 0.166667, 0.2, 0.233334, 0.266667, 0.300001, 0.333334, 0.366667, 0.400001, 0.433334, 0.466668, 0.500001, 0.533334, 0.566668, 0.600001, 0.633335, 0.666668, 0.700001, 0.733335, 0.766668, 0.800002, 0.833335, 0.866668, 0.900002, 0.933335, 0.966669, 1, 1.03334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/path = NodePath("GroupB:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0666668, 0.2, 0.333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333334, 0.0666668, 0.1, 0.133334, 0.166667, 0.2, 0.233334, 0.266667, 0.300001, 0.333334, 0.366667, 0.400001, 0.433334, 0.466668, 0.500001, 0.533334, 0.566668, 0.600001, 0.633335, 0.666668, 0.700001, 0.733335, 0.766668, 0.800002, 0.833335, 0.866668, 0.900002, 0.933335, 0.966669, 1, 1.03334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0.94902, 0.713726, 0.239216, 1), Color(0.831373, 0.431373, 0.2, 1), Color(0.890196, 0.258824, 0.384314, 1)]
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0666668, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [&"set_frame", [0], false],
+"method": &"propagate_call"
+}, {
+"args": [&"set_frame", [1], false],
+"method": &"propagate_call"
+}, {
+"args": [&"set_frame", [2], false],
+"method": &"propagate_call"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bq3vd"]
@@ -142,14 +163,10 @@ libraries = {
 
 [node name="Explosion" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 1024
 script = ExtResource("3_khtiy")
 damage = 4
-
-[node name="Sprite" type="Sprite2D" parent="Explosion"]
-texture = ExtResource("3_oeklv")
 
 [node name="Collision" type="CollisionShape2D" parent="Explosion"]
 shape = SubResource("CircleShape2D_hx4c1")
@@ -160,3 +177,41 @@ playback_process_mode = 0
 libraries = {
 "": SubResource("AnimationLibrary_bq3vd")
 }
+
+[node name="Center" type="Sprite2D" parent="Explosion"]
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="GroupA" type="Node2D" parent="Explosion"]
+
+[node name="Left" type="Sprite2D" parent="Explosion/GroupA"]
+position = Vector2(-16, 0)
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="TopRight" type="Sprite2D" parent="Explosion/GroupA"]
+position = Vector2(8, -16)
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="BottomRight" type="Sprite2D" parent="Explosion/GroupA"]
+position = Vector2(8, 16)
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="GroupB" type="Node2D" parent="Explosion"]
+
+[node name="Right" type="Sprite2D" parent="Explosion/GroupB"]
+position = Vector2(16, 0)
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="TopLeft" type="Sprite2D" parent="Explosion/GroupB"]
+position = Vector2(-8, -16)
+texture = ExtResource("3_oeklv")
+hframes = 3
+
+[node name="BottomLeft" type="Sprite2D" parent="Explosion/GroupB"]
+position = Vector2(-8, 16)
+texture = ExtResource("3_oeklv")
+hframes = 3
