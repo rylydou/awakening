@@ -6,7 +6,7 @@ class_name Enemy extends Actor
 var stun_timer := 0
 
 func _ready() -> void:
-	if spawn_block_distance > 0 and Game.player.position.distance_squared_to(global_position) <= (spawn_block_distance*16)*(spawn_block_distance*16):
+	if spawn_block_distance > 0 and Game.player.position.distance_squared_to(global_position) <= spawn_block_distance*spawn_block_distance*16*16:
 		queue_free()
 		return
 	super._ready()
@@ -38,5 +38,5 @@ func apply_stun(amount: int) -> bool:
 	return true
 
 func take_damage(damage: int, source: Node) -> bool:
-	stun_timer = 0
+	#stun_timer = 0
 	return super.take_damage(damage, source)

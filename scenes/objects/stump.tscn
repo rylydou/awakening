@@ -8,6 +8,8 @@
 size = Vector2(16, 16)
 
 [node name="Stump" type="StaticBody2D"]
+z_index = -10
+z_as_relative = false
 collision_layer = 129
 collision_mask = 0
 script = ExtResource("1_en7v2")

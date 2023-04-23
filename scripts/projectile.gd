@@ -6,6 +6,7 @@ enum SpriteMode {
 	CardinalAndDiagonal,
 }
 
+@export var constant_speed := 4.0
 @export var distance_over_lifetime: Curve
 @export var offset_over_lifetime: Curve
 @export var lifetime := 120
@@ -42,7 +43,12 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var ratio := float(age)/lifetime
-	var distance := distance_over_lifetime.sample_baked(ratio)
+	var distance := 0.0
+	if distance_over_lifetime:
+		distance = distance_over_lifetime.sample_baked(ratio)
+	else:
+		distance = constant_speed*(age/60.)
+	
 	var offset := 0.
 	if offset_over_lifetime:
 		offset = offset_over_lifetime.sample_baked(ratio)

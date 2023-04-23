@@ -163,7 +163,7 @@ collision_mask = 16
 script = ExtResource("11_xjeob")
 flag_name = &"boss_ghast"
 door_node = NodePath("SingleWall")
-boss_node = NodePath("")
+boss_node = NodePath("Peter")
 loot_node = NodePath("HeartContainer")
 
 [node name="Collision" type="CollisionShape2D" parent="Rooms/0 0/BossRoom"]
@@ -177,6 +177,9 @@ flag_name = &"heart_boss_ghast"
 
 [node name="SingleWall" parent="Rooms/0 0/BossRoom" instance_placeholder="res://scenes/objects/single_wall.tscn"]
 position = Vector2(136, 168)
+
+[node name="Peter" parent="Rooms/0 0/BossRoom" instance_placeholder="res://scenes/boss/peter.tscn"]
+position = Vector2(88, 88)
 
 [node name="1 0" type="ReferenceRect" parent="Rooms"]
 offset_left = 176.0

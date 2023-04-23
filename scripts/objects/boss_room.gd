@@ -16,13 +16,15 @@ func _body_entered(player: Player) -> void:
 	if not is_primed: return
 	is_primed = false
 	
+	start_bossfight.call_deferred()
+
+func start_bossfight() -> void:
 	my_boss = Region.setup_node(boss_node)
 	my_door = Region.setup_node(door_node)
 
 var is_primed := false
 func setup() -> void:
 	var is_beaten := Flags.has(flag_name)
-	print_debug('Is bosss beaten? ', is_beaten)
 	
 	if not is_beaten:
 		is_primed = true
