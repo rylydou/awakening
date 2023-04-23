@@ -201,7 +201,7 @@ func _on_hitbox_area_attacked(node: Node2D) -> void:
 "
 
 [node name="Kyle" instance=ExtResource("1_q12nh")]
-collision_mask = 32
+collision_mask = 0
 base_health = 8
 
 [node name="PointAtPlayer" type="Node" parent="StateMachine/Base" index="0"]

@@ -77,8 +77,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed('equip'):
 		get_viewport().set_input_as_handled()
-		
 		SoundBank.play_ui('menu_select1')
+		
+		Game.pause()
 		
 		is_equip_menu_open = true
 		Game.player_has_control = false
@@ -90,10 +91,14 @@ func _unhandled_input(event: InputEvent) -> void:
 var equip_grid_index := 0
 func process_equip(event: InputEvent) -> void:
 	if event.is_action_pressed('equip'):
+		SoundBank.play_ui('menu_back')
+		
+		Game.unpause()
+		Game.player_has_control = true
+		
 		is_equip_menu_open = false
 		cursor_target = null
-		Game.player_has_control = true
-		SoundBank.play_ui('menu_back')
+		
 		%ItemInfo.hide()
 		return
 	
@@ -133,7 +138,6 @@ func process_equip(event: InputEvent) -> void:
 
 func equip_update_cursor() -> void:
 	equip_grid_index = equip_grid_index%inventory.get_child_count()
-	print_debug(equip_grid_index)
 	cursor_target = inventory.get_child(equip_grid_index)
 	
 	%ItemInfo.visible = not Inventory.items[equip_grid_index + 3].is_empty()

@@ -47,7 +47,13 @@ func _ready() -> void:
 	reload.call_deferred()
 	
 	# For editor purposes...
-	get_window().move_to_foreground.call_deferred()
+	get_window().grab_focus()
+	get_window().move_to_foreground()
+	get_window().mode = Window.MODE_FULLSCREEN
+	get_tree().create_timer(0.25).timeout.connect(func():
+		get_window().grab_focus()
+		get_window().move_to_foreground()
+	)
 
 func save() -> void:
 	print('GAME: Saving...')

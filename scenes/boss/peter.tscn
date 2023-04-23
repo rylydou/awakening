@@ -1,15 +1,27 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6q33fubco5mu"]
+[gd_scene load_steps=28 format=3 uid="uid://c6q33fubco5mu"]
 
 [ext_resource type="Script" path="res://scripts/boss/peter.gd" id="1_iriyj"]
 [ext_resource type="Texture2D" uid="uid://dn2k7ocu5ha1" path="res://content/sprites/enemy.png" id="1_mpcaw"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="3_udjen"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_vo7vm"]
+[ext_resource type="Script" path="res://scripts/boss/butt.gd" id="4_5ckci"]
+[ext_resource type="Shader" path="res://shaders/actor.gdshader" id="5_a1j5i"]
 [ext_resource type="Script" path="res://scripts/projectile.gd" id="5_droxo"]
 [ext_resource type="Texture2D" uid="uid://5tiaf3h7sq4k" path="res://content/sprites/proj.png" id="5_oetpp"]
 
 [sub_resource type="Curve" id="Curve_nwgc0"]
 max_value = 3.0
 _data = [Vector2(0, 0), 0.0, 2.0, 0, 1, Vector2(1, 2), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jo5pr"]
+max_value = 60.0
+_data = [Vector2(0, 50), 0.0, -30.0, 0, 1, Vector2(1, 20), -30.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5o30c"]
+max_value = 5.0
+_data = [Vector2(0, 0), 0.0, 2.5, 0, 1, Vector2(1, 2.5), 2.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Animation" id="Animation_iy4iy"]
@@ -78,6 +90,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_14nhs"]
 radius = 8.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqe2g"]
+resource_local_to_scene = true
+shader = ExtResource("5_a1j5i")
+shader_parameter/invert_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0tvhi"]
 radius = 8.0
 
@@ -86,6 +104,21 @@ radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2or44"]
 radius = 11.0
+
+[sub_resource type="Animation" id="Animation_rn3jr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_k8pqv"]
 resource_name = "spin"
@@ -105,21 +138,6 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_rn3jr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1owia"]
 _data = {
 "RESET": SubResource("Animation_rn3jr"),
@@ -132,11 +150,75 @@ radius = 5.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_td1gy"]
 radius = 5.0
 
+[sub_resource type="Animation" id="Animation_02hki"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jjtrs"]
+resource_name = "crawl"
+length = 4.0001
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jnlvc"]
+_data = {
+"RESET": SubResource("Animation_02hki"),
+"crawl": SubResource("Animation_jjtrs")
+}
+
 [node name="Peter" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("1_iriyj")
 prediction_over_distance = SubResource("Curve_nwgc0")
-shoot_time = 40
+shoot_time_over_health = SubResource("Curve_jo5pr")
+stun_time_over_hits = SubResource("Curve_5o30c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
@@ -161,9 +243,9 @@ script = ExtResource("3_udjen")
 [node name="HeadSprite" type="Sprite2D" parent="Head"]
 unique_name_in_owner = true
 texture = ExtResource("1_mpcaw")
-hframes = 3
+hframes = 4
 region_enabled = true
-region_rect = Rect2(80, 112, 48, 16)
+region_rect = Rect2(64, 112, 64, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="Head"]
 shape = SubResource("CircleShape2D_14nhs")
@@ -174,8 +256,10 @@ unique_name_in_owner = true
 position = Vector2(0, -16)
 collision_layer = 1280
 collision_mask = 0
+script = ExtResource("4_5ckci")
 
 [node name="Sprite" type="Sprite2D" parent="Butt"]
+material = SubResource("ShaderMaterial_sqe2g")
 texture = ExtResource("1_mpcaw")
 region_enabled = true
 region_rect = Rect2(0, 32, 16, 16)
@@ -234,4 +318,20 @@ auto_attack = true
 shape = SubResource("CircleShape2D_td1gy")
 debug_color = Color(1, 0, 0, 0)
 
+[node name="GhostSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+top_level = true
+texture = ExtResource("1_mpcaw")
+region_enabled = true
+region_rect = Rect2(32, 96, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GhostSprite"]
+autoplay = "crawl"
+speed_scale = 12.0
+libraries = {
+"": SubResource("AnimationLibrary_jnlvc")
+}
+
 [connection signal="damaged" from="Head" to="." method="_on_head_damaged"]
+[connection signal="killed" from="Butt" to="." method="_on_butt_killed"]
