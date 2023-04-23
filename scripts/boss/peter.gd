@@ -114,6 +114,8 @@ func teleport() -> void:
 	tele_tween.tween_property(%GhostSprite, 'position', global_position, max(stun_timer, 15)/60.).from(from)
 	tele_tween.tween_callback(%GhostSprite.hide)
 	tele_tween.tween_callback($AnimationPlayer.play)
+	if stun_timer >= 15:
+		tele_tween.tween_callback(func(): SoundBank.play('awaken.boss', global_position))
 
 func die() -> void:
 	SoundBank.play('death.boss.peter', global_position)

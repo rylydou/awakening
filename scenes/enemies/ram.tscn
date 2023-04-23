@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dpsl8ebp022lk"]
+[gd_scene load_steps=20 format=3 uid="uid://dpsl8ebp022lk"]
 
 [ext_resource type="PackedScene" uid="uid://b7c32cw4ihiwx" path="res://scenes/(enemy).tscn" id="1_eght0"]
 [ext_resource type="Script" path="res://scripts/ai/repeat.gd" id="2_gxspx"]
@@ -11,7 +11,12 @@
 [ext_resource type="Script" path="res://scripts/ai/set_anim.gd" id="7_cb2we"]
 [ext_resource type="Script" path="res://scripts/ai/wait.gd" id="7_cdrv4"]
 [ext_resource type="Script" path="res://scripts/ai/player_in_range.gd" id="7_w10b8"]
-[ext_resource type="Script" path="res://scripts/ai/warn.gd" id="11_o43cs"]
+[ext_resource type="Script" path="res://scripts/ai/charge.gd" id="12_i3q6k"]
+
+[sub_resource type="Curve" id="Curve_731h0"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 10), 10.0, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wkvkj"]
 resource_local_to_scene = true
@@ -197,23 +202,23 @@ script = ExtResource("7_cb2we")
 animation_name = &"walk"
 animation_type = 1
 
-[node name="Warn" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="2" node_paths=PackedStringArray("node")]
-script = ExtResource("11_o43cs")
-time = 45
-node = NodePath("../../../../../Flip/BodySprite")
+[node name="Charge" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="2"]
+script = ExtResource("12_i3q6k")
+speed_over_time = SubResource("Curve_731h0")
+speed_time = 30
 
-[node name="Charge" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="3"]
+[node name="Move" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="3"]
 script = ExtResource("3_fkh72")
-distance = 5.0
-time = 20
-
-[node name="Followthrough" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="4"]
-script = ExtResource("3_fkh72")
-distance = 1.0
+distance = -0.5
 time = 10
+
+[node name="Wait" type="Node" parent="StateMachine/Base/PlayerInRange/Attack" index="4"]
+script = ExtResource("7_cdrv4")
+duration = 30
 
 [node name="BodySprite" parent="Flip" index="0"]
 material = SubResource("ShaderMaterial_wkvkj")
+position = Vector2(0, -2)
 hframes = 4
 region_rect = Rect2(64, 16, 64, 16)
 

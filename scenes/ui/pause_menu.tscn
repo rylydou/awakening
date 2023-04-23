@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2ntjc78nnj05"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_868ww"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_868ww")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "--- PAUSED ---"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="Label" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "resume"
+
+[node name="Button" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "resume"

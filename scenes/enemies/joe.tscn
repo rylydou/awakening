@@ -143,6 +143,7 @@ animation_name = &"jump"
 script = ExtResource("4_g1c74")
 distance = 3.0
 time = 20
+unbloackable = true
 
 [node name="Set Idle" type="Node" parent="StateMachine/Base/Try Chase Player/Forever Loop/Try Attack" index="4"]
 script = ExtResource("6_ynpck")

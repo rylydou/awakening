@@ -2,6 +2,7 @@ class_name Move extends Step
 
 @export var distance := 6.
 @export var time := 60
+@export var unbloackable := false
 
 var timer := 0
 
@@ -15,7 +16,7 @@ func start() -> bool:
 
 func tick(delta: float) -> bool:
 	var hit := actor.move_and_slide()
-	if hit:
+	if hit and not unbloackable:
 		return true
 	timer -= 1
 	return timer <= 0

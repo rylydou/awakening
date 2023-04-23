@@ -16,7 +16,7 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_jo5pr"]
 max_value = 60.0
-_data = [Vector2(0, 50), 0.0, -30.0, 0, 1, Vector2(1, 20), -30.0, 0.0, 1, 0]
+_data = [Vector2(0, 50), 0.0, -25.0, 0, 1, Vector2(1, 25), -25.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_5o30c"]
@@ -244,6 +244,7 @@ script = ExtResource("3_udjen")
 unique_name_in_owner = true
 texture = ExtResource("1_mpcaw")
 hframes = 4
+frame = 1
 region_enabled = true
 region_rect = Rect2(64, 112, 64, 16)
 

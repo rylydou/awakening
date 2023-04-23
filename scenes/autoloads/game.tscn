@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4y6751wy7ap3"]
+[gd_scene load_steps=18 format=3 uid="uid://c4y6751wy7ap3"]
 
 [ext_resource type="Script" path="res://scripts/autoloads/game.gd" id="1_7raoi"]
 [ext_resource type="Texture2D" uid="uid://s4qlvy3yc7tj" path="res://content/sprites/gui.png" id="2_td1ys"]
@@ -16,6 +16,18 @@ texture = ExtResource("2_td1ys")
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 region_rect = Rect2(48, 48, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11064"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_td1ys")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(16, 24, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lvifv"]
 texture = ExtResource("2_td1ys")
@@ -79,103 +91,99 @@ map_scene = ExtResource("3_ccu3q")
 
 [node name="HUD" parent="." instance=ExtResource("3_4w1cd")]
 
-[node name="PlayerSelect" type="Control" parent="."]
+[node name="PlayerSelect" type="CenterContainer" parent="."]
 visible = false
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PlayerSelect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="PlayerSelect/CenterContainer"]
-custom_minimum_size = Vector2(180, 180)
+[node name="Menu" type="PanelContainer" parent="PlayerSelect"]
+custom_minimum_size = Vector2(176, 176)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ap3yk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PlayerSelect/Menu"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_11064")
 
-[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerSelect/Menu/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "--- PLAYER SELECT ---"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="File1" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="File1" type="PanelContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1"]
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File1"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File1/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File1/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File1/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 text = "1. NAME"
 vertical_alignment = 1
 
-[node name="File2" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="File2" type="PanelContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2"]
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File2"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File2/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File2/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File2/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 text = "2. (empty)"
 vertical_alignment = 1
 
-[node name="File3" type="PanelContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="File3" type="PanelContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_lvifv")
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3"]
+[node name="MarginContainer" type="MarginContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File3"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File3/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/File3/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/File3/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 text = "3. (empty)"
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 alignment = 2
 
-[node name="CopyButton" type="Button" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CopyButton" type="Button" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
 text = "copy"
 
-[node name="EraseButton" type="Button" parent="PlayerSelect/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="EraseButton" type="Button" parent="PlayerSelect/Menu/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_lvifv")
 text = "erase"
 
 [node name="Cheats" type="Node" parent="."]
