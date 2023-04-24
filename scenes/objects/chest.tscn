@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ek683mh2jybp"]
+
+[ext_resource type="Script" path="res://scripts/objects/chest.gd" id="1_dtnaq"]
+[ext_resource type="Texture2D" uid="uid://bn7luuontf3sq" path="res://content/sprites/object.png" id="1_rk0mf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pe3w1"]
+size = Vector2(16, 16)
+
+[node name="Chest" type="StaticBody2D"]
+collision_layer = 129
+collision_mask = 0
+script = ExtResource("1_dtnaq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rk0mf")
+hframes = 3
+frame = 1
+region_enabled = true
+region_rect = Rect2(64, 16, 48, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pe3w1")
+debug_color = Color(0.764706, 0.823529, 1, 0)
