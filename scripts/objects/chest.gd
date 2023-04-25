@@ -26,6 +26,6 @@ func interact() -> bool:
 	update()
 	Inventory.give_item(item.id)
 	
-	Dialog.say(['You found a %s!' % item.name])
+	Dialog.say(['you found a %s!' % item.name])
 	
 	return true

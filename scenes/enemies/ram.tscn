@@ -151,7 +151,7 @@ _data = {
 
 [node name="Ram" instance=ExtResource("1_eght0")]
 id = "ram"
-base_health = 6
+base_health = 8
 
 [node name="Roam" type="Node" parent="StateMachine/Base" index="0"]
 script = ExtResource("2_gxspx")
@@ -159,7 +159,7 @@ count_max = 3
 
 [node name="WaitRandom" type="Node" parent="StateMachine/Base/Roam" index="0"]
 script = ExtResource("3_texkh")
-denominator = 3
+numerator = 0
 
 [node name="Wait" type="Node" parent="StateMachine/Base/Roam/WaitRandom" index="0"]
 script = ExtResource("7_cdrv4")
@@ -169,22 +169,15 @@ duration = 30
 script = ExtResource("3_aje18")
 offscreen_check_distance = 1.0
 
-[node name="AimRandom" type="Node" parent="StateMachine/Base/Roam" index="2"]
-script = ExtResource("3_texkh")
-
-[node name="PointAtPlayer" type="Node" parent="StateMachine/Base/Roam/AimRandom" index="0"]
-script = ExtResource("2_sjp1n")
-angle_restrictions = 1
-
-[node name="WalkAnim" type="Node" parent="StateMachine/Base/Roam" index="3"]
+[node name="WalkAnim" type="Node" parent="StateMachine/Base/Roam" index="2"]
 script = ExtResource("7_cb2we")
 animation_name = &"walk"
 animation_type = 1
 
-[node name="Move" type="Node" parent="StateMachine/Base/Roam" index="4"]
+[node name="Move" type="Node" parent="StateMachine/Base/Roam" index="3"]
 script = ExtResource("3_fkh72")
 distance = 1.0
-time = 30
+time = 20
 
 [node name="PlayerInRange" type="Node" parent="StateMachine/Base" index="1"]
 script = ExtResource("7_w10b8")
